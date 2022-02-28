@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import *
 # Register your models here.
 
+class UserAdmin(admin.ModelAdmin):
+    list_display=['id', 'created_at','first_name','last_name','email']
+    search_fields=['id','first_name','last_name','email']
+
 class CityAdmin(admin.ModelAdmin):
     list_display=['city_id', 'created_at', 'name', 'state']
 
@@ -13,6 +17,7 @@ class ListingAdmin(admin.ModelAdmin):
     list_filter=['created_at','zipcode', 'ratings', 'bathroom', 'active', 'bedrooms', 'city', 'state']
 
 
+admin.site.register(UserOfApp,UserAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(State, StateAdmin)
 admin.site.register(Listing, ListingAdmin)
