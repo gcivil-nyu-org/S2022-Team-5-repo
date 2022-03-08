@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -88,7 +92,7 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = env('API_TOKEN')
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
 
