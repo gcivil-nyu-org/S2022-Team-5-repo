@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'Property',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 django_heroku.settings(locals())
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
