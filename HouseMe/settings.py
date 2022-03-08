@@ -84,6 +84,15 @@ DATABASES = {
 }
 
 
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+SENDGRID_API_KEY = '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'
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
