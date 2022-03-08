@@ -12,10 +12,12 @@ def signupform(request):
 def signupsubmit(request):
     first_name = request.POST['fname']
     last_name = request.POST['lname']
-    username = request.POST['email']
+    username = request.POST['username']
+    email = request.POST['email']
+
     phone = request.POST['phone']
     password = request.POST['password']
-    user = UserOfApp.objects.create_user(first_name = first_name, last_name = last_name, username = username, phone = phone, password = password)
+    user = UserOfApp.objects.create_user(first_name = first_name, last_name = last_name, username = username, phone = phone, password = password, email = email)
     user.save()
     return render(request, 'Property/loginform.html')
 
