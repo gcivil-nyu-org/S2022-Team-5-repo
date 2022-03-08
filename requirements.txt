@@ -1,5 +1,4 @@
 gunicorn
 django-heroku
 django
-ssl
 django-sendgrid-v5
