@@ -1,3 +1,5 @@
 gunicorn
 django-heroku
 django
+django-environ
+django_crispy_forms
