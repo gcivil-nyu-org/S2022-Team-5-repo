@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 from django.http import HttpResponseRedirect
-from django.core.mail import send_mail
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
+from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
+from django.http import HttpResponse
+
+#TODO validate email
+# from django.core.validators import validate_email
+# from django.core.exceptions import ValidationError
+
 # Create your views here.
 def index(request):
     return render(request, 'Property/index.html')
@@ -19,27 +22,22 @@ def signupsubmit(request):
     first_name = request.POST['fname']
     last_name = request.POST['lname']
     username = request.POST['username']
+    #TODO validate email
     email = request.POST['email']
     phone = request.POST['phone']
     password = request.POST['password']
-    user = UserOfApp.objects.create_user(first_name = first_name, last_name = last_name, username = username, phone = phone, password = password, email=email)
-    user.save()
-    send_mail(
-    'Email Confirmation!',
-    'Congratulations! Your email ID has been authenticated. You can now go back to the login page.',
-    'HouseMe Team <binvantbajwa@gmail.com>',
-    [email],
-    fail_silently=False,
-    )
-    return render(request, 'Property/loginform.html')
 
-def validateEmail(email):
+    #TODO BUG UNIQUE constraint failed: Property_userofapp.username
+
+    user = UserOfApp.objects.create_user(first_name = first_name, last_name = last_name, username = username, phone = phone, password = password, email = email)
+    user.save()
+    subject = 'Welcome to House ME!'
+    message = 'Congratulations! Your email ID has been authenticated. You can now go back to the login page.'
     try:
-        validate_email(email)
-        return True
-    except ValidationError:
-        print("Enter a valid email")
-        return False
+        send_mail(subject=subject, message=message, from_email=settings.EMAIL_HOST_USER, recipient_list= [email], fail_silently=False)
+    except:
+        return HttpResponse('Failed to send welcome email!')
+    return render(request, 'Property/loginform.html')
 
 def loginform(request):
     return render(request, 'Property/loginform.html')
