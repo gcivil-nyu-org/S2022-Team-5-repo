@@ -1,10 +1,5 @@
 gunicorn
 django-heroku
 django
-<<<<<<< Updated upstream
-django-sendgrid-v5
-django-environ
-=======
 django-environ
 django_crispy_forms
->>>>>>> Stashed changes
