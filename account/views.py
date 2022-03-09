@@ -24,7 +24,7 @@ def password_reset_request(request):
 					c = {
 					"email":user.email,
 					#TODO Change the domain address
-					'domain':'127.0.0.1:8000',
+					'domain':'houseme.us',
 					'site_name': 'Website',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
