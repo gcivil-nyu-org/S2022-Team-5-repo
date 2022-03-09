@@ -33,7 +33,7 @@ def loginsubmit(request):
         print('sucess')
         return HttpResponseRedirect('browselistings')
     else:
-        return render(reques, 'Property/loginform.html')
+        return render(request, 'Property/loginform.html')
 
 def createlistingform(request):
     payload = {
