@@ -1,4 +1,5 @@
 gunicorn
 django-heroku
 django
-django-sendgrid-v5
+django-environ
+django_crispy_forms
