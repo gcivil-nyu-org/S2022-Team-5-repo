@@ -24,7 +24,7 @@ def password_reset_request(request):
 					c = {
 					"email":user.email,
 					#TODO Change the domain address
-					'domain':'https://housieme.herokuapp.com/',
+					'domain':'housieme.herokuapp.com/',
 					'site_name': 'Website',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
