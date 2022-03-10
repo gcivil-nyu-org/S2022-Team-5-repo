@@ -18,5 +18,5 @@ script:
   - python -m flake8 --max-line-length=200
   - python -m coverage run --source='.' manage.py test
 
-after_success:
+after_script:
   - coveralls
