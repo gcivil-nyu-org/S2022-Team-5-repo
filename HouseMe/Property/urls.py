@@ -11,5 +11,4 @@ urlpatterns = [
     path("loginsubmit", views.loginsubmit, name="loginsubmit"),
     path("signupform", views.signupform, name="signupform"),
     path("signupsubmit", views.signupsubmit, name="signupsubmit"),
-
 ]
