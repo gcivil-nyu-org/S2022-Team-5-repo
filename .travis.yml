@@ -12,11 +12,10 @@ install:
 
 before_script:
   - python manage.py migrate
-  - python manage.py collectstatic --noinput
 
 script:
   - python -m black . --check
-  - python -m flake8 --max-line-length=150
+  - python -m flake8 --max-line-length=200
   - python -m coverage run --source='.' manage.py test
 
 after_success:
