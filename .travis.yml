@@ -3,9 +3,6 @@ language: python
 python:
   - 3.8
 
-env:
-  - SECRET_KEY='django-secure-#cqhtip#_$ek$ail5(e#=_df_)279o#f)h$md_p38n*ukq1w^_'
-
 install:
   - pip install -r requirements.txt
   - pip install black
