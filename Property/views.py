@@ -3,10 +3,8 @@ from django.contrib.auth import authenticate, login  # , logout
 from .models import UserOfApp, City, State, Listing
 from django.http import HttpResponseRedirect
 
-# from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail
 from django.conf import settings
-from django.http import HttpResponse
-
 # TODO validate email
 # from django.core.validators import validate_email
 # from django.core.exceptions import ValidationError
@@ -44,16 +42,13 @@ def signupsubmit(request):
     user.save()
     subject = "Welcome to House ME!"
     message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
-    try:
-        send_mail(
+    send_mail(
             subject=subject,
             message=message,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[email],
             fail_silently=False,
         )
-    except:
-        return HttpResponse("Failed to send welcome email!")
     return render(request, "Property/loginform.html")
 
 
@@ -62,7 +57,7 @@ def loginform(request):
 
 
 def loginsubmit(request):
-    username = request.POST["email"]
+    username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(username=username, password=password)
     if user is not None:
