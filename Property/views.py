@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from .models import *
+from django.contrib.auth import authenticate, login  # , logout
+from .models import UserOfApp, City, State, Listing
 from django.http import HttpResponseRedirect
 
-from django.core.mail import send_mail, BadHeaderError
+# from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 from django.http import HttpResponse
 
@@ -12,6 +12,8 @@ from django.http import HttpResponse
 # from django.core.exceptions import ValidationError
 
 # Create your views here.
+
+
 def index(request):
     return render(request, "Property/index.html")
 
