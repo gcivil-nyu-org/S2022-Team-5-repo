@@ -13,8 +13,8 @@ class StateAdmin(admin.ModelAdmin):
     list_display=['state_id', 'created_at', 'name']
 
 class ListingAdmin(admin.ModelAdmin):
-    list_display=['listing_id', 'created_at', 'name', 'address1', 'address2', 'city', 'state', 'zipcode', 'latitude', 'longitude', 'description', 'rent', 'bedrooms', 'furnished', 'elevator', 'heating', 'ratings', 'bathroom', 'active']
-    list_filter=['created_at','zipcode', 'ratings', 'bathroom', 'active', 'bedrooms', 'city', 'state']
+    list_display=['listing_id', 'created_at', 'name', 'address1', 'address2', 'city', 'state', 'zipcode', 'latitude', 'longitude', 'description', 'rent', 'bedrooms', 'furnished', 'elevator', 'heating', 'ratings', 'bathrooms', 'active']
+    list_filter=['created_at','zipcode', 'ratings', 'bathrooms', 'active', 'bedrooms', 'city', 'state']
 
 
 admin.site.register(UserOfApp,UserAdmin)
