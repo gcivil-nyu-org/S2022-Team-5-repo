@@ -1,172 +1,172 @@
-{% include 'Property/ext_includes/header.html' %}
-  {% load static %}
-  <title>Rent Your Property</title>
-  <link rel="stylesheet" href="{% static 'Property/css/style.css' %}">
+{% include 'header.html' %}
+    {% load static %}
+    <title>Rent Your Property</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-{% include 'Property/ext_includes/navbar.html' %}
+{% include 'navbar.html' %}
 <body>
 
-  <div class="main paddform">
+    <div class="main paddform">
 
-    <section class="signup">
-      <!-- <img src="images/signup-bg.jpg" alt=""> -->
-      <div class="container" style="width: 70%;">
-        <div class="signup-content">
-          <form action="{% url 'createlisting' %}" method="POST" enctype="multipart/form-data" id="createclass-form" class="signup-form">
-            {% csrf_token %}
-            <h2 class="form-title">Rent Your Property with us!</h2>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="text" class="form-input" name="listing_name" id="listing_name" placeholder="Name of Listing" />
-              </div>
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container" style="width: 70%;">
+                <div class="signup-content">
+                    <form action="{% url 'createlisting' %}" method="POST" enctype="multipart/form-data" id="createclass-form" class="signup-form">
+                        {% csrf_token %}
+                        <h2 class="form-title">Rent Your Property with us!</h2>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="text" class="form-input" name="listing_name" id="listing_name" placeholder="Name of Listing" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="text" class="form-input" name="address1" id="address1" placeholder="Address 1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="text" class="form-input" name="address2" id="address2" placeholder="Address 2" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="state">
+                                    <option value="" disabled selected hidden>Select your State</option>
+                                    {% for state in states %}
+                                    <option value="{{state}}">{{ state }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="city">
+                                    <option value="" disabled selected hidden>Select your City</option>
+                                    {% for city in cities %}
+                                    <option value="{{city}}">{{city}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="borough" id="borough" placeholder="Borough" />
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zip Code" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="latitude" id="latitude" placeholder="Latitude" />
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="longitude" id="longitude" placeholder="Longitude" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="number" class="form-input" name="bedrooms" id="bedrooms" placeholder="No of Bedrooms" />
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="number" class="form-input" name="bathrooms" id="bathrooms" placeholder="No of Bathrooms" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="area" id="area" placeholder="Area" />
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <input type="text" class="form-input" name="rent" id="rent" placeholder="Rent" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="furnished">
+                                    <option value="" disabled selected hidden>Furnished?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="elevator">
+                                    <option value="" disabled selected hidden>Elevator?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="heating">
+                                    <option value="" disabled selected hidden>Heating?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group slideanim">
+                                <select class="form-input" name="parking">
+                                    <option value="" disabled selected hidden>Parking?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <select class="form-input" name="laundry">
+                                    <option value="" disabled selected hidden>Laundry?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="number" class="form-input" name="map_url" id="map_url" placeholder="Map URL" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form enctype="multipart/form-data" id="photo_url">
+                            <div class="col-sm-12 form-group slideanim">
+                                <label for="photo_url">Choose a photo!</label>
+                                <input type="file" class="form-control-file" name="Photo" id="photo_url" placeholder="Upload a photo" multiple/>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="number" class="form-input" name="matterport_link" id="matterport_link" placeholder="VR Tour URL"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="text" class="form-input" name="description" id="description" placeholder="Description" />
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-12 form-group slideanim">
+                                <input type="file" name="images" value="" multiple>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="text" class="form-input" name="address1" id="address1" placeholder="Address 1" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="text" class="form-input" name="address2" id="address2" placeholder="Address 2" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="state">
-                  <option value="" disabled selected hidden>Select your State</option>
-                  {% for state in states %}
-                  <option value="{{state}}">{{ state }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="city">
-                  <option value="" disabled selected hidden>Select your City</option>
-                  {% for city in cities %}
-                  <option value="{{city}}">{{city}}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="borough" id="borough" placeholder="Borough" />
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="zipcode" id="zipcode" placeholder="Zip Code" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="latitude" id="latitude" placeholder="Latitude" />
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="longitude" id="longitude" placeholder="Longitude" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <input type="number" class="form-input" name="bedrooms" id="bedrooms" placeholder="No of Bedrooms" />
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <input type="number" class="form-input" name="bathrooms" id="bathrooms" placeholder="No of Bathrooms" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="area" id="area" placeholder="Area" />
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <input type="text" class="form-input" name="rent" id="rent" placeholder="Rent" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="furnished">
-                  <option value="" disabled selected hidden>Furnished?</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="elevator">
-                  <option value="" disabled selected hidden>Elevator?</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="heating">
-                  <option value="" disabled selected hidden>Heating?</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-sm-6 form-group slideanim">
-                <select class="form-input" name="parking">
-                  <option value="" disabled selected hidden>Parking?</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <select class="form-input" name="laundry">
-                  <option value="" disabled selected hidden>Laundry?</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="number" class="form-input" name="map_url" id="map_url" placeholder="Map URL" />
-              </div>
-            </div>
-            <div class="row">
-              <form enctype="multipart/form-data" id="photo_url">
-              <div class="col-sm-12 form-group slideanim">
-                <label for="photo_url">Choose a photo!</label>
-                <input type="file" class="form-control-file" name="Photo" id="photo_url" placeholder="Upload a photo" multiple/>
-              </div>
-            </div>
-            </form>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="number" class="form-input" name="matterport_link" id="matterport_link" placeholder="VR Tour URL"/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="text" class="form-input" name="description" id="description" placeholder="Description" />
-              </div>
-            </div>
-            <!-- <div class="row">
-              <div class="col-sm-12 form-group slideanim">
-                <input type="file" name="images" value="" multiple>
-              </div>
-            </div> -->
-            <div class="form-group">
-              <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-              <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
-            </div>
-            <div class="form-group">
-              <input type="submit" name="submit" id="submit" class="form-submit" value="Submit" />
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
+        </section>
 
-  </div>
-  {% include 'Property/ext_includes/footer.html' %}
+    </div>
+    {% include 'footer.html' %}
 
-  <!-- JS -->
-  <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'rentit/js/main.js' %}"></script>
+    <!-- JS -->
+    <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'rentit/js/main.js' %}"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
