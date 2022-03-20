@@ -53,3 +53,7 @@ def createlisting(request):
 def browselistings(request):
     listings = Listing.objects.all()
     return render(request, "property/browselistings.html", {"listings": listings})
+
+
+def testproperty(request):
+    return render(request, "property/property_page.html")

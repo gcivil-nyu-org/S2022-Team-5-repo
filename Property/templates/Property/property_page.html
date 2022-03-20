@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    {% load static %}
+
+    <head>
+        {% include 'header.html' %}
+        <meta charset="utf-8">
+        <title>Property Page</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        {% include 'navbar.html' %}
+
+        <!-- TODO: replace with image_slider.html later -->
+        <img src="{% static 'images/house1.png' %}">
+
+        <!-- Property Description -->
+        <div class="property-description">
+            <p style="font-size:20px">Description</p>
+            <p style="font-size:14px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <!-- Property Reviews -->
+        <div class="property-reviews">
+            <p style="font-size:20px">Reviews for This Property<p>
+            <p style="font-size:14px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <!-- Schedule a Tour -->
+        <div class="Schedule a Tour">
+            
+        </div>
+
+        {% include 'footer.html' %}
+        <!-- JS -->
+        <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'rentit/js/main.js' %}"></script>
+    </body>
+</html>

@@ -10,5 +10,5 @@ urlpatterns = [
 
     # TODO: use slug so new properties that are registered can be dynamically added
     # path("<slug>", views.),
-    # path("test-property", )
+    path("test-property", views.testproperty, name="property_page"),
 ]
