@@ -99,7 +99,7 @@ def createlisting(request):
     description = request.POST['description']
     owner = request.user
     city = City.objects.get(name=city)
-    state = State.objects.get(name = state)
+    state = State.objects.get(name=state)
     if furnished == 'Yes':
         furnished = True
     else:
@@ -146,10 +146,9 @@ def createlisting(request):
     print('owner ', owner)
     print('city ', city)
     print('state ', state)
-    listing = Listing(name = name, address1 = address1, address2 = address2, city = city, state = state, borough = borough, zipcode = zipcode, latitude = latitude, longitude = longitude, bedrooms = bedrooms, bathrooms = bathrooms, area = area, rent = rent, furnished = furnished, elevator = elevator, heating = heating, parking = parking, laundry = laundry, map_url = map_url, photo_url = photo_url, matterport_link = matterport_link, calendly_link = calendly_link, description = description, owner = owner)
+    listing = Listing(name=name, address1=address1, address2=address2, city=city, state=state, borough=borough, zipcode=zipcode, latitude=latitude, longitude=longitude, bedrooms=bedrooms, bathrooms=bathrooms, area=area, rent=rent, furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry, map_url=map_url, photo_url=photo_url, matterport_link=matterport_link, calendly_link=calendly_link, description=description, owner=owner)
     listing.save()
     return HttpResponseRedirect('browselistings')
-
 
 
 def browselistings(request):
