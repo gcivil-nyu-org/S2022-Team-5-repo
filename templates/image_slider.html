@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    {% load static %}
+
+    <head>
+        <meta charset="utf-8">
+        <title>Image Slider</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        <!-- image slider -->
+        <div class="slider">
+            <div class="slides">
+                <!-- radio buttons -->
+                <!-- TODO: how to have dynamic number of radio buttons? -->
+                <input type="radio" name="radio-button" id="radio1">
+                <input type="radio" name="radio-button" id="radio2">
+                <input type="radio" name="radio-button" id="radio3">
+                <input type="radio" name="radio-button" id="radio4">
+
+                <!-- images -->
+                <div class="slide1">
+                    <img src="{% static 'images/house1.png' %}">
+                </div>
+                <div class="slide2">
+                    <img src="{% static 'images/house1.png' %}">
+                </div>
+                <div class="slide3">
+                    <img src="{% static 'images/house1.png' %}">
+                </div>
+                <div class="slide4">
+                    <img src="{% static 'images/house1.png' %}">
+                </div>
+
+                <!-- automatic navigation -->
+                <div class="navigation-auto">
+                    <div class="auto-button1"></div>
+                    <div class="auto-button2"></div>
+                    <div class="auto-button3"></div>
+                    <div class="auto-button4"></div>
+                </div>
+            </div>
+
+            <!-- manual navigation -->
+            <div class="navigation-manual">
+                <label for="radio1" class="manual-button"></label>
+                <label for="radio2" class="manual-button"></label>
+                <label for="radio3" class="manual-button"></label>
+                <label for="radio4" class="manual-button"></label>
+            </div>
+        </div>
+    </body>
+</html>
