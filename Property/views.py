@@ -13,10 +13,12 @@ from django.conf import settings
 
 
 def index(request):
+    context={}
     return render(request, "Property/index.html")
 
 
 def signupform(request):
+    context={}
     return render(request, "Property/signupform.html")
 
 
@@ -24,13 +26,9 @@ def signupsubmit(request):
     first_name = request.POST["fname"]
     last_name = request.POST["lname"]
     username = request.POST["username"]
-    # TODO validate email
     email = request.POST["email"]
     phone = request.POST["phone"]
     password = request.POST["password"]
-
-    # TODO BUG UNIQUE constraint failed: Property_userofapp.username
-
     user = UserOfApp.objects.create_user(
         first_name=first_name,
         last_name=last_name,
@@ -53,6 +51,7 @@ def signupsubmit(request):
 
 
 def loginform(request):
+    context={}
     return render(request, "Property/loginform.html")
 
 
