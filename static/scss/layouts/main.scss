@@ -93,22 +93,22 @@ input[type=checkbox]:not(old){
     background-image :         linear-gradient(rgb(255,255,255),rgb(255,255,255 ));
     vertical-align   : bottom;
   }
-  input[type=checkbox]:not(old):checked + label > span,{
-      background-image :    -moz-linear-gradient(rgb(255,255,255),rgb(255,255,255));
-      background-image :     -ms-linear-gradient(rgb(255,255,255),rgb(255,255,255));
-      background-image :      -o-linear-gradient(rgb(255,255,255),rgb(255,255,255));
-      background-image : -webkit-linear-gradient(rgb(255,255,255),rgb(255,255,255));
-      background-image :         linear-gradient(rgb(255,255,255),rgb(255,255,255 ));
+  input[type=checkbox]:not(old):checked + label > span{
+    background-image :    -moz-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+    background-image :     -ms-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+    background-image :      -o-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+    background-image : -webkit-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+    background-image :         linear-gradient(rgb(255,255,255),rgb(255,255,255 ));
   }
   input[type=checkbox]:not(old):checked + label > span:before{
-      content     : '\f26b';
-      display     : block;
-      color       : $black-color;
-      font-size   : 11px;
-      line-height : 1.2;
-      text-align  : center;
-      font-family: 'Material-Design-Iconic-Font';
-      font-weight: bold;
+    content     : '\f26b';
+    display     : block;
+    color       : $black-color;
+    font-size   : 11px;
+    line-height : 1.2;
+    text-align  : center;
+    font-family: 'Material-Design-Iconic-Font';
+    font-weight: bold;
 }
 .label-agree-term {
     font-size: 12px;
@@ -126,10 +126,12 @@ input[type=checkbox]:not(old){
     margin-top: 91px;
     margin-bottom: 5px;
 }
+
 .loginhere-link {
     font-weight: 700;
     color: $black-color;
 }
+
 .field-icon {
     float: right;
     margin-right: 17px;
@@ -137,9 +139,4 @@ input[type=checkbox]:not(old){
     position: relative;
     z-index: 2;
     color: #555;
-  }
-
-
-  
-
-  
+}
