@@ -12,7 +12,6 @@ from django.http import HttpResponseRedirect
 def index(request):
     return render(request, "property/index.html")
 
-
 def createlistingform(request):
     payload = {"states": State.objects.all(), "cities": City.objects.all()}
     return render(request, "property/createlistingform.html", payload)
