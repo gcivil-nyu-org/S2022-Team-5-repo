@@ -39,13 +39,7 @@ def signupsubmit(request):
         email=email,
     )
     user.save()
-    send_mail(
-            subject="Welcome to House ME!",
-            message="Congratulations! Your email ID has been authenticated. You can now go back to the login page.",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=False,
-        )
+    send_mail(subject="Welcome to House ME!", message="Congratulations! Your email ID has been authenticated. You can now go back to the login page.", from_email=settings.EMAIL_HOST_USER, recipient_list=[email], fail_silently=False,)
     return render(request, "Property/loginform.html")
 
 
