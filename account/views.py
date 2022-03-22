@@ -9,6 +9,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Property.models import UserOfApp
 from django.conf import settings
+from django.contrib.auth import authenticate, login  # , logout
+from django.http import HttpResponseRedirect
 
 
 def signupform(request):
