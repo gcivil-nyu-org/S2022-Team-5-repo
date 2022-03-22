@@ -1,7 +1,7 @@
-import email
 from django.test import TestCase
+from django.urls import reverse
 
-import account.views
+# import account.views
 
 class TestAccountForms(TestCase):
     def setUp(self):
@@ -13,7 +13,7 @@ class TestAccountForms(TestCase):
         self.email = "steve@minecraft.realm"
 
     def testSignupForm(self):
-        response = self.client.post(reverse('signup'), data = {
+        response = self.client.post(reverse('signupform'), data = {
             "first_name": self.firstName,
             "last_name": self.lastName,
             "username": self.username,
