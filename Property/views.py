@@ -13,16 +13,17 @@ from django.conf import settings
 
 
 def index(request):
-    context={}
+
     return render(request, "Property/index.html")
 
 
 def signupform(request):
-    context={}
+
     return render(request, "Property/signupform.html")
 
 
 def signupsubmit(request):
+
     first_name = request.POST["fname"]
     last_name = request.POST["lname"]
     username = request.POST["username"]
@@ -38,11 +39,9 @@ def signupsubmit(request):
         email=email,
     )
     user.save()
-    subject = "Welcome to House ME!"
-    message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
     send_mail(
-            subject=subject,
-            message=message,
+            subject="Welcome to House ME!",
+            message="Congratulations! Your email ID has been authenticated. You can now go back to the login page.",
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[email],
             fail_silently=False,
@@ -51,7 +50,7 @@ def signupsubmit(request):
 
 
 def loginform(request):
-    context={}
+
     return render(request, "Property/loginform.html")
 
 
