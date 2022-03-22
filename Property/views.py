@@ -13,24 +13,23 @@ from django.conf import settings
 
 
 def index(request):
+
     return render(request, "Property/index.html")
 
 
 def signupform(request):
+
     return render(request, "Property/signupform.html")
 
 
 def signupsubmit(request):
+
     first_name = request.POST["fname"]
     last_name = request.POST["lname"]
     username = request.POST["username"]
-    # TODO validate email
     email = request.POST["email"]
     phone = request.POST["phone"]
     password = request.POST["password"]
-
-    # TODO BUG UNIQUE constraint failed: Property_userofapp.username
-
     user = UserOfApp.objects.create_user(
         first_name=first_name,
         last_name=last_name,
@@ -40,19 +39,12 @@ def signupsubmit(request):
         email=email,
     )
     user.save()
-    subject = "Welcome to House ME!"
-    message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
-    send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=False,
-        )
+    send_mail(subject="Welcome to House ME!", message="Congratulations! Your email ID has been authenticated. You can now go back to the login page.", from_email=settings.EMAIL_HOST_USER, recipient_list=[email], fail_silently=False,)
     return render(request, "Property/loginform.html")
 
 
 def loginform(request):
+
     return render(request, "Property/loginform.html")
 
 
@@ -120,32 +112,6 @@ def createlisting(request):
         laundry = True
     else:
         laundry = False
-    print('name ', name)
-    print('address1 ', address1)
-    print('address2 ', address2)
-    print('city ', city)
-    print('state ', state)
-    print('borough ', borough)
-    print('zipcode ', zipcode)
-    print('latitude ', latitude)
-    print('longitude ', longitude)
-    print('bedrooms ', bedrooms)
-    print('bathrooms ', bathrooms)
-    print('area ', area)
-    print('rent ', rent)
-    print('furnished ', furnished)
-    print('elevator ', elevator)
-    print('heating ', heating)
-    print('parking ', parking)
-    print('laundry ', laundry)
-    print('map_url ', map_url)
-    print('photo_url ', photo_url)
-    print('matterport_link ', matterport_link)
-    print('calendly_link ', calendly_link)
-    print('description ', description)
-    print('owner ', owner)
-    print('city ', city)
-    print('state ', state)
     listing = Listing(name=name, address1=address1, address2=address2, city=city, state=state, borough=borough, zipcode=zipcode, latitude=latitude, longitude=longitude, bedrooms=bedrooms, bathrooms=bathrooms, area=area, rent=rent, furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry, map_url=map_url, photo_url=photo_url, matterport_link=matterport_link, calendly_link=calendly_link, description=description, owner=owner)
     listing.save()
     return HttpResponseRedirect('browselistings')
