@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class TestPropertyForms(TestCase):
     def setUp(self):
-        self.name = "Test Property"
+        self.listName = "Test Property"
         self.address1 = "Test Address 1"
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
@@ -29,7 +29,7 @@ class TestPropertyForms(TestCase):
     def testCreateListing(self):
         response = self.client.post(reverse("property:createlisting"), 
         data = {
-            "listing_name" : self.name,
+            "listing_name" : self.listName,
             "address1" : self.address1,
             "address2" : self.address2,
             "borough" : self.borough,
