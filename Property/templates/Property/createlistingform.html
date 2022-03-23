@@ -1,7 +1,6 @@
 {% include 'header.html' %}
     {% load static %}
     <title>Rent Your Property</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 {% include 'navbar.html' %}
@@ -27,24 +26,6 @@
                         <div class="row">
                             <div class="col-sm-12 form-group slideanim">
                                 <input type="text" class="form-input" name="address2" id="address2" placeholder="Address 2" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 form-group slideanim">
-                                <select class="form-input" name="state">
-                                    <option value="" disabled selected hidden>Select your State</option>
-                                    {% for state in states %}
-                                    <option value="{{state}}">{{ state }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-sm-6 form-group slideanim">
-                                <select class="form-input" name="city">
-                                    <option value="" disabled selected hidden>Select your City</option>
-                                    {% for city in cities %}
-                                    <option value="{{city}}">{{city}}</option>
-                                    {% endfor %}
-                                </select>
                             </div>
                         </div>
                         <div class="row">

@@ -6,20 +6,20 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'property:index' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="#">Dashboard</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link" href="{% url 'browselistings' %}">Browse Listings</a>
+         <a class="nav-link" href="{% url 'property:browselistings' %}">Browse Listings</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Your Listings</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'createlistingform' %}">Create Listing</a>
+        <a class="nav-link" href="{% url 'property:createlistingform' %}">Create Listing</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">View my Bookings</a>
