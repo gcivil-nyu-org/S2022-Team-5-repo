@@ -76,7 +76,7 @@ class Listing(models.Model):
     parking = models.BooleanField(default=False)
     laundry = models.BooleanField(default=False)
     ratings = models.FloatField(default=-1)
-    bathroom = models.IntegerField(default=-1)
+    bathrooms = models.IntegerField(default=-1)
     area = models.FloatField(default=-1)
     active = models.BooleanField(default=False)
     map_url = models.CharField(max_length=300, default="-")

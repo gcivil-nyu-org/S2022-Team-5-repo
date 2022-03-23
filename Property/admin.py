@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserOfApp, City, State, Listing
+from .models import UserOfApp, Listing
 
 # Register your models here.
 
@@ -7,15 +7,7 @@ from .models import UserOfApp, City, State, Listing
 class UserAdmin(admin.ModelAdmin):
     list_display = ["id", "created_at", "username", "first_name", "last_name", "email"]
     search_fields = ["id", "first_name", "last_name", "email"]
-
-
-class CityAdmin(admin.ModelAdmin):
-    list_display = ["city_id", "created_at", "name", "state"]
-
-
-class StateAdmin(admin.ModelAdmin):
-    list_display = ["state_id", "created_at", "name"]
-
+    
 
 class ListingAdmin(admin.ModelAdmin):
     list_display = [
@@ -24,8 +16,6 @@ class ListingAdmin(admin.ModelAdmin):
         "name",
         "address1",
         "address2",
-        "city",
-        "state",
         "zipcode",
         "latitude",
         "longitude",
@@ -36,24 +26,20 @@ class ListingAdmin(admin.ModelAdmin):
         "elevator",
         "heating",
         "ratings",
-        "bathroom",
+        "bathrooms",
         "active",
     ]
     list_filter = [
         "created_at",
         "zipcode",
         "ratings",
-        "bathroom",
+        "bathrooms",
         "active",
         "bedrooms",
-        "city",
-        "state",
     ]
 
 
 admin.site.register(UserOfApp, UserAdmin)
-admin.site.register(City, CityAdmin)
-admin.site.register(State, StateAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"
