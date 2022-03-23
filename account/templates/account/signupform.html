@@ -1,21 +1,18 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     {% include 'header.html' %}
-    <title>Property Page</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Signup Page</title>
 </head>
 
 <body>
     {% include 'navbar.html' %}
     <div class="main paddform">
         <section class="signup">
-            <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
                 <div class="signup-content">
-                    <form action="{% url 'signupsubmit' %}" method="POST" id="signup-form" class="signup-form">
+                    <form action="{% url 'account:signupsubmit' %}" method="POST" id="signup-form" class="signup-form">
                       {% csrf_token %}
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
@@ -49,7 +46,7 @@
                         </div>
                     </form>
                     <p class="loginhere">
-                        Already have an account ? <a href="{% url 'loginform' %}" class="loginhere-link">Login here</a>
+                        Already have an account ? <a href="{% url 'account:loginform' %}" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>
@@ -59,7 +56,7 @@
     {% include 'footer.html' %}
 
     <!-- JS -->
-    <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'rentit/js/main.js' %}"></script>
+    {% comment %} <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/main.js' %}"></script> {% endcomment %}
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

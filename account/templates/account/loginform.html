@@ -6,7 +6,6 @@
     {% include 'header.html' %}
     <title>Login</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -16,7 +15,7 @@
             <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
                 <div class="signup-content">
-                    <form action="{% url 'loginsubmit' %}" method="POST" id="signup-form" class="signup-form">
+                    <form action="{% url 'account:loginsubmit' %}" method="POST" id="signup-form" class="signup-form">
                         {% csrf_token %}
                         <h2 class="form-title">Sign In</h2>
                         <div class="form-group">
@@ -35,8 +34,8 @@
                         </div>
                     </form>
                     <p class="loginhere">
-                        Forgot password? <a href="{% url 'password_reset' %}" class="loginhere-link">Reset password</a><br>
-                        Need an account? <a href="{% url 'signupform' %}" class="loginhere-link">Register here</a>
+                        Forgot password? <a href="{% url 'account:password_reset' %}" class="loginhere-link">Reset password</a><br>
+                        Need an account? <a href="{% url 'account:signupform' %}" class="loginhere-link">Register here</a>
                     </p>
                 </div>
             </div>
@@ -46,7 +45,7 @@
     {% include 'footer.html' %}
 
     <!-- JS -->
-    <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'rentit/js/main.js' %}"></script>
+    {% comment %} <script src="{% static 'rentit/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'rentit/js/main.js' %}"></script> {% endcomment %}
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
