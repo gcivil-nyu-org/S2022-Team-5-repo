@@ -61,7 +61,6 @@ def createlisting(request):
         laundry = True
     else:
         laundry = False
-    # listing = Listing(name=name, address1=address1, address2=address2, borough=borough, zipcode=zipcode, latitude=latitude, longitude=longitude, bedrooms=bedrooms, bathrooms=bathrooms, area=area, rent=rent, furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry, map_url=map_url, photo_url=photo_url, matterport_link=matterport_link, description=description, owner=owner)
     listing = Listing(
         name=name,
         address1=address1,
