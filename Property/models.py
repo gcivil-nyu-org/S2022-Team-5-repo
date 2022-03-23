@@ -71,7 +71,7 @@ class Listing(models.Model):
     bedrooms = models.IntegerField(default=-1)
     furnished = models.BooleanField(default=False)
     elevator = models.BooleanField(default=False)
-    # owner = models.ForeignKey(UserOfApp, on_delete=models.CASCADE, db_column='uid', default=None)
+    owner = models.ForeignKey(UserOfApp, on_delete=models.CASCADE, default=None)
     heating = models.BooleanField(default=False)
     parking = models.BooleanField(default=False)
     laundry = models.BooleanField(default=False)
@@ -82,5 +82,6 @@ class Listing(models.Model):
     map_url = models.CharField(max_length=300, default="-")
     photo_url = models.CharField(max_length=300, default=-1)
     matterport_link = models.CharField(max_length=300, default=-1)
+    calendly_link = models.CharField(max_length=300, default=-1)
     # def __str__(self):
     #     return self.owner.first_name + ' ' + self.owner.last_name + ', ' + '\n' + self.shopno + '\n' +self.streetname + '\n' + str(self.city) +', ' + str(self.state) + ', ' + self.zipcode
