@@ -120,9 +120,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
-django_heroku.settings(locals())
+django_heroku.settings(locals(), test_runner=False)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 env = environ.Env()

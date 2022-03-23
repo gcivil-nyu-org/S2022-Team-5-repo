@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login  # , logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+
 def signupform(request):
     return render(request, "account/signupform.html")
 
@@ -40,12 +41,12 @@ def signupsubmit(request):
     subject = "Welcome to House ME!"
     message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
     send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=False,
-        )
+        subject=subject,
+        message=message,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[email],
+        fail_silently=False,
+    )
     return render(request, "account/loginform.html")
 
 
