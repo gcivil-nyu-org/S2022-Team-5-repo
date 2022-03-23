@@ -23,7 +23,7 @@ class TestPropertyForms(TestCase):
         self.mapURL = ""
         self.photoURL = ""
         self.vrLink = ""
-        # self.calendlyLink = ""
+        self.calendlyLink = ""
         self.description = "The best property!"
 
     def testCreateListing(self):
@@ -49,7 +49,7 @@ class TestPropertyForms(TestCase):
                 "map_url": self.mapURL,
                 "photo_url": self.photoURL,
                 "matterport_link": self.vrLink,
-                # "calendly_link" : self.calendlyLink,
+                "calendly_link": self.calendlyLink,
                 "description": self.description,
             },
         )

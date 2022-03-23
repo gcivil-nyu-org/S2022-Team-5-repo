@@ -38,7 +38,7 @@ def createlisting(request):
     map_url = request.POST["map_url"]
     photo_url = request.POST["photo_url"]
     matterport_link = request.POST["matterport_link"]
-    # calendly_link = request.POST['calendly_link']
+    calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
     # owner = request.user
     if furnished == "Yes":
@@ -82,6 +82,7 @@ def createlisting(request):
         photo_url=photo_url,
         matterport_link=matterport_link,
         description=description,
+        calendly_link=calendly_link,
     )
     listing.save()
     return HttpResponseRedirect("browselistings")
