@@ -10,12 +10,12 @@ from django.http import HttpResponseRedirect
 
 
 def index(request):
-    return render(request, "property/index.html")
+    return render(request, "Property/index.html")
 
 
 def createlistingform(request):
     payload = {}
-    return render(request, "property/createlistingform.html", payload)
+    return render(request, "Property/createlistingform.html", payload)
 
 
 def createlisting(request):
@@ -89,8 +89,8 @@ def createlisting(request):
 
 def browselistings(request):
     listings = Listing.objects.all()
-    return render(request, "property/browselistings.html", {"listings": listings})
+    return render(request, "Property/browselistings.html", {"listings": listings})
 
 
 def testproperty(request):
-    return render(request, "property/property_page.html")
+    return render(request, "Property/property_page.html")
