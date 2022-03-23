@@ -131,13 +131,12 @@ h2 {
 .clear {
     clear: both; }
 
-body {
+/* body {
     font-size: 14px;
     line-height: 1.8;
     color: #222;
     font-weight: 400;
     font-family: 'Montserrat';
-    background-image: url("../images/signup-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     -moz-background-size: cover;
@@ -145,7 +144,7 @@ body {
     -o-background-size: cover;
     -ms-background-size: cover;
     background-position: center center;
-}
+} */
 
 .container {
     width: 660px;

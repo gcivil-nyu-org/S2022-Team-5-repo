@@ -11,7 +11,7 @@ from Property.models import UserOfApp
 from django.conf import settings
 from django.contrib.auth import authenticate, login  # , logout
 from django.http import HttpResponseRedirect
-
+from django.urls import reverse
 
 def signupform(request):
     return render(request, "account/signupform.html")
@@ -60,7 +60,7 @@ def loginsubmit(request):
     if user is not None:
         login(request, user)
         print("sucess")
-        return HttpResponseRedirect("browselistings")
+        return HttpResponseRedirect(reverse("property:browselistings"))
     else:
         return render(request, "account/loginform.html")
 

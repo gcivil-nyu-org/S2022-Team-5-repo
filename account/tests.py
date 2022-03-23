@@ -13,13 +13,10 @@ class TestAccountForms(TestCase):
         self.email = "steve@minecraft.realm"
 
     def testSignupForm(self):
-        response = self.client.post(reverse('signupform'), data = {
-            "first_name": self.firstName,
-            "last_name": self.lastName,
-            "username": self.username,
-            "phone": self.phone,
-            "password": self.password,
-            "email": self.email,
-        })
-        
+        """
+        A get request on signup form
+        """
+        response = self.client.post(reverse("account:signupform"))
         self.assertEqual(response.status_code, 200)
+    
+    
