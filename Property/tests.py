@@ -115,10 +115,10 @@ class TestPropertyFormsNew(TestCase):
         response = views.index(request)
         self.assertEqual(response.status_code, 200)
 
-    def testCreate(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
-        response = views.createlistingform(request)
-        self.assertEqual(response.status_code, 200)
+    # def testCreate(self):
+    #     request = RequestFactory().get(path="Property/createlistingform.html")
+    #     response = views.createlistingform(request)
+    #     self.assertEqual(response.status_code, 200)
 
     def testBrowseList(self):
         request = RequestFactory().get(path="Property/createlistingform.html")
