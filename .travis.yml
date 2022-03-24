@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - 3.9
+
+install:
+  - pip install -r requirements.txt
+  - pip install black
+  - pip install flake8
+  - pip install coverage
+  - pip install coveralls
+
+before_script:
+  - python manage.py migrate
+
+script:
+  - black .
+  - python -m black . --check
+  - flake8 .
+  - python -m coverage run --source=. manage.py test
+
+after_script:
+  - coveralls
