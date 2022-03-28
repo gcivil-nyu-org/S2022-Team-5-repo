@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "s3direct",
-    "rest_framework",
     "Property",
     "account",
 ]
