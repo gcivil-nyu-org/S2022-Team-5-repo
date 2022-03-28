@@ -20,5 +20,4 @@ urlpatterns = [
     path("property/", include("Property.urls")),
     path("admin/", admin.site.urls),
     path("account/", include("account.urls", namespace="account")),
-    path('api/', include('rest_framework.urls')),
 ]
