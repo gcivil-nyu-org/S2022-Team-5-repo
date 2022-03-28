@@ -40,7 +40,7 @@ def createlisting(request):
     matterport_link = request.POST["matterport_link"]
     calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
-    # owner = request.user
+    owner = request.user
     if furnished == "Yes":
         furnished = True
     else:
@@ -83,8 +83,10 @@ def createlisting(request):
         matterport_link=matterport_link,
         description=description,
         calendly_link=calendly_link,
+        owner=owner,
     )
     listing.save()
+
     return HttpResponseRedirect("browselistings")
 
 
@@ -95,3 +97,8 @@ def browselistings(request):
 
 def testproperty(request):
     return render(request, "Property/property_page.html")
+
+
+def mylistings(request):
+    user_listings = Listing.objects.filter(owner=request.user)
+    return render(request, "Property/mylistings.html", {"listings": user_listings})
