@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
 ]
 
 
-django_heroku.settings(locals(), test_runner=False)
+#django_heroku.settings(locals(), test_runner=False)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 env = environ.Env()

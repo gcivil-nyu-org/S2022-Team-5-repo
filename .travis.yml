@@ -3,6 +3,14 @@ language: python
 python:
   - 3.9
 
+env:
+  - EMAIL_HOST=smtp.gmail.com
+  - EMAIL_HOST_USER=houseme2022@gmail.com
+  - EMAIL_HOST_PASSWORD=psadsihpvakyumvt
+  - AWS_ACCESS=ABC
+  - AWS_SECRET=XYZ
+
+
 install:
   - pip install -r requirements.txt
   - pip install black
