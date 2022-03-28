@@ -11,7 +11,7 @@
             {% for listing in listings%}
             <div class="row classroombox" style="padding: 1%;">
                 <div class="col-md-4 col-xs-12 ">
-                    <img class="classroomboximg" src="{{listing.photo_url}}" alt="" style="width: 600px;">
+                    <img class="classroomboximg" src="{{listing.photo_url.url}}" alt="" style="width: 600px;">
                 </div>
                 <div class="col-md-8">
                     <h3>{{listing.address1}} {{listing.address2}}</h3>

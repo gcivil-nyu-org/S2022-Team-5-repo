@@ -103,11 +103,14 @@
                             </div>
                         </div>
                         <div class="row">
+                          <form enctype="multipart/form-data" id="photo_url">
                             <div class="col-sm-12 form-group slideanim">
-                                <input type="text" class="form-input" name="photo_url" id="photo_url" placeholder="Photo URL" />
+                              <label for="photo_url">Choose a photo!</label>
+                              <input type="file" class="form-control-file" name="Photo" id="photo_url" placeholder="Upload a photo" multiple/>
                             </div>
-                        </div>
-                        <div class="row">
+                            </form>
+                          </div>
+                            <div class="row">
                             <div class="col-sm-12 form-group slideanim">
                                 <input type="text" class="form-input" name="calendly_link" id="calendly_link" placeholder="Calendly URL" />
                             </div>
@@ -132,6 +135,7 @@
                                 <input type="file" name="images" value="" multiple>
                             </div>
                         </div> -->
+                        <form>
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
@@ -139,6 +143,7 @@
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Submit" />
                         </div>
+                        </form>
                     </form>
                 </div>
             </div>
