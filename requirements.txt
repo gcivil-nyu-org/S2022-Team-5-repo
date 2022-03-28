@@ -6,3 +6,4 @@ django_crispy_forms
 django-s3direct
 django-storages
 boto3
+pillow
