@@ -10,12 +10,12 @@ from django.http import HttpResponseRedirect
 
 
 def index(request):
-    return render(request, "property/index.html")
+    return render(request, "Property/index.html")
 
 
 def createlistingform(request):
     payload = {}
-    return render(request, "property/createlistingform.html", payload)
+    return render(request, "Property/createlistingform.html", payload)
 
 
 def createlisting(request):
@@ -38,7 +38,7 @@ def createlisting(request):
     map_url = request.POST["map_url"]
     photo_url = request.POST["photo_url"]
     matterport_link = request.POST["matterport_link"]
-    # calendly_link = request.POST['calendly_link']
+    calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
     # owner = request.user
     if furnished == "Yes":
@@ -61,7 +61,6 @@ def createlisting(request):
         laundry = True
     else:
         laundry = False
-    # listing = Listing(name=name, address1=address1, address2=address2, borough=borough, zipcode=zipcode, latitude=latitude, longitude=longitude, bedrooms=bedrooms, bathrooms=bathrooms, area=area, rent=rent, furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry, map_url=map_url, photo_url=photo_url, matterport_link=matterport_link, description=description, owner=owner)
     listing = Listing(
         name=name,
         address1=address1,
@@ -83,6 +82,7 @@ def createlisting(request):
         photo_url=photo_url,
         matterport_link=matterport_link,
         description=description,
+        calendly_link=calendly_link,
     )
     listing.save()
     return HttpResponseRedirect("browselistings")
