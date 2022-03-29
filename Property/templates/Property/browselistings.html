@@ -14,8 +14,13 @@
                     <img class="classroomboximg" src="{{listing.photo_url.url}}" alt="" style="width: 600px;">
                 </div>
                 <div class="col-md-8">
-                    <h3>{{listing.address1}} {{listing.address2}}</h3>
+                    <h3>{{listing.name}}</h3>
                     Description: {{listing.description}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address : {{listing.address1}} {{listing.address2}}
+                        </div>
+                        </div>
                     <div class="row">
                         <div class="col-md-4">
                             Borough : {{listing.borough}}
