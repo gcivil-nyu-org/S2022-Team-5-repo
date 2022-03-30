@@ -18,7 +18,6 @@ def createlistingform(request):
     payload = {}
     return render(request, "Property/createlistingform.html", payload)
 
-@login_required(login_url="/account/loginform")
 def createlisting(request):
     name = request.POST["listing_name"]
     address1 = request.POST["address1"]

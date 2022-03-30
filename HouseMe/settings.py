@@ -151,9 +151,3 @@ AWS_S3_ADDRESSING_STYLE = 'virtual'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-S3DIRECT_DESTINATIONS = {
-    'example_destination': {'key': 'uploads/images',
-                            'allowed': ['image/jpeg', 'image/png', 'video/mp4'],
-                            'allow_existence_optimization': False,
-                            },
-                            }
