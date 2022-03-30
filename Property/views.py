@@ -36,7 +36,7 @@ def createlisting(request):
     parking = request.POST["parking"]
     laundry = request.POST["laundry"]
     map_url = request.POST["map_url"]
-    photo_url = request.POST["photo_url"]
+    photo_url = request.FILES.get("photo_url")
     matterport_link = request.POST["matterport_link"]
     calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]

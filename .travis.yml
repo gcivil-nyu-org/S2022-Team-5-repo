@@ -10,6 +10,9 @@ install:
   - pip install coverage
   - pip install coveralls
 
+env:
+  - EMAIL_HOST=smtp.gmail.com EMAIL_HOST_USER=houseme2022@gmail.com EMAIL_HOST_PASSWORD=psadsihpvakyumvt AWS_ACCESS=ABC AWS_SECRET=XYZ
+
 before_script:
   - python manage.py migrate
 
