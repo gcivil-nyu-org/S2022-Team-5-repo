@@ -41,11 +41,7 @@ def createlisting(request):
     matterport_link = request.POST["matterport_link"]
     calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
-    # owner = User.objects.get(request.user)
-    owner = User(
-        uid=request.user.id,
-    )
-    owner.save()
+    owner = User.objects.filter(username=request.user.username)[0]
     if furnished == "Yes":
         furnished = True
     else:
