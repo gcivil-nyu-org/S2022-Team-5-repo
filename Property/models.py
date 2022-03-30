@@ -10,7 +10,7 @@ class User(AbstractUser):
     is_property_owner = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.first_name + " " + self.last_name + " " + self.email    # TODO: shouldn't these member variables be explicitly listed above as well then?
+        return self.first_name + " " + self.last_name + " " + self.email
 
 
 class Listing(models.Model):
