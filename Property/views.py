@@ -40,58 +40,57 @@ def createlisting(request):
     matterport_link = request.POST["matterport_link"]
     calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
-    # owner = User.objects.get(request.user)
-    owner = User(
-        uid=request.user.id,
-    )
-    owner.save()
-    if furnished == "Yes":
-        furnished = True
-    else:
-        furnished = False
-    if elevator == "Yes":
-        elevator = True
-    else:
-        elevator = False
-    if heating == "Yes":
-        heating = True
-    else:
-        heating = False
-    if parking == "Yes":
-        parking = True
-    else:
-        parking = False
-    if laundry == "Yes":
-        laundry = True
-    else:
-        laundry = False
-    listing = Listing(
-        name=name,
-        address1=address1,
-        address2=address2,
-        borough=borough,
-        zipcode=zipcode,
-        latitude=latitude,
-        longitude=longitude,
-        bedrooms=bedrooms,
-        bathrooms=bathrooms,
-        area=area,
-        rent=rent,
-        furnished=furnished,
-        elevator=elevator,
-        heating=heating,
-        parking=parking,
-        laundry=laundry,
-        map_url=map_url,
-        photo_url=photo_url,
-        matterport_link=matterport_link,
-        description=description,
-        calendly_link=calendly_link,
-        owner=owner,
-    )
-    listing.save()
+    try:
+        owner = User.objects.filter(username=request.user.username)[0]
+        if furnished == "Yes":
+            furnished = True
+        else:
+            furnished = False
+        if elevator == "Yes":
+            elevator = True
+        else:
+            elevator = False
+        if heating == "Yes":
+            heating = True
+        else:
+            heating = False
+        if parking == "Yes":
+            parking = True
+        else:
+            parking = False
+        if laundry == "Yes":
+            laundry = True
+        else:
+            laundry = False
+        listing = Listing(
+            name=name,
+            address1=address1,
+            address2=address2,
+            borough=borough,
+            zipcode=zipcode,
+            latitude=latitude,
+            longitude=longitude,
+            bedrooms=bedrooms,
+            bathrooms=bathrooms,
+            area=area,
+            rent=rent,
+            furnished=furnished,
+            elevator=elevator,
+            heating=heating,
+            parking=parking,
+            laundry=laundry,
+            map_url=map_url,
+            photo_url=photo_url,
+            matterport_link=matterport_link,
+            description=description,
+            calendly_link=calendly_link,
+            owner=owner,
+        )
+        listing.save()
 
-    return HttpResponseRedirect("browselistings")
+        return HttpResponseRedirect("browselistings")
+    except IndexError:
+        return HttpResponseRedirect("/account/loginform")
 
 
 def browselistings(request):
