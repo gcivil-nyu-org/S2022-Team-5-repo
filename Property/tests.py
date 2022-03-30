@@ -1,5 +1,6 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
+
 # from Property.models import User
 # from account.tests import TestAccountForms
 from . import views
@@ -115,7 +116,6 @@ class TestPropertyFormsNew(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
-
     def testEditListing(self):
         response = self.client.post(
             reverse("property:editlisting", args=[1]),
@@ -144,7 +144,6 @@ class TestPropertyFormsNew(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
-
 
     def testIndex(self):
         request = RequestFactory().get(path="Property/index.html")
