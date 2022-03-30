@@ -1,0 +1,125 @@
+{% include 'header.html' %}
+    <title>Browse Listing</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+{% include 'navbar.html' %}
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            {% for listing in listings %}
+            <div class="row classroombox" style="padding: 1%;">
+                <div class="col-md-4 col-xs-12 ">
+                    <img class="classroomboximg" src="{{listing.photo_url}}" alt="" style="width: 600px;">
+                </div>
+                <div class="col-md-8">
+                    <h3>{{listing.address1}} {{listing.address2}}</h3>
+                    Description: {{listing.description}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            Borough : {{listing.borough}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Zip Code : {{listing.zipcode}}
+                        </div>
+                        <div class="col-md-4">
+                            Latitude : {{listing.latitude}}
+                        </div>
+                        <div class="col-md-4">
+                            Longitude : {{listing.longitude}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Bedroom : {{listing.bedrooms}}
+                        </div>
+                        <div class="col-md-4">
+                            Bathroom : {{listing.bathrooms}}
+                        </div>
+                        <div class="col-md-4">
+                            Area : {{listing.area}} Sq
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% if listing.furnished %}
+                            Furnished: Yes
+                            {% else %}
+                            Furnished: No
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {% if listing.elevator %}
+                            Elevator: Yes
+                            {% else %}
+                            Elevator: No
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {% if listing.heating %}
+                            Heating: Yes
+                            {% else %}
+                            Heating: No
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% if listing.parking %}
+                            Parking: Yes
+                            {% else %}
+                            Parking: No
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {% if listing.laundry %}
+                            Laundry: Yes
+                            {% else %}
+                            Laundry: No
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {% if listing.active %}
+                            Listing Status: Active
+                            {% else %}
+                            Listing Status: Inactive
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Rent: ${{listing.rent}}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input onclick="location.href='{{listing.map_url}}'" type="button" class="btn btn-info btn-sm btn-block" value="Map"></input>
+                        </div>
+                        <div class="col-md-4">
+                            <input onclick="location.href='{{listing.matterport_link}}'" type="button" class="btn btn-info btn-sm btn-block" value="VR Tour"></input>
+                        </div>
+                        <div class="col-md-4">
+                            <input onclick="location.href='/property/editlisting/{{listing.listing_id}}'" type="button" class="btn btn-info btn-sm btn-block" onsubmit="" value="Edit"></input>
+                        </div>
+                    </div>
+                    <br>
+                    <form action="#" method="post" id="form">
+                        {% csrf_token %}
+                        <input type="hidden" name="classroomid" value="{{classroom.class_id}}">
+                        <input type="submit" name="submit" id="submit" class="btn btn-primary btn-lg btn-block" value="View" />
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+</body>
+
+</html>
