@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     uaddr = models.CharField(max_length=100, default="")
     phone = models.CharField(max_length=10, default="0000000000")
-    uid = models.IntegerField(default=-1)
+    uid = models.IntegerField(default=-1, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     is_property_owner = models.BooleanField(default=False)
 
