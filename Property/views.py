@@ -135,7 +135,7 @@ def editlistingsubmit(request, listing_id):
     parking = request.POST["parking"]
     laundry = request.POST["laundry"]
     listing.map_url = request.POST["map_url"]
-    listing.photo_url = request.POST["photo_url"]
+    listing.photo_url = request.FILES.get("photo_url")
     listing.matterport_link = request.POST["matterport_link"]
     listing.calendly_link = request.POST["calendly_link"]
     listing.description = request.POST["description"]
