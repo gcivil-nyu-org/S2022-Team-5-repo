@@ -81,7 +81,7 @@ class Listing(models.Model):
     area = models.FloatField(default=-1)
     active = models.BooleanField(default=False)
     map_url = models.CharField(max_length=300, default="-")
-    photo_url = models.ImageField(upload_to='media/', default="/images/house1.png")
+    photo_url = models.ImageField(upload_to='media/', null=True, blank=True)
     matterport_link = models.CharField(max_length=300, default=-1)
     calendly_link = models.CharField(max_length=300, default=-1)
     # def __str__(self):
