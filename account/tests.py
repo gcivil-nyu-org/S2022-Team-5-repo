@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from Property.models import UserOfApp
 
 
 class TestAccountForms(TestCase):
@@ -10,6 +11,15 @@ class TestAccountForms(TestCase):
         self.phone = 0000000000
         self.password = "removedHerobrine"
         self.email = "steve@minecraft.realm"
+        self.user = UserOfApp.objects.create_user(
+            first_name=self.firstName,
+            last_name=self.lastName,
+            username=self.username + "1",
+            phone=self.phone,
+            password=self.password + "1",
+            email="1" + self.email,
+        )
+        self.user.save()
 
     def testSignupForm(self):
         """
@@ -36,17 +46,17 @@ class TestAccountForms(TestCase):
         response = self.client.post(
             reverse("account:loginsubmit"),
             data={
-                "username": self.username,
-                "password": self.password,
+                "username": self.username + "1",
+                "password": self.password + "1",
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def testPasswordResetRequest(self):
         response = self.client.post(
             reverse("account:password_reset"),
             data={
-                "email": self.email,
+                "email": "1" + self.email,
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
