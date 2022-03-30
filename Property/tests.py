@@ -60,6 +60,35 @@ class TestPropertyForms(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
+    def testEditListing(self):
+        response = self.client.post(
+            reverse("property:editlisting", args=[1]),
+            data={
+                "listing_name": self.listName,
+                "address1": self.address1,
+                "address2": self.address2,
+                "borough": self.borough,
+                "zipcode": self.zipcode,
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "bedrooms": self.bedrooms,
+                "bathrooms": self.bathrooms,
+                "area": self.area,
+                "rent": self.rent,
+                "furnished": self.furnished,
+                "elevator": self.elevator,
+                "heating": self.heating,
+                "parking": self.parking,
+                "laundry": self.laundry,
+                "map_url": self.mapURL,
+                "photo_url": self.photoURL,
+                "matterport_link": self.vrLink,
+                "calendly_link": self.calendlyLink,
+                "description": self.description,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
 
 class TestPropertyFormsNew(TestCase):
     def setUp(self):
@@ -112,35 +141,6 @@ class TestPropertyFormsNew(TestCase):
                 "calendly_link": self.calendlyLink,
                 "description": self.description,
                 "owner": self.owner,
-            },
-        )
-        self.assertEqual(response.status_code, 302)
-
-    def testEditListing(self):
-        response = self.client.post(
-            reverse("property:editlisting", args=[1]),
-            data={
-                "listing_name": self.listName,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "bedrooms": self.bedrooms,
-                "bathrooms": self.bathrooms,
-                "area": self.area,
-                "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
-                "description": self.description,
             },
         )
         self.assertEqual(response.status_code, 302)
