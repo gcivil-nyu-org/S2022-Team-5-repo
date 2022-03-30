@@ -25,7 +25,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-django_heroku.settings(locals())
 # Application definition
 
 INSTALLED_APPS = [
@@ -131,6 +130,7 @@ env = environ.Env()
 READ_DOT_ENV_FILE = True
 environ.Env.read_env()
 
+django_heroku.settings(locals())
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST")
