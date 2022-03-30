@@ -1,7 +1,8 @@
 [report]
 
 omit =
-
     *tests*
     *apps.py*
     *manage.py*
+    *asgi*
+    *wsgi*
