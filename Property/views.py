@@ -90,7 +90,7 @@ def createlisting(request):
         listing.save()
 
         return HttpResponseRedirect("browselistings")
-    except:
+    except IndexError:
         return HttpResponseRedirect("/account/loginform")
 
 

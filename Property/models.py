@@ -42,6 +42,5 @@ class Listing(models.Model):
     photo_url = models.ImageField(upload_to='media/', null=True, blank=True)
     matterport_link = models.CharField(max_length=300, default=-1)
     calendly_link = models.CharField(max_length=300, default=-1)
-    
     # def __str__(self):
     #     return self.owner.first_name + ' ' + self.owner.last_name + ', ' + '\n' + self.shopno + '\n' +self.streetname + '\n' + str(self.city) +', ' + str(self.state) + ', ' + self.zipcode

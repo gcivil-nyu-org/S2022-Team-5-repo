@@ -1,7 +1,7 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
-from Property.models import User
-from account.tests import TestAccountForms
+# from Property.models import User
+# from account.tests import TestAccountForms
 from . import views
 
 
