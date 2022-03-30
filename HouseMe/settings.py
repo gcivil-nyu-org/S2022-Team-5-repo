@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
 import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -130,7 +129,9 @@ env = environ.Env()
 READ_DOT_ENV_FILE = True
 environ.Env.read_env()
 
-django_heroku.settings(locals())
+if 'I_AM_HEROKU' in os.environ:
+    import django_heroku
+    django_heroku.settings(locals())
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST")
