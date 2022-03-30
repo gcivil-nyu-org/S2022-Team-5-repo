@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Listing
+from .models import User, Listing
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
@@ -41,7 +41,7 @@ def createlisting(request):
     matterport_link = request.POST["matterport_link"]
     calendly_link = request.POST["calendly_link"]
     description = request.POST["description"]
-    owner = request.user
+    owner = User.objects.get(request.user)
     if furnished == "Yes":
         furnished = True
     else:
