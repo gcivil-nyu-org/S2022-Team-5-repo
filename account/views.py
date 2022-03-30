@@ -63,6 +63,7 @@ def loginsubmit(request):
         print("sucess")
         return HttpResponseRedirect(reverse("property:browselistings"))
     else:
+        print("wrong password")
         return render(request, "account/loginform.html")
 
 
