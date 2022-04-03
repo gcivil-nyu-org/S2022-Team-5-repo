@@ -347,17 +347,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
     z-index: 2;
     color: #555; }
 
-.slider {
-    width: 800px;
-    height: 600px;
-    border-radius: 10px;
-}
 
-.slides {
-    width: 500%;
-    height: 500px;
-    display: flex;
-}
 
 @media screen and (max-width: 768px) {
     .container {
