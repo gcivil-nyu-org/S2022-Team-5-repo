@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+
 class User(AbstractUser):
     uaddr = models.CharField(max_length=100, default="")
     phone = models.CharField(max_length=10, default="0000000000")
@@ -39,7 +40,7 @@ class Listing(models.Model):
     area = models.FloatField(default=-1)
     active = models.BooleanField(default=False)
     map_url = models.CharField(max_length=300, default="-")
-    photo_url = models.ImageField(upload_to='media/', null=True, blank=True)
+    photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
     matterport_link = models.CharField(max_length=300, default=-1)
     calendly_link = models.CharField(max_length=300, default=-1)
     # def __str__(self):

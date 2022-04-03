@@ -18,6 +18,7 @@ def createlistingform(request):
     payload = {}
     return render(request, "Property/createlistingform.html", payload)
 
+
 def createlisting(request):
     name = request.POST["listing_name"]
     address1 = request.POST["address1"]
