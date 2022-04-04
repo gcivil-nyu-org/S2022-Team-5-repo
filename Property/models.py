@@ -5,7 +5,7 @@ from account.models import UserProfile
 class Listing(models.Model):
     # IDs
     listing_id = models.AutoField(primary_key=True)
-    # owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, blank=True)
     # Address
     address1 = models.CharField(
         verbose_name="Address_1", max_length=100, null=True, blank=True

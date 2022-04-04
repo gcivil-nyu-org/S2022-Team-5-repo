@@ -21,8 +21,8 @@ class ListingForm(forms.ModelForm):
     parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
     photo_url = forms.URLField(label="Photo Link", required=False)
-    matterport_link = forms.URLField(label="Photo Link", required=False)
-    calendly_link = forms.URLField(label="Photo Link", required=False)
+    matterport_link = forms.URLField(label="matterport Link", required=False)
+    calendly_link = forms.URLField(label="calendly Link", required=False)
     name = forms.CharField(max_length=100, required=False)
     description = forms.CharField(max_length=100, required=False)
 

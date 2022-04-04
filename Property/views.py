@@ -102,12 +102,17 @@ def testproperty(request):
 
 def newlisting(request):
     # if this is a POST request we need to process the form data
+    user = request.user
+    print(user)
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            form.save()
+            obj = form.save()
+            obj.owner = user
+            print(f'inside is_valid {obj.owner}')
+            obj.save()
             result = "Success"
             message = "Your profile has been updated"
         else:
