@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import User, Listing
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -99,8 +99,10 @@ def browselistings(request):
     return render(request, "Property/browselistings.html", {"listings": listings})
 
 
-def testproperty(request):
-    return render(request, "Property/property_page.html")
+def propertypage(request, listing_id):
+    # listing = Listing.objects.filter(listing_id=listing_id)[0]
+    listing = get_object_or_404(Listing, listing_id=listing_id)
+    return render(request, "Property/property_page.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")
@@ -111,7 +113,8 @@ def mylistings(request):
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):
-    listing = Listing.objects.filter(listing_id=listing_id)[0]
+    # listing = Listing.objects.filter(listing_id=listing_id)[0]
+    listing = get_object_or_404(Listing, listing_id=listing_id)
     return render(request, "Property/editlisting.html", {"listing": listing})
 
 
