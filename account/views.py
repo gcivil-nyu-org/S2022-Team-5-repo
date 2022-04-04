@@ -9,7 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Property.models import User
 from django.conf import settings
-from django.contrib.auth import authenticate, login  # , logout
+from django.contrib.auth import authenticate, login #, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
