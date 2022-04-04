@@ -10,8 +10,10 @@ urlpatterns = [
     path("browselistings", views.browselistings, name="browselistings"),
     path("mylistings", views.mylistings, name="mylistings"),
     path("editlisting/<int:listing_id>", views.editlisting, name="editlisting"),
-    path("editlistingsubmit/<int:listing_id>", views.editlistingsubmit, name="editlistingsubmit"),
-    # TODO: property page for every listing
-    # path("test-property", views.testproperty, name="property_page"),
+    path(
+        "editlistingsubmit/<int:listing_id>",
+        views.editlistingsubmit,
+        name="editlistingsubmit",
+    ),
     path("<int:listing_id>", views.propertypage, name="propertypage"),
 ]

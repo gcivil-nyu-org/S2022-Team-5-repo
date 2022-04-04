@@ -160,7 +160,8 @@ class TestPropertyFormsNew(TestCase):
         response = views.browselistings(request)
         self.assertEqual(response.status_code, 200)
 
-    def testProperty(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
-        response = views.testproperty(request)
-        self.assertEqual(response.status_code, 200)
+    # TODO: new test for property page. testproperty was just a dummy page.
+    # def testProperty(self):
+    #     request = RequestFactory().get(path="Property/createlistingform.html")
+    #     response = views.testproperty(request)
+    #     self.assertEqual(response.status_code, 200)
