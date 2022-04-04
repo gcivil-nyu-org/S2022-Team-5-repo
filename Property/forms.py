@@ -3,6 +3,7 @@ from pickle import FALSE
 from django import forms
 from .models import Listing
 
+
 class ListingForm(forms.ModelForm):
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=True)
@@ -19,16 +20,33 @@ class ListingForm(forms.ModelForm):
     heating = forms.BooleanField(required=False)
     parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
-    photo_url = forms.URLField(label='Photo Link', required=False)
-    matterport_link = forms.URLField(label='Photo Link', required=False)
-    calendly_link = forms.URLField(label='Photo Link', required=False)
+    photo_url = forms.URLField(label="Photo Link", required=False)
+    matterport_link = forms.URLField(label="Photo Link", required=False)
+    calendly_link = forms.URLField(label="Photo Link", required=False)
     name = forms.CharField(max_length=100, required=False)
     description = forms.CharField(max_length=100, required=False)
+
     class Meta:
         model = Listing
-        fields = ['address1', 'address2', 'borough', 'zipcode',
-            'latitude', 'longitude', 'rent', 'area', 
-            'bedrooms', 'bathrooms', 'furnished', 'elevator', 'heating',
-            'parking', 'laundry', 'photo_url', 'matterport_link', 'calendly_link',
-            'name', 'description',
+        fields = [
+            "address1",
+            "address2",
+            "borough",
+            "zipcode",
+            "latitude",
+            "longitude",
+            "rent",
+            "area",
+            "bedrooms",
+            "bathrooms",
+            "furnished",
+            "elevator",
+            "heating",
+            "parking",
+            "laundry",
+            "photo_url",
+            "matterport_link",
+            "calendly_link",
+            "name",
+            "description",
         ]
