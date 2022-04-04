@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class UserProfile(AbstractUser):
     uaddr = models.CharField(max_length=100, default="")
     zip = models.CharField(max_length=5, default=00000)

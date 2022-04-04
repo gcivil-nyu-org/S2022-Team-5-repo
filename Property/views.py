@@ -3,13 +3,12 @@ from .models import Listing
 from django.http import HttpResponseRedirect
 from .forms import ListingForm
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+
+# from django.contrib.auth.decorators import login_required
 
 # TODO validate email
 # from django.core.validators import validate_email
 # from django.core.exceptions import ValidationError
-
-# Create your views here.
 
 
 def index(request):
@@ -103,7 +102,7 @@ def testproperty(request):
 def newlisting(request):
     # if this is a POST request we need to process the form data
     user = request.user
-    print(user)
+    # print(user)
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST)
@@ -111,7 +110,7 @@ def newlisting(request):
         if form.is_valid():
             obj = form.save()
             obj.owner = user
-            print(f'inside is_valid {obj.owner}')
+            # print(f'inside is_valid {obj.owner}')
             obj.save()
             result = "Success"
             message = "Your profile has been updated"

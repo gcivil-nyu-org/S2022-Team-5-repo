@@ -38,6 +38,7 @@ class ListingAdmin(admin.ModelAdmin):
         "bedrooms",
     ]
 
+
 admin.site.register(Listing, ListingAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"

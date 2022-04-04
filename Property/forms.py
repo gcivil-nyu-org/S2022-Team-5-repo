@@ -1,5 +1,3 @@
-from email.policy import default
-from pickle import FALSE
 from django import forms
 from .models import Listing
 
