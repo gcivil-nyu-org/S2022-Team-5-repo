@@ -190,7 +190,7 @@ class Migration(migrations.Migration):
         ),
         migrations.CreateModel(
             name="Listing",
-            fields=[
+            fields==[
                 ("listing_id", models.AutoField(primary_key=True, serialize=False)),
                 ("name", models.CharField(default=-1, max_length=100)),
                 ("created_on", models.DateTimeField(auto_now_add=True)),
