@@ -1,2 +1,7 @@
 .DS_Store
 db.sqlite3
+__pycache__
+*/migrations/*.py
+
+Property/migrations/0001_initial.py
+Property/migrations/0002_remove_listing_map_url_alter_listing_active_and_more.py

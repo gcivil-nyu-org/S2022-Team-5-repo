@@ -8,12 +8,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 import django_heroku
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTH_USER_MODEL = "Property.UserOfApp"
+AUTH_USER_MODEL = "account.UserProfile"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,9 +38,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "crispy_bootstrap5",
     "Property",
     "account",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -56,7 +62,7 @@ ROOT_URLCONF = "HouseMe.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -120,7 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-django_heroku.settings(locals())
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+django_heroku.settings(locals(), test_runner=False)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 env = environ.Env()
