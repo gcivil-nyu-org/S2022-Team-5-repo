@@ -4,6 +4,3 @@ __pycache__
 staticfiles/*
 .coverage
 .env
-Property/migrations/0001_initial.py
-Property/migrations/0002_initial.py
-account/migrations/0001_initial.py
