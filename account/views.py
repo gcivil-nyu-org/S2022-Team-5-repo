@@ -7,7 +7,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from Property.models import UserOfApp
+from .models import UserProfile
 from django.conf import settings
 from django.contrib.auth import authenticate, login  # , logout
 from django.http import HttpResponseRedirect
@@ -27,9 +27,9 @@ def signupsubmit(request):
     phone = request.POST["phone"]
     password = request.POST["password"]
 
-    # TODO BUG UNIQUE constraint failed: Property_userofapp.username
+    # TODO BUG UNIQUE constraint failed: UserProfile.username
 
-    user = UserOfApp.objects.create_user(
+    user = UserProfile.objects.create_user(
         first_name=first_name,
         last_name=last_name,
         username=username,
@@ -63,6 +63,7 @@ def loginsubmit(request):
         print("sucess")
         return HttpResponseRedirect(reverse("property:browselistings"))
     else:
+        print("wrong password")
         return render(request, "account/loginform.html")
 
 
@@ -71,7 +72,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data["email"]
-            associated_users = UserOfApp.objects.filter(Q(email=data))
+            associated_users = UserProfile.objects.filter(Q(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"

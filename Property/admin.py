@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserOfApp, Listing
+from .models import Listing
 
 # Register your models here.
 
@@ -39,7 +39,6 @@ class ListingAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(UserOfApp, UserAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"

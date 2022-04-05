@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from Property.models import UserOfApp
+from .models import UserProfile
 
 
 class TestAccountForms(TestCase):
@@ -11,7 +11,7 @@ class TestAccountForms(TestCase):
         self.phone = 0000000000
         self.password = "removedHerobrine"
         self.email = "steve@minecraft.realm"
-        self.user = UserOfApp.objects.create_user(
+        self.user = UserProfile.objects.create_user(
             first_name=self.firstName,
             last_name=self.lastName,
             username=self.username + "1",
