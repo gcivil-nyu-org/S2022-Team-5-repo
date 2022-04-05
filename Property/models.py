@@ -62,3 +62,9 @@ class Listing(models.Model):
 
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
+
+
+# class Image(models.Model):
+#     image_id = models.AutoField(primary_key=True)
+#     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
+#     url = models.Aggregate
