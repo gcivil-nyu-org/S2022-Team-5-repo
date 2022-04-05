@@ -10,7 +10,7 @@
     <section class="signup">
         <div class="container" style="width: 70%;">
             <div class="signup-content">
-                <form action="{% url 'property:createlisting' %}" method="POST" enctype="multipart/form-data" id="createclass-form" class="signup-form">
+                <form action="{% url 'property:newlisting' %}" method="POST" enctype="multipart/form-data" id="createclass-form" class="signup-form">
                     {% csrf_token %}
                     <h2 class="form-title">Rent Your Property with us!</h2>
                     <div class="row">

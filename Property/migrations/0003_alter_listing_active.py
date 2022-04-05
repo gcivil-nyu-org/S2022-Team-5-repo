@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Property', '0002_listing_owner'),
+        ("Property", "0002_listing_owner"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='listing',
-            name='active',
+            model_name="listing",
+            name="active",
             field=models.BooleanField(default=False),
         ),
     ]
