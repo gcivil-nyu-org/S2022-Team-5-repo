@@ -20,7 +20,6 @@ script:
   - black .
   - python -m black . --check
   - flake8 .
-  - python manage.py collectstatic
   - python -m coverage run --source=. manage.py test
 
 after_script:
