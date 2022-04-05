@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Listing
 from .forms import ListingForm
-from django.http import JsonResponse
+
 
 # from django.contrib.auth.decorators import login_required
 
@@ -35,13 +35,8 @@ def newlisting(request):
                 obj.save()
             else:
                 print("unknown user listing")
-            result = "Success"
-            message = "Your profile has been updated"
-        else:
-            result = "Failed"
-            message = "Failed to save listings form"
-        data = {"result": result, "message": message}
-        return JsonResponse(data)
+        listings = Listing.objects.all()
+        return render(request, "property/browselistings.html", {"listings": listings})
 
     # if a GET (or any other method) we'll create a blank form
     else:

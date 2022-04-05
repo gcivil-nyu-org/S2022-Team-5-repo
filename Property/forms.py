@@ -3,6 +3,7 @@ from .models import Listing
 
 
 class ListingForm(forms.ModelForm):
+    name = forms.CharField(max_length=100, required=False)
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=True)
     borough = forms.CharField(max_length=100, required=True)
@@ -18,15 +19,15 @@ class ListingForm(forms.ModelForm):
     heating = forms.BooleanField(required=False)
     parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
-    photo_url = forms.URLField(label="Photo Link", required=False)
+    photo_url = forms.ImageField(label="Photo", required=False)
     matterport_link = forms.URLField(label="matterport Link", required=False)
     calendly_link = forms.URLField(label="calendly Link", required=False)
-    name = forms.CharField(max_length=100, required=False)
     description = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Listing
         fields = [
+            "name",
             "address1",
             "address2",
             "borough",
@@ -45,6 +46,5 @@ class ListingForm(forms.ModelForm):
             "photo_url",
             "matterport_link",
             "calendly_link",
-            "name",
             "description",
         ]
