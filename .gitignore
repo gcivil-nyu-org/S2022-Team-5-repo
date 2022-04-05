@@ -3,5 +3,3 @@ db.sqlite3
 __pycache__
 .env
 .coverage
-!_migrations/__init__.py
-_migrations/*
