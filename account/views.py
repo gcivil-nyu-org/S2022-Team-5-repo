@@ -26,6 +26,7 @@ def signupsubmit(request):
     email = request.POST["email"]
     phone = request.POST["phone"]
     password = request.POST["password"]
+    # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
 
     # TODO BUG UNIQUE constraint failed: UserProfile.username
 
@@ -36,6 +37,7 @@ def signupsubmit(request):
         phone=phone,
         password=password,
         email=email,
+        # uid=uid,
     )
     user.save()
     subject = "Welcome to House ME!"

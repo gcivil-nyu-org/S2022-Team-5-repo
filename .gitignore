@@ -2,4 +2,5 @@
 db.sqlite3
 __pycache__
 staticfiles/*
+.env
 .coverage
