@@ -39,9 +39,7 @@ class Listing(models.Model):
     parking = models.BooleanField(verbose_name="Parking", default=False)
     laundry = models.BooleanField(verbose_name="Laundry", default=False)
     # Links and Files
-    photo_url = models.ImageField(
-        upload_to="media/", verbose_name="Photos", null=True, blank=True
-    )
+    photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
     matterport_link = models.URLField(
         verbose_name="Matterport_Link", max_length=300, null=True, blank=True
     )

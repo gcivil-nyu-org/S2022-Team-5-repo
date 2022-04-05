@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from .models import Listing
 from .forms import ListingForm
-from django.http import HttpResponseRedirect
-
 
 # from django.contrib.auth.decorators import login_required
 
@@ -25,7 +23,7 @@ def newlisting(request):
 
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
-        form = ListingForm(request.POST)
+        form = ListingForm(request.POST, request.FILES or None)
         # check whether it's valid:
         if form.is_valid():
             obj = form.save()
