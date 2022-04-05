@@ -57,7 +57,7 @@ class Listing(models.Model):
         verbose_name="Description", max_length=300, null=True, blank=True
     )
     # Management
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     ratings = models.FloatField(default=1, null=True, blank=True)
 
     def __str__(self) -> str:

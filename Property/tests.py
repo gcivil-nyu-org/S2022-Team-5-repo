@@ -1,65 +1,45 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from . import views
+from account.models import UserProfile
 
+# class TestPropertyForms(TestCase):
+#     def setUp(self):
+#         self.name = "Test Property"
+#         self.address1 = "Test Address 1"
+#         self.address2 = "Test Address 2"
+#         self.borough = "Manhattan"
+#         self.zipcode = "00000"
+#         self.latitude = 100
+#         self.longitude = 100
+#         self.bedrooms = 2
+#         self.bathrooms = 2
+#         self.area = 100
+#         self.rent = 100
 
-class TestPropertyForms(TestCase):
-    def setUp(self):
-        self.listName = "Test Property"
-        self.address1 = "Test Address 1"
-        self.address2 = "Test Address 2"
-        self.borough = "Manhattan"
-        self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
-        self.bedrooms = 2
-        self.bathrooms = 2
-        self.area = 100
-        self.rent = 100
-        self.furnished = "Yes"
-        self.elevator = "No"
-        self.heating = "Yes"
-        self.parking = "No"
-        self.laundry = "Yes"
-        self.mapURL = ""
-        self.photoURL = ""
-        self.vrLink = ""
-        self.calendlyLink = ""
-        self.description = "The best property!"
-
-    def testCreateListing(self):
-        response = self.client.post(
-            reverse("property:createlisting"),
-            data={
-                "listing_name": self.listName,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "bedrooms": self.bedrooms,
-                "bathrooms": self.bathrooms,
-                "area": self.area,
-                "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
-                "description": self.description,
-            },
-        )
-        self.assertEqual(response.status_code, 302)
+#     def testNewlistings(self):
+#         response = self.client.post(
+#             reverse("property:newlisting"),
+#             data={
+#                 "name": self.name,
+#                 "address1": self.address1,
+#                 "address2": self.address2,
+#                 "borough": self.borough,
+#                 "zipcode": self.zipcode,
+#                 "latitude": self.latitude,
+#                 "longitude": self.longitude,
+#                 "bedrooms": self.bedrooms,
+#                 "bathrooms": self.bathrooms,
+#                 "area": self.area,
+#                 "rent": self.rent,
+#             },
+#         )
+#         self.assertEqual(response.status_code, 302)
 
 
 class TestPropertyFormsNew(TestCase):
     def setUp(self):
-        self.listName = "Test Property"
+        self.name = "Test Property"
         self.address1 = "Test Address 1"
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
@@ -70,22 +50,22 @@ class TestPropertyFormsNew(TestCase):
         self.bathrooms = 2
         self.area = 100
         self.rent = 100
-        self.furnished = "No"
-        self.elevator = "Yes"
-        self.heating = "No"
-        self.parking = "Yes"
-        self.laundry = "No"
-        self.mapURL = ""
-        self.photoURL = ""
-        self.vrLink = ""
-        self.calendlyLink = ""
-        self.description = "The best property!"
 
-    def testCreateListing(self):
+        self.user = UserProfile.objects.create_user(
+            first_name="test_f",
+            last_name="test_l",
+            username="testuser",
+            phone="123455555",
+            password="12345",
+            email="yx2304@nyu.com",
+        )
+        self.client.login(username="testuser", password="12345")
+
+    def testNewlistings(self):
         response = self.client.post(
-            reverse("property:createlisting"),
+            reverse("property:newlisting"),
             data={
-                "listing_name": self.listName,
+                "name": self.name,
                 "address1": self.address1,
                 "address2": self.address2,
                 "borough": self.borough,
@@ -96,36 +76,16 @@ class TestPropertyFormsNew(TestCase):
                 "bathrooms": self.bathrooms,
                 "area": self.area,
                 "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
-                "description": self.description,
             },
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def testIndex(self):
         request = RequestFactory().get(path="Property/index.html")
         response = views.index(request)
         self.assertEqual(response.status_code, 200)
 
-    # def testCreate(self):
-    #     request = RequestFactory().get(path="Property/createlistingform.html")
-    #     response = views.createlistingform(request)
-    #     self.assertEqual(response.status_code, 200)
-
     def testBrowseList(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
+        request = RequestFactory().get(path="property/newlisting.html")
         response = views.browselistings(request)
-        self.assertEqual(response.status_code, 200)
-
-    def testProperty(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
-        response = views.testproperty(request)
         self.assertEqual(response.status_code, 200)

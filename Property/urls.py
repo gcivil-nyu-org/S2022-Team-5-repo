@@ -9,6 +9,6 @@ urlpatterns = [
     path("browselistings", views.browselistings, name="browselistings"),
     # TODO: use slug so new properties that are registered can be dynamically added
     # path("<slug>", views.),
-    path("test-property", views.testproperty, name="property_page"),
+    # path("test-property", views.testproperty, name="property_page"),
     path("newlisting", views.newlisting, name="newlisting"),
 ]
