@@ -7,3 +7,4 @@ django-s3direct
 django-storages
 boto3
 pillow
+crispy-bootstrap5
