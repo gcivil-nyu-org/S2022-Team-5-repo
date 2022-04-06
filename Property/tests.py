@@ -48,7 +48,7 @@ class TestPropertyFormsNew(TestCase):
                 "rent": self.rent,
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     # def testIndex(self):
     #     request = RequestFactory().get(path="Property/index.html")

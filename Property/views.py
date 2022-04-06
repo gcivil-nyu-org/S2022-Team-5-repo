@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from .forms import ListingForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # TODO validate email
 # from django.core.validators import validate_email
@@ -34,8 +35,14 @@ def newlisting(request):
                 obj.save()
             else:
                 print("unknown user listing")
-        listings = Listing.objects.all()
-        return render(request, "property/browselistings.html", {"listings": listings})
+            result = "Success"
+            message = "Your profile has been updated"
+        else:
+            result = "Failed"
+            message = "Failed to save listings form"
+        data = {"result": result, "message": message}
+        print(data)
+        return redirect(reverse("property:mylistings"))
 
     # if a GET (or any other method) we'll create a blank form
     else:
