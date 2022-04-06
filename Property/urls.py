@@ -17,4 +17,5 @@ urlpatterns = [
         name="editlistingsubmit",
     ),
     path("<int:listing_id>", views.propertypage, name="propertypage"),
+    path("filter/<borough>", views.filter, name="filter"),
 ]
