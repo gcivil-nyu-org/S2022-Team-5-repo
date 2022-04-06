@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    
+
     <div class="container">
         <!-- TODO: need to use a loop to display images for each specific property, not just a static amount like right now  -->
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -16,7 +16,7 @@
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-        
+
             <div class="carousel-inner">
                 <div class="item active">
                     <img src="{% static 'images/house1.png' %}" style="width:100%;">
@@ -28,7 +28,7 @@
                     <img src="{% static 'images/house1_in2.png' %}" style="width:100%;">
                 </div>
             </div>
-        
+
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -39,7 +39,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        
+
         <!-- Property Location -->
         <div class="property-location">
             <span class="">{{listing.address1}}</span><br>
@@ -99,11 +99,11 @@
                     commodo consequat.</div>
                 </div>
             </div>
-        </div> 
+        </div>
 
         <!-- Schedule a Tour -->
         <div class="Schedule a Tour">
-            
+
         </div>
     </div>
 
