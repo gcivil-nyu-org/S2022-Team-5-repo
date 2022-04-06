@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Listing
 from .forms import ListingForm
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 # TODO validate email
