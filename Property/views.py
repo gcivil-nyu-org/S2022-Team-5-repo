@@ -72,7 +72,7 @@ def filter(request, borough):
 def editlisting(request, listing_id):
     # listing = Listing.objects.filter(listing_id=listing_id)[0]
     listing = get_object_or_404(Listing, listing_id=listing_id)
-    return render(request, "property/editlisting.html", {"listing": user_listing})
+    return render(request, "property/editlisting.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")
