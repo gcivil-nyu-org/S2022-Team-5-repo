@@ -108,6 +108,10 @@ def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
     return render(request, "Property/mylistings.html", {"listings": user_listings})
 
+def filter(request, borough):
+    listings = Listing.objects.filter(borough=borough)
+    return render(request, "Property/mylistings.html", {"listings": listings})
+
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):
