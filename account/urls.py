@@ -31,5 +31,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path('sign-out', views.sign_out, name="sign-out"),
+    path("sign-out", views.sign_out, name="sign-out"),
 ]

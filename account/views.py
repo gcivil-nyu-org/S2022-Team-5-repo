@@ -111,8 +111,8 @@ def password_reset_request(request):
 
 
 def sign_out(request):
-	'''
-	Basic view for user sign out
-	'''
-	logout(request)
-	return redirect(reverse('account:loginform'))
+    """
+    Basic view for user sign out
+    """
+    logout(request)
+    return redirect(reverse("account:loginform"))
