@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTH_USER_MODEL = "account.UserProfile"
@@ -147,18 +148,19 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET")
-AWS_STORAGE_BUCKET_NAME = 'houseme'
-AWS_S3_REGION_NAME = 'us-east-1'
-AWS_S3_ENDPOINT_URL = 'https://s3.us-east-1.amazonaws.com'
+AWS_STORAGE_BUCKET_NAME = "houseme"
+AWS_S3_REGION_NAME = "us-east-1"
+AWS_S3_ENDPOINT_URL = "https://s3.us-east-1.amazonaws.com"
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
-AWS_S3_ADDRESSING_STYLE = 'virtual'
+AWS_S3_ADDRESSING_STYLE = "virtual"
 AWS_QUERYSTRING_AUTH = False
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 S3DIRECT_DESTINATIONS = {
-    'example_destination': {'key': 'uploads/images',
-                            'allowed': ['image/jpeg', 'image/png', 'video/mp4'],
-                            'allow_existence_optimization': False,
-                            },
-                            }
+    "example_destination": {
+        "key": "uploads/images",
+        "allowed": ["image/jpeg", "image/png", "video/mp4"],
+        "allow_existence_optimization": False,
+    },
+}

@@ -31,7 +31,6 @@ class ListingAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         "created_at",
-        "zipcode",
         "ratings",
         "bathrooms",
         "active",

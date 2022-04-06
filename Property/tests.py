@@ -1,40 +1,10 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
+
+# from Property.models import User
+# from account.tests import TestAccountForms
 from . import views
 from account.models import UserProfile
-
-# class TestPropertyForms(TestCase):
-#     def setUp(self):
-#         self.name = "Test Property"
-#         self.address1 = "Test Address 1"
-#         self.address2 = "Test Address 2"
-#         self.borough = "Manhattan"
-#         self.zipcode = "00000"
-#         self.latitude = 100
-#         self.longitude = 100
-#         self.bedrooms = 2
-#         self.bathrooms = 2
-#         self.area = 100
-#         self.rent = 100
-
-#     def testNewlistings(self):
-#         response = self.client.post(
-#             reverse("property:newlisting"),
-#             data={
-#                 "name": self.name,
-#                 "address1": self.address1,
-#                 "address2": self.address2,
-#                 "borough": self.borough,
-#                 "zipcode": self.zipcode,
-#                 "latitude": self.latitude,
-#                 "longitude": self.longitude,
-#                 "bedrooms": self.bedrooms,
-#                 "bathrooms": self.bathrooms,
-#                 "area": self.area,
-#                 "rent": self.rent,
-#             },
-#         )
-#         self.assertEqual(response.status_code, 302)
 
 
 class TestPropertyFormsNew(TestCase):
