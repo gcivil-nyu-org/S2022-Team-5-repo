@@ -7,15 +7,28 @@
 
 <body>
     <div class="row">
-      <div class="col-lg-3">
-        Filter
-        <div class="classroombox">
-          
-
+      <div class="col-lg-2">
+        <div class="classroombox" style="padding: 10%; text-align: center; color: black;">
+          Filter by Borough
+          <hr>
+          <div class="">
+            <a href="{% url 'property:filter' 'Manhattan' %}">Manhattan</a>
+          </div>
+          <div class="">
+            <a href="{% url 'property:filter' 'Brooklyn' %}">Brooklyn</a>
+          </div>
+          <div class="">
+            <a href="{% url 'property:filter' 'Queens' %}">Queens</a>
+          </div>
+          <div class="">
+            <a href="{% url 'property:filter' 'Bronx' %}">Bronx</a>
+          </div>
+          <div class="">
+            <a href="{% url 'property:filter' 'StatenIsland' %}">StatenIsland</a>
+          </div>
         </div>
-
       </div>
-        <div class="col-lg-9">
+        <div class="col-lg-10">
             {% for listing in listings%}
             <div class="row classroombox" style="padding: 1%;">
                 <div class="col-md-4 col-xs-12 ">

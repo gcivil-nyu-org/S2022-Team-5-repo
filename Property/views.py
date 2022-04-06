@@ -87,6 +87,10 @@ def createlisting(request):
     listing.save()
     return HttpResponseRedirect("browselistings")
 
+def filter(request, borough):
+    listings = Listing.objects.filter(borough=borough)
+    print(listings)
+    return render(request, "Property/browselistings.html", {"listings": listings})
 
 def browselistings(request):
     listings = Listing.objects.all()
