@@ -39,11 +39,11 @@
         </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" style="background: transparent;">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" style="background: transparent;">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -63,6 +63,7 @@
 
       <div class="row row-cols-1 row-cols-md-5 g-5">
         <div class="col">
+          <a href="{% url 'property:filter' 'Manhattan' %}">
           <div class="card">
             <img src="https://images.pexels.com/photos/2706653/pexels-photo-2706653.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="..." style="height: 150px;">
             <div class="card-body">
@@ -70,8 +71,10 @@
               <p class="card-text">Manhattan is the most densely populated and geographically smallest of the five boroughs of New York City.</p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
+          <a href="{% url 'property:filter' 'Brooklyn' %}">
           <div class="card">
             <img src="https://images.pexels.com/photos/2190283/pexels-photo-2190283.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="..." style="height: 150px;">
             <div class="card-body">
@@ -79,8 +82,10 @@
               <p class="card-text">Brooklyn (Kings County), on the western tip of Long Island, is the city's most populous borough.</p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
+          <a href="{% url 'property:filter' 'Queens' %}">
           <div class="card">
             <img src="https://cdn.theculturetrip.com/wp-content/uploads/2019/01/b872bt-1.jpg" class="card-img-top" alt="..." style="height: 150px;">
             <div class="card-body">
@@ -88,8 +93,10 @@
               <p class="card-text">Queens, is geographically the largest borough, the most ethnically diverse county in the United States.</p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
+          <a href="{% url 'property:filter' 'Bronx' %}">
           <div class="card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Yankee_Stadium_001.JPG" class="card-img-top" alt="..." style="height: 150px;">
             <div class="card-body">
@@ -97,8 +104,10 @@
               <p class="card-text">The Bronx (Bronx County) is New York City's northernmost borough and the only New York City borough that is part of the United States mainland.</p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
+          <a href="{% url 'property:filter' 'StatenIsland' %}">
           <div class="card">
             <img src="https://cdn.vox-cdn.com/thumbor/8lRhbtdwqFxYhHsHZAwbbKuFB2c=/0x0:2000x1328/1200x800/filters:focal(840x504:1160x824)/cdn.vox-cdn.com/uploads/chorus_image/image/54582755/111028_15_57_58_DSC_0199.0.jpg" class="card-img-top" alt="..."
               style="height: 150px;">
@@ -107,6 +116,7 @@
               <p class="card-text">Located in the city's southwest portion, the borough is separated from New Jersey by the Arthur Kill and the Kill Van Kull.</p>
             </div>
           </div>
+          </a>
         </div>
       </div>
 
