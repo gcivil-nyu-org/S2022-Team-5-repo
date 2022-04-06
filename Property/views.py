@@ -60,7 +60,7 @@ def propertypage(request, listing_id):
 @login_required(login_url="/account/loginform")
 def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
-    return render(request, "property/mylistings.html", {"listings": listings})
+    return render(request, "property/mylistings.html", {"listings":  user_listings})
 
 
 def filter(request, borough):
