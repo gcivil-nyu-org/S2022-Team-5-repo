@@ -19,29 +19,29 @@
         <a class="nav-link" href="#">View my Bookings</a>
       </li>
 
-      {% if user.renter %}
-      <li class="nav-item">
-        {# <a class="nav-link" href="{% url 'viewmyclassroom' %}">My Classrooms</a> #}
-      </li>
-      <li class="nav-item">
-        {# <a class="nav-link" href="{% url 'bookings' %}">Bookings</a> #}
-      </li>
-      {% endif %}
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Welcome {{user.first_name}}!</a>
-      </li>
-      <form class="form-inline my-2 my-lg-0" action="#" method="post">
-        {% csrf_token %}
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
-      </form>
-      {% else %}
-      <li class="nav-item">
-        {# <a class="nav-link" href="{% url 'signupform' %}">Sign Up</a> #}
-      </li>
-      <li class="nav-item">
-        {# <a class="nav-link" href="{% url 'loginform' %}">Sign In</a> #}
-      </li>
-      {% endif %}
-    </ul>
-  </div>
+            {% if user.renter %}
+            <li class="nav-item">
+                {# <a class="nav-link" href="{% url 'viewmyclassroom' %}">My Classrooms</a> #}
+            </li>
+            <li class="nav-item">
+                {# <a class="nav-link" href="{% url 'bookings' %}">Bookings</a> #}
+            </li>
+            {% endif %}
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Welcome {{user.first_name}}!</a>
+            </li>
+            <form class="form-inline my-2 my-lg-0" action="#" method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+            </form>
+            {% else %}
+            <li class="nav-item">
+                {# <a class="nav-link" href="{% url 'signupform' %}">Sign Up</a> #}
+            </li>
+            <li class="nav-item">
+                {# <a class="nav-link" href="{% url 'loginform' %}">Sign In</a> #}
+            </li>
+            {% endif %}
+        </ul>
+    </div>
 </nav>
