@@ -1,97 +1,25 @@
-<!-- Footer -->
-<footer class="page-footer font-small blue pt-4" style="padding: 2%; background-color: #343a40!important; color: white!important;">
-    <!-- Footer Links -->
-    <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3 slideanim">
-                <!-- Content -->
-                <h5 class="text-uppercase">HouseMe</h5>
-            </div>
-            <!-- Grid column -->
-            <hr class="clearfix w-100 d-md-none pb-3">
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-                <!-- Links -->
-                <a href="#">
-                    <h5 class="text-uppercase slideanim">HouseMe</h5>
-                </a>
-                <ul class="list-unstyled">
-                    {% if user.is_authenticated %}
-                    <li class="slideanim">
-                        <!-- <a href="#">
-                            <span>Browse Classroom</span>
-                        </a>    -->
-                    </li>
-                    <li class="slideanim">
-                        <!-- <a href="#">
-                            <span>Rent Your Classroom</span>
-                        </a> -->
-                    </li>
-                    <li class="slideanim">
-                        <!-- <a href="#">
-                            <span>View Your Classroom</span>
-                        </a> -->
-                    </li>
-                    {% else %}
-                    <li class="slideanim">
-                        <a href="#">
-                            <span>Sign Up</span>
-                        </a>
-                    </li>
-                    <li class="slideanim">
-                        <!-- <a href="#">
-                            <span>Sign In</span>
-                        </a> -->
-                    </li>
-                    {% endif %}
-<!--
-                    <li class="slideanim">
-                        <a href="#">Join</a>
-                    </li>
-                    <li>
-                    <a href="#!">Blog</a>
-                </li> -->
-                </ul>
-            </div>
-            <div class="col-md-3 mb-md-0 mb-3">
-                <!-- Links -->
-                <h5 class="text-uppercase slideanim">Follow Us On</h5>
-                <ul class="list-unstyled">
-                    <li class="slideanim">
-                        <!-- <a href="#!">Facebook<a href="#" class="fa fa-facebook"></a></a> -->
-                        <a href="#"><span class="btn btn-fb"><i class="fab fa-facebook-f pr-1"></i> Facebook</span></a>
-                    </li>
-                    <li class="slideanim">
-                        <a href="#"><span class="btn btn-tw"><i class="fab fa-twitter pr-1"></i> Twitter</span></a>
-                    </li>
-                    <!-- <li>
-                    <a href="#"><span class="btn btn-li"><i class="fab fa-linkedin-in pr-1"></i> Linkedin</span></a>
-                </li> -->
-                    <li class="slideanim">
-                        <a href="#"><span class="btn btn-ins"><i class="fab fa-instagram pr-1"></i> Instagram</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Grid row -->
+<section class="">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+      <section class="">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3">Sign up today!</span>
+          <a class="btn btn-outline-light btn-rounded" href="{% url 'account:signupform'%}">Register</a>
+        </p>
+      </section>
+      <!-- Section: CTA -->
     </div>
+    <!-- Grid container -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2020 HouseMe. All Rights Reserved</div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="{% url 'property:index' %}">HouseMe</a>
+    </div>
     <!-- Copyright -->
-</footer>
-
-<!-- Main css -->
-{% comment %} <link rel="stylesheet" href="{% static 'css/custom.css' %}"> {% endcomment %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
-
-<!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </footer>
+  <!-- Footer -->
+</section>
