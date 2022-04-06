@@ -9,7 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from .models import UserProfile
 from django.conf import settings
-from django.contrib.auth import authenticate, login  # , logout
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -108,3 +108,11 @@ def password_reset_request(request):
         template_name="account/password_reset.html",
         context={"password_reset_form": password_reset_form},
     )
+
+
+def sign_out(request):
+	'''
+	Basic view for user sign out
+	'''
+	logout(request)
+	return redirect(reverse('account:loginform'))
