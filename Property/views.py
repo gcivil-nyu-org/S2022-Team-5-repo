@@ -47,7 +47,6 @@ def newlisting(request):
         form = ListingForm()
         context = {"form": form}
     return render(request, "property/newlisting.html", context)
-    return render(request, "Property/browselistings.html", {"listings": listings})
 
 
 def propertypage(request, listing_id):

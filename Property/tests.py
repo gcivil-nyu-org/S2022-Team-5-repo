@@ -6,6 +6,7 @@ from django.urls import reverse
 from . import views
 from account.models import UserProfile
 
+
 class TestPropertyFormsNew(TestCase):
     def setUp(self):
         self.name = "Test Property"

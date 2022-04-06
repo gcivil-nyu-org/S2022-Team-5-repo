@@ -5,14 +5,14 @@ from .models import Listing
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ["id", "created_on", "username", "first_name", "last_name", "email"]
+    list_display = ["id", "created_at", "username", "first_name", "last_name", "email"]
     search_fields = ["id", "first_name", "last_name", "email"]
 
 
 class ListingAdmin(admin.ModelAdmin):
     list_display = [
         "listing_id",
-        "created_on",
+        "created_at",
         "name",
         "address1",
         "address2",
@@ -30,7 +30,7 @@ class ListingAdmin(admin.ModelAdmin):
         "active",
     ]
     list_filter = [
-        "created_on",
+        "created_at",
         "ratings",
         "bathrooms",
         "active",
