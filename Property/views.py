@@ -1,121 +1,77 @@
-from django.shortcuts import render
-from .models import User, Listing
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Listing
+from .forms import ListingForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # TODO validate email
 # from django.core.validators import validate_email
 # from django.core.exceptions import ValidationError
 
-# Create your views here.
-
 
 def index(request):
-    return render(request, "Property/index.html")
-
-
-def createlistingform(request):
-    payload = {}
-    return render(request, "Property/createlistingform.html", payload)
-
-
-def createlisting(request):
-    name = request.POST["listing_name"]
-    address1 = request.POST["address1"]
-    address2 = request.POST["address2"]
-    borough = request.POST["borough"]
-    zipcode = request.POST["zipcode"]
-    latitude = request.POST["latitude"]
-    longitude = request.POST["longitude"]
-    bedrooms = request.POST["bedrooms"]
-    bathrooms = request.POST["bathrooms"]
-    area = request.POST["area"]
-    rent = request.POST["rent"]
-    furnished = request.POST["furnished"]
-    elevator = request.POST["elevator"]
-    heating = request.POST["heating"]
-    parking = request.POST["parking"]
-    laundry = request.POST["laundry"]
-    map_url = request.POST["map_url"]
-    photo_url = request.FILES.get("photo_url")
-    matterport_link = request.POST["matterport_link"]
-    calendly_link = request.POST["calendly_link"]
-    description = request.POST["description"]
-    try:
-        owner = User.objects.filter(username=request.user.username)[0]
-        if furnished == "Yes":
-            furnished = True
-        else:
-            furnished = False
-        if elevator == "Yes":
-            elevator = True
-        else:
-            elevator = False
-        if heating == "Yes":
-            heating = True
-        else:
-            heating = False
-        if parking == "Yes":
-            parking = True
-        else:
-            parking = False
-        if laundry == "Yes":
-            laundry = True
-        else:
-            laundry = False
-        listing = Listing(
-            name=name,
-            address1=address1,
-            address2=address2,
-            borough=borough,
-            zipcode=zipcode,
-            latitude=latitude,
-            longitude=longitude,
-            bedrooms=bedrooms,
-            bathrooms=bathrooms,
-            area=area,
-            rent=rent,
-            furnished=furnished,
-            elevator=elevator,
-            heating=heating,
-            parking=parking,
-            laundry=laundry,
-            map_url=map_url,
-            photo_url=photo_url,
-            matterport_link=matterport_link,
-            description=description,
-            calendly_link=calendly_link,
-            owner=owner,
-        )
-        listing.save()
-
-        return HttpResponseRedirect("browselistings")
-    except IndexError:
-        return HttpResponseRedirect("/account/loginform")
+    return render(request, "property/index.html")
 
 
 def browselistings(request):
     listings = Listing.objects.all()
-    return render(request, "Property/browselistings.html", {"listings": listings})
+    return render(request, "property/browselistings.html", {"listings": listings})
 
 
-def testproperty(request):
-    return render(request, "Property/property_page.html")
+def newlisting(request):
+    # if this is a POST request we need to process the form data
+
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = ListingForm(request.POST, request.FILES or None)
+        # check whether it's valid:
+        if form.is_valid():
+            obj = form.save()
+            if request.user is not None:
+                user = request.user
+                obj.owner = user
+                print(f"valid user: {obj.owner} listing")
+                obj.save()
+            else:
+                print("unknown user listing")
+            result = "Success"
+            message = "Your profile has been updated"
+        else:
+            result = "Failed"
+            message = "Failed to save listings form"
+        data = {"result": result, "message": message}
+        print(data)
+        return redirect(reverse("property:mylistings"))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ListingForm()
+        context = {"form": form}
+    return render(request, "property/newlisting.html", context)
+
+
+def propertypage(request, listing_id):
+    # listing = Listing.objects.filter(listing_id=listing_id)[0]
+    listing = get_object_or_404(Listing, listing_id=listing_id)
+    return render(request, "Property/property_page.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")
 def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
-    return render(request, "Property/mylistings.html", {"listings": user_listings})
+    return render(request, "property/browselistings.html", {"listings": user_listings})
+
 
 def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
-    return render(request, "Property/mylistings.html", {"listings": listings})
+    return render(request, "property/browselistings.html", {"listings": listings})
 
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):
-    listing = Listing.objects.filter(listing_id=listing_id)[0]
+    # listing = Listing.objects.filter(listing_id=listing_id)[0]
+    listing = get_object_or_404(Listing, listing_id=listing_id)
     return render(request, "Property/editlisting.html", {"listing": listing})
 
 

@@ -7,9 +7,9 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from Property.models import User
+from .models import UserProfile
 from django.conf import settings
-from django.contrib.auth import authenticate, login #, logout
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -28,11 +28,9 @@ def signupsubmit(request):
     password = request.POST["password"]
     # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
 
-    print(request.user)
+    # TODO BUG UNIQUE constraint failed: UserProfile.username
 
-    # TODO BUG UNIQUE constraint failed: Property_User.username
-
-    user = User.objects.create_user(
+    user = UserProfile.objects.create_user(
         first_name=first_name,
         last_name=last_name,
         username=username,
@@ -67,6 +65,7 @@ def loginsubmit(request):
         print("sucess")
         return HttpResponseRedirect(reverse("property:browselistings"))
     else:
+        print("wrong password")
         return render(request, "account/loginform.html")
 
 
@@ -75,7 +74,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data["email"]
-            associated_users = User.objects.filter(Q(email=data))
+            associated_users = UserProfile.objects.filter(Q(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -106,6 +105,14 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(
         request=request,
-        template_name="account/templates/password_reset.html",
+        template_name="account/password_reset.html",
         context={"password_reset_form": password_reset_form},
     )
+
+
+def sign_out(request):
+    """
+    Basic view for user sign out
+    """
+    logout(request)
+    return redirect(reverse("account:loginform"))
