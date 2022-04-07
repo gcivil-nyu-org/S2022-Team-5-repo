@@ -103,28 +103,35 @@
                         <h4>Rent: ${{listing.rent}}</h4>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input onclick="location.href='{{listing.map_url}}'" type="button"
-                            class="btn btn-info btn-sm btn-block" value="Map"></input>
-                    </div>
-                    <div class="col-md-4">
-                        <input onclick="location.href='{{listing.matterport_link}}'" type="button"
-                            class="btn btn-info btn-sm btn-block" value="VR Tour"></input>
-                    </div>
+                <a class="btn btn-primary disabled btn-block" href="#" role="button">View</a>
+                    {% if not listing.map_url %}
+                    <a class="btn btn-secondary disabled" href="#" role="button">Map Unavailable</a>
+                    {% else %}
+                    <a class="btn btn-secondary " href="{{listing.map_url}}" role="button">Map</a>
+                    {% endif %}
+
+
+                    {% if not listing.matterport_link %}
+                    <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
+                    {% else %}
+                    <a class="btn btn-secondary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>
+                    {% endif %}
+                    {% if not listing.calendly_link %}
+                    <a class="btn btn-secondary disabled btn-block" href="#" role="button">Schedule Tour Unavailable</a>
+                    {% else %}
+                    <a class="btn btn-secondary btn-block " href="{{listing.calendly_link}}" role="button">Schedule Tour</a>
+                    {% endif %}
                     <div class="col-md-4">
                         <input onclick="location.href='/property/editlisting/{{listing.listing_id}}'" type="button"
-                            class="btn btn-info btn-sm btn-block" onsubmit="" value="Edit"></input>
+                        style="margin:5px;" class="btn btn-secondary btn-block" onsubmit="" value="Edit"></input>
                     </div>
-                </div>
                 <br>
                 <form action="#" method="post" id="form">
                     {% csrf_token %}
                     <input type="hidden" name="classroomid" value="{{classroom.class_id}}">
-                    <input type="submit" name="submit" id="submit" class="btn btn-primary btn-lg btn-block"
-                        value="View" />
                 </form>
             </div>
+            </br>
         </div>
         {% endfor %}
 
