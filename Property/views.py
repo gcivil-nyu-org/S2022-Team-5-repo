@@ -60,7 +60,7 @@ def propertypage(request, listing_id):
 @login_required(login_url="/account/loginform")
 def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
-    return render(request, "property/mylistings.html", {"listings":  user_listings})
+    return render(request, "property/mylistings.html", {"listings": user_listings})
 
 
 def filter(request, borough):
@@ -95,7 +95,6 @@ def editlistingsubmit(request, listing_id):
     heating = request.POST["heating"]
     parking = request.POST["parking"]
     laundry = request.POST["laundry"]
-    listing.map_url = request.POST["map_url"]
     listing.photo_url = request.FILES.get("photo_url")
     listing.matterport_link = request.POST["matterport_link"]
     listing.calendly_link = request.POST["calendly_link"]
