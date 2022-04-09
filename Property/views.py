@@ -54,7 +54,7 @@ def newlisting(request):
 def propertypage(request, listing_id):
     # listing = Listing.objects.filter(listing_id=listing_id)[0]
     listing = get_object_or_404(Listing, listing_id=listing_id)
-    return render(request, "Property/property_page.html", {"listing": listing})
+    return render(request, "property/property_page.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")

@@ -19,7 +19,11 @@
 
             <div class="carousel-inner">
                 <div class="item active">
-                    <img src="{% static 'images/house1.png' %}" style="width:100%;">
+                    {% if listing.photo_url %}
+                    <img src="{{listing.photo_url.url}}" style="width:100%;">
+                    {% else %}
+                <p></p>
+                {% endif %}
                 </div>
                 <div class="item">
                     <img src="{% static 'images/house1_in1.png' %}" style="width:100%;">
