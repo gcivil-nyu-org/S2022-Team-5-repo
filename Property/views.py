@@ -35,8 +35,8 @@ def newlisting(request):
             if request.user is not None:
                 user = request.user
                 obj.owner = user
-                print(f"valid user: {obj.owner} listing")
                 obj.save()
+                print(f"valid user: {obj.owner} listing")
                 for i in formset.cleaned_data:
                     if i:
                         image = i['image']
@@ -44,6 +44,7 @@ def newlisting(request):
                         photo.save()
                     else:
                         print(form.errors, formset.errors)
+
             else:
                 print("unknown user listing")
             result = "Success"
