@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing
+from .models import Listing, Images
 
 
 class ListingForm(forms.ModelForm):
@@ -19,7 +19,7 @@ class ListingForm(forms.ModelForm):
     heating = forms.BooleanField(required=False)
     parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
-    photo_url = forms.FileField(label="Photo", required=False)
+    #photo_url = forms.FileField(label="Photo", required=False)
     matterport_link = forms.URLField(label="matterport Link", required=False)
     calendly_link = forms.URLField(label="calendly Link", required=False)
     description = forms.CharField(max_length=100, required=False)
@@ -43,8 +43,14 @@ class ListingForm(forms.ModelForm):
             "heating",
             "parking",
             "laundry",
-            "photo_url",
             "matterport_link",
             "calendly_link",
             "description",
         ]
+
+class ImageForm(ListingForm):
+    image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    class Meta:
+        fields = ['image',]     
+
+

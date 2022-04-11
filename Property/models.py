@@ -1,5 +1,6 @@
 from django.db import models
 from account.models import UserProfile
+from django.template.defaultfilters import slugify
 
 
 # Create your models here.
@@ -39,7 +40,7 @@ class Listing(models.Model):
     parking = models.BooleanField(verbose_name="Parking", default=False)
     laundry = models.BooleanField(verbose_name="Laundry", default=False)
     # Links and Files
-    photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
+    #photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
     matterport_link = models.URLField(
         verbose_name="Matterport_Link", max_length=300, null=True, blank=True
     )
@@ -60,8 +61,12 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+def get_image_filename(instance, filename):
+    title = instance.listing.name
+    slug = slugify(title)
+    return "post_images/%s-%s" % (slug, filename)  
 
-# class Image(models.Model):
-#     image_id = models.AutoField(primary_key=True)
-#     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
-#     url = models.Aggregate
+class Images(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to=get_image_filename,verbose_name='Image')
+
