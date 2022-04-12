@@ -1,5 +1,7 @@
 from django.db import models
 from account.models import UserProfile
+from s3direct.fields import S3DirectField
+
 
 
 # Create your models here.
@@ -56,4 +58,5 @@ class Listing(models.Model):
 class Images(models.Model):
 
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to="media/", verbose_name='Image')
+    image = models.FileField(upload_to="media/", verbose_name='Image')
+   # image= S3UploadField(dest='example_destination')

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Listing, Images
+from s3upload.widgets import S3UploadWidget
 
 
 class ListingForm(forms.ModelForm):
@@ -48,9 +49,11 @@ class ListingForm(forms.ModelForm):
             "description",
         ]
 
-class ImageForm(ListingForm):
-    image = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-    class Meta:
-        fields = ['image',]     
+class ImageForm(forms.ModelForm):
+    #images = forms.URLField(widget=S3UploadWidget(dest='example_destination'))
+    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    class Meta(ListingForm.Meta):
+        fields = ['images',]     
 
 
