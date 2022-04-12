@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing
-from .forms import ListingForm
+from .models import Listing, Images
+from .forms import ListingForm, ImageForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.forms import modelformset_factory
+
 
 # TODO validate email
 # from django.core.validators import validate_email
@@ -16,23 +18,34 @@ def index(request):
 
 def browselistings(request):
     listings = Listing.objects.all()
-    return render(request, "property/browselistings.html", {"listings": listings})
+    photo = Images.objects.all()
+    return render(request, "property/browselistings.html", {"listings": listings, "photo_urls": photo})
 
 
 def newlisting(request):
     # if this is a POST request we need to process the form data
-
+    ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=1)
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+
         # check whether it's valid:
-        if form.is_valid():
+        if form.is_valid() & formset.is_valid():
             obj = form.save()
             if request.user is not None:
                 user = request.user
                 obj.owner = user
-                print(f"valid user: {obj.owner} listing")
                 obj.save()
+                print(f"valid user: {obj.owner} listing")
+                for i in formset.cleaned_data:
+                    if i:
+                        image = i['image']
+                        photo = Images(listing=form, image=image)
+                        photo.save()
+                    else:
+                        print(form.errors, formset.errors)
+
             else:
                 print("unknown user listing")
             result = "Success"
@@ -47,7 +60,8 @@ def newlisting(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ListingForm()
-        context = {"form": form}
+        formset = ImageFormSet(queryset=Images.objects.none())
+        context = {"form": form, 'formset': formset}
     return render(request, "property/newlisting.html", context)
 
 

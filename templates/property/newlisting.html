@@ -10,8 +10,12 @@
 
 <div class="container">
     <form id = 'listingform' method="POST" enctype="multipart/form-data" multiple action = "{% url 'property:newlisting' %}">
-        {% csrf_token %}
-        {{ form|crispy}}
+    {% csrf_token %}
+    {{ form|crispy}}
+    {{formset.management_form}}
+    {% for i in formset %}
+        {{ i.image | as_crispy_field }}
+    {% endfor %}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
