@@ -1,18 +1,18 @@
 from django.contrib import admin
-from .models import User, Listing
+from .models import Listing
 
 # Register your models here.
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ["id", "created_on", "username", "first_name", "last_name", "email"]
+    list_display = ["id", "created_at", "username", "first_name", "last_name", "email"]
     search_fields = ["id", "first_name", "last_name", "email"]
 
 
 class ListingAdmin(admin.ModelAdmin):
     list_display = [
         "listing_id",
-        "created_on",
+        "created_at",
         "name",
         "address1",
         "address2",
@@ -30,7 +30,7 @@ class ListingAdmin(admin.ModelAdmin):
         "active",
     ]
     list_filter = [
-        "created_on",
+        "created_at",
         "ratings",
         "bathrooms",
         "active",
@@ -38,7 +38,6 @@ class ListingAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(User, UserAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"

@@ -3,6 +3,7 @@ django-heroku
 django
 django-environ
 django_crispy_forms
+crispy-bootstrap5
 django-s3direct
 django-storages
 boto3
