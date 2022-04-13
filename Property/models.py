@@ -44,9 +44,7 @@ class Listing(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=True)
-    description = models.CharField(
-        verbose_name="Description", max_length=300, null=True, blank=True
-    )
+    description = models.TextField(verbose_name="Description", null=True, blank=True)
     active = models.BooleanField(default=False)
     ratings = models.FloatField(default=1, null=True, blank=True)
 

@@ -28,7 +28,7 @@ def newlisting(request):
         files = request.FILES.getlist('photo_url')
         # check whether it's valid:
         if form.is_valid():
-            obj = form.save()                
+            obj = form.save()
             if request.user is not None:
                 user = request.user
                 obj.owner = user
