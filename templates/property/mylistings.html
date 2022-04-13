@@ -63,12 +63,14 @@
                                 <div class="col-md-4"> Parking: {{listing.parking}} </div>
                                 <div class="col-md-4"> Elevator: {{listing.elevator}}</div>
                             </div>
-                            
+
                             <div class="d-flex align-items-end">
-                                <a class="btn btn-primary" href="{{listing.listing_id}}" role="button" style = "margin: 2px 2px 2px 2px">View</a>
-                                <a class="btn btn-secondary " href={% url 'property:editlisting' listing.listing_id %} role="button" style = "margin: 2px 2px 2px 2px">Edit</a>
+                                <a class="btn btn-primary" href="{{listing.listing_id}}" role="button"
+                                    style="margin: 2px 2px 2px 2px">View</a>
+                                <a class="btn btn-secondary " href={% url 'property:editlisting' listing.listing_id %}
+                                    role="button" style="margin: 2px 2px 2px 2px">Edit</a>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
