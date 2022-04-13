@@ -58,5 +58,5 @@ class Listing(models.Model):
 class Images(models.Model):
 
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.FileField(upload_to="media/", verbose_name='Image')
+    image = models.ImageField(upload_to="media/", verbose_name='Image')
    # image= S3UploadField(dest='example_destination')

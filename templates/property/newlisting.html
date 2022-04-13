@@ -14,7 +14,7 @@
     {{ form|crispy}}
     {{formset.management_form}}
     {% for i in formset %}
-        {{ i.image | as_crispy_field }}
+        {{ i | crispy }}
     {% endfor %}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>

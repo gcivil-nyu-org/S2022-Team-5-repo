@@ -32,10 +32,8 @@
             {% for listing in listings%}
             <div class="row classroombox" style="padding: 1%;">
               <div class="col-md-4 col-xs-12 ">
-                {% for image in photo.photo_url %}
-                    <img class="classroomboximg" src="{{image.url}}" alt="" style="width: 600px;">
-                    {% endfor %}
-                  
+                  {% for photo in photos %}
+                    <img class="classroomboximg" src="{{photo.image.url}}" alt="" style="width: 600px;">                  
               </div>
               <div class="col-md-8">
                   <h3>{{listing.name}}</h3>
@@ -146,6 +144,8 @@
                 </div>
             </div>
             {% endfor %}
+            {% endfor %}
+
         </div>
     </div>
 

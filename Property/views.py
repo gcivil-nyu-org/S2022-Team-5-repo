@@ -18,20 +18,19 @@ def index(request):
 
 def browselistings(request):
     listings = Listing.objects.all()
-    photo = Images.objects.all()
-    return render(request, "property/browselistings.html", {"listings": listings, "photo_urls": photo})
+    photos = Images.objects.all()
+    return render(request, "property/browselistings.html", {"listings": listings, "photo_urls": photos})
 
 
 def newlisting(request):
     # if this is a POST request we need to process the form data
-    ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=1)
+    ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=3)
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
         formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-
         # check whether it's valid:
-        if form.is_valid() & formset.is_valid():
+        if form.is_valid() and formset.is_valid():
             obj = form.save()
             if request.user is not None:
                 user = request.user
@@ -40,8 +39,10 @@ def newlisting(request):
                 print(f"valid user: {obj.owner} listing")
                 for i in formset.cleaned_data:
                     if i:
-                        image = i['image']
-                        photo = Images(listing=form, image=image)
+                        images = i['images']
+                        #print(images)
+                        photo = Images(listing=obj, image=images)
+                        print(images)
                         photo.save()
                     else:
                         print(form.errors, formset.errors)
