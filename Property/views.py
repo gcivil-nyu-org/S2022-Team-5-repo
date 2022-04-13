@@ -28,24 +28,15 @@ def newlisting(request):
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
-        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-
+        files = request.FILES.getlist('photo_url')
         # check whether it's valid:
-        if form.is_valid() & formset.is_valid():
-            obj = form.save()
+        if form.is_valid():
+            obj = form.save()                
             if request.user is not None:
                 user = request.user
                 obj.owner = user
                 obj.save()
-                print(f"valid user: {obj.owner} listing")
-                for i in formset.cleaned_data:
-                    if i:
-                        image = i['image']
-                        photo = Images(listing=form, image=image)
-                        photo.save()
-                    else:
-                        print(form.errors, formset.errors)
-
+                print(files)
             else:
                 print("unknown user listing")
             result = "Success"

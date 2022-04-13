@@ -40,6 +40,7 @@ class Listing(models.Model):
     matterport_link = models.URLField(
         verbose_name="Matterport_Link", max_length=300, null=True, blank=True
     )
+    photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
     calendly_link = models.URLField(
         verbose_name="Calendly_Link", max_length=300, null=True, blank=True
     )
@@ -55,8 +56,8 @@ class Listing(models.Model):
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
 
-class Images(models.Model):
+#class Images(models.Model):
 
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.FileField(upload_to="media/", verbose_name='Image')
-   # image= S3UploadField(dest='example_destination')
+ #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
+  #  image = models.FileField(upload_to="media/", verbose_name='Image')
+   # image= S3DirectField(dest='example_destination')
