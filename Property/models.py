@@ -1,47 +1,59 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from account.models import UserProfile
 
 
 # Create your models here.
-
-
-class User(AbstractUser):
-    uaddr = models.CharField(max_length=100, default="")
-    phone = models.CharField(max_length=10, default="0000000000")
-    uid = models.IntegerField(default=-1, null=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-    is_property_owner = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name + " " + self.email
-
-
 class Listing(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     listing_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100, default=-1)
-    created_on = models.DateTimeField(auto_now_add=True)
-    address1 = models.CharField(max_length=100, default=-1)
-    address2 = models.CharField(max_length=120, default=-1)
-    borough = models.CharField(max_length=120, default=-1)
-    zipcode = models.CharField(max_length=8, default=-1)
-    latitude = models.CharField(max_length=300, default="")
-    longitude = models.CharField(max_length=300, default="")
-    rent = models.IntegerField(default=-1)
-    description = models.CharField(max_length=300, default="-")
-    bedrooms = models.IntegerField(default=-1)
-    furnished = models.BooleanField(default=False)
-    elevator = models.BooleanField(default=False)
-    heating = models.BooleanField(default=False)
-    parking = models.BooleanField(default=False)
-    laundry = models.BooleanField(default=False)
-    ratings = models.FloatField(default=-1)
-    bathrooms = models.IntegerField(default=-1)
-    area = models.FloatField(default=-1)
-    active = models.BooleanField(default=False)
-    map_url = models.CharField(max_length=300, default="-")
+    owner = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    address1 = models.CharField(
+        verbose_name="Address_1", max_length=100, null=True, blank=True
+    )
+    address2 = models.CharField(
+        verbose_name="Address_2", max_length=120, null=True, blank=True
+    )
+    borough = models.CharField(
+        verbose_name="Borough", max_length=120, null=True, blank=True
+    )
+    zipcode = models.CharField(
+        verbose_name="Zip Code", max_length=8, null=True, blank=True
+    )
+    latitude = models.CharField(
+        verbose_name="Latitude", max_length=50, null=True, blank=True
+    )
+    longitude = models.CharField(
+        verbose_name="Longitude", max_length=50, null=True, blank=True
+    )
+    rent = models.IntegerField(verbose_name="Rent", default=1)
+    area = models.FloatField(verbose_name="Area", default=0)
+    bedrooms = models.IntegerField(verbose_name="Bedrooms", default=1)
+    bathrooms = models.IntegerField(verbose_name="Bathrooms", default=1)
+    furnished = models.BooleanField(verbose_name="Furnished", default=False)
+    elevator = models.BooleanField(verbose_name="Elevator", default=False)
+    heating = models.BooleanField(verbose_name="Heating", default=False)
+    parking = models.BooleanField(verbose_name="Parking", default=False)
+    laundry = models.BooleanField(verbose_name="Laundry", default=False)
+    matterport_link = models.URLField(
+        verbose_name="Matterport_Link", max_length=300, null=True, blank=True
+    )
     photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
-    matterport_link = models.CharField(max_length=300, default=-1)
-    calendly_link = models.CharField(max_length=300, default=-1)
-    # def __str__(self):
-    #     return self.owner.first_name + ' ' + self.owner.last_name + ', ' + '\n' + self.shopno + '\n' +self.streetname + '\n' + str(self.city) +', ' + str(self.state) + ', ' + self.zipcode
+    calendly_link = models.URLField(
+        verbose_name="Calendly_Link", max_length=300, null=True, blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=True)
+    description = models.TextField(verbose_name="Description", null=True, blank=True)
+    active = models.BooleanField(default=False)
+    ratings = models.FloatField(default=1, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
+
+
+# class Images(models.Model):
+
+#   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
+#  image = models.FileField(upload_to="media/", verbose_name='Image')
+# image= S3DirectField(dest='example_destination')

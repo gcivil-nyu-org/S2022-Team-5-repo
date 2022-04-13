@@ -1,10 +1,64 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 
-# from Property.models import User
 # from account.tests import TestAccountForms
 from . import views
-from Property.models import User, Listing
+from account.models import UserProfile
+from Property.models import Listing
+
+
+class TestPropertyFormsNew(TestCase):
+    def setUp(self):
+        self.name = "Test Property"
+        self.address1 = "Test Address 1"
+        self.address2 = "Test Address 2"
+        self.borough = "Manhattan"
+        self.zipcode = "00000"
+        self.latitude = 100
+        self.longitude = 100
+        self.bedrooms = 2
+        self.bathrooms = 2
+        self.area = 100
+        self.rent = 100
+
+        self.user = UserProfile.objects.create_user(
+            first_name="test_f",
+            last_name="test_l",
+            username="testuser",
+            phone="123455555",
+            password="12345",
+            email="yx2304@nyu.com",
+        )
+        self.client.login(username="testuser", password="12345")
+
+    def testNewlistings(self):
+        response = self.client.post(
+            reverse("property:newlisting"),
+            data={
+                "name": self.name,
+                "address1": self.address1,
+                "address2": self.address2,
+                "borough": self.borough,
+                "zipcode": self.zipcode,
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "bedrooms": self.bedrooms,
+                "bathrooms": self.bathrooms,
+                "area": self.area,
+                "rent": self.rent,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+    # def testIndex(self):
+    #     request = RequestFactory().get(path="Property/index.html")
+    #     response = views.index(request)
+    #     self.assertEqual(response.status_code, 200)
+
+    def testBrowseList(self):
+        request = RequestFactory().get(path="property/newlisting.html")
+        response = views.browselistings(request)
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPropertyForms(TestCase):
@@ -25,14 +79,13 @@ class TestPropertyForms(TestCase):
         self.heating = "Yes"
         self.parking = "No"
         self.laundry = "Yes"
-        self.mapURL = ""
-        self.photoURL = ""
-        self.vrLink = ""
-        self.calendlyLink = ""
+        self.matterport_link = ""
+        self.photo_url = ""
+        self.calendly_link = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = User.objects.create(is_property_owner=True, username=self.username)
+        self.user = UserProfile.objects.create(renter=True, username=self.username)
         self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
@@ -53,43 +106,12 @@ class TestPropertyForms(TestCase):
             heating=True,
             parking=False,
             laundry=True,
-            map_url=self.mapURL,
-            photo_url=self.photoURL,
-            matterport_link=self.vrLink,
-            calendly_link=self.calendlyLink,
+            matterport_link=self.matterport_link,
+            photo_url=self.photo_url,
+            calendly_link=self.calendly_link,
             description=self.description,
             owner=self.user,
         )
-
-    def testCreateListing(self):
-        response = self.client.post(
-            reverse("property:createlisting"),
-            data={
-                "listing_name": self.listName,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "bedrooms": self.bedrooms,
-                "bathrooms": self.bathrooms,
-                "area": self.area,
-                "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
-                "description": self.description,
-                "owner": self.user,
-            },
-        )
-        self.assertEqual(response.status_code, 302)
 
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
@@ -112,17 +134,16 @@ class TestPropertyForms(TestCase):
                 "heating": self.heating,
                 "parking": self.parking,
                 "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
+                "photo_url": self.photo_url,
+                "matterport_link": self.matterport_link,
+                "calendly_link": self.calendly_link,
                 "description": self.description,
             },
         )
         self.assertEqual(response.status_code, 302)
 
 
-class TestPropertyFormsNew(TestCase):
+class TestPropertyFormsNew1(TestCase):
     def setUp(self):
         self.listName = "Test Property"
         self.address1 = "Test Address 1"
@@ -147,7 +168,7 @@ class TestPropertyFormsNew(TestCase):
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = User.objects.create(is_property_owner=True, username=self.username)
+        self.user = UserProfile.objects.create(renter=True, username=self.username)
         self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
@@ -167,43 +188,12 @@ class TestPropertyFormsNew(TestCase):
             heating=False,
             parking=True,
             laundry=False,
-            map_url=self.mapURL,
             photo_url=self.photoURL,
             matterport_link=self.vrLink,
             calendly_link=self.calendlyLink,
             description=self.description,
             owner=self.user,
         )
-
-    def testCreateListing(self):
-        response = self.client.post(
-            reverse("property:createlisting"),
-            data={
-                "listing_name": self.listName,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "bedrooms": self.bedrooms,
-                "bathrooms": self.bathrooms,
-                "area": self.area,
-                "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
-                "map_url": self.mapURL,
-                "photo_url": self.photoURL,
-                "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
-                "description": self.description,
-                "owner": self.user,
-            },
-        )
-        self.assertEqual(response.status_code, 302)
 
     def testEditListing(self):
         response = self.client.post(
@@ -225,7 +215,6 @@ class TestPropertyFormsNew(TestCase):
                 "heating": self.heating,
                 "parking": self.parking,
                 "laundry": self.laundry,
-                "map_url": self.mapURL,
                 "photo_url": self.photoURL,
                 "matterport_link": self.vrLink,
                 "calendly_link": self.calendlyLink,
@@ -233,23 +222,3 @@ class TestPropertyFormsNew(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
-
-    def testIndex(self):
-        request = RequestFactory().get(path="Property/index.html")
-        response = views.index(request)
-        self.assertEqual(response.status_code, 200)
-
-    # def testCreate(self):
-    #     request = RequestFactory().get(path="Property/createlistingform.html")
-    #     response = views.createlistingform(request)
-    #     self.assertEqual(response.status_code, 200)
-
-    def testBrowseList(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
-        response = views.browselistings(request)
-        self.assertEqual(response.status_code, 200)
-
-    def testProperty(self):
-        request = RequestFactory().get(path="Property/createlistingform.html")
-        response = views.testproperty(request)
-        self.assertEqual(response.status_code, 200)

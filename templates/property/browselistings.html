@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block extend_head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/browselistings.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-lg">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="classroombox" style="padding: 10%; text-align: center; color: black;">
+                Filter by Borough
+                <hr>
+                <div class="">
+                    <a href="{% url 'property:filter' 'Manhattan' %}">Manhattan</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'property:filter' 'Brooklyn' %}">Brooklyn</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'property:filter' 'Queens' %}">Queens</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'property:filter' 'Bronx' %}">Bronx</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'property:filter' 'StatenIsland' %}">StatenIsland</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            {% for listing in listings%}
+            <div class="card mb-3" style="max-width: 720px; max-height: 200px; margin: 25px 25px 25px 25px ">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if listing.photo_url %}
+                        <img class="rounded-start cropped" src="{{listing.photo_url.url}}" alt="..." style="">
+                        {% else %}
+                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{listing.address1}} {{listing.address2}}</h5>
+                            <p class="card-text">{{listing.description}}</p>
+                            <div class="row">
+                                <div class="col-md-4"> Zip Code: {{listing.zipcode}} </div>
+                                <div class="col-md-4"> Borough: {{listing.borough}} </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"> Bedroom: {{listing.bedrooms}} </div>
+                                <div class="col-md-4"> Bathroom: {{listing.bathrooms}}</div>
+                                <div class="col-md-4"> Area : {{listing.area}} Sq</div>
+                            </div>
+                            <br>
+                            <div class="d-flex align-items-end">
+                                <a class="btn btn-primary" href="/property/{{listing.listing_id}}" role="button">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block extend_footer %}
+
+{% endblock %}
