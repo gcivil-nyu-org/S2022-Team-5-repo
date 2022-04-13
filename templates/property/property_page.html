@@ -16,7 +16,11 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="{% static 'images/house1.png' %}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% if listing.photo_url %}
+            <img src="{{listing.photo_url.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% else %}
+                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+             {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5>Sell traditionally with an agent</h5>
               <p>When you work with a real estate agent, you'll get selling support at every step, from prepping and listing your home to marketing that gets buyers in the door.</p>
@@ -91,7 +95,11 @@
         <h5 class=""><b>Additional Information for {{listing.address1}}</b></h5>
         
         <!-- TODO: only add this if listing has an actual VR tour link (do the same for the other fields, e.g., calendly, map, etc.) -->
-        <a href="{{listing.matterport_link}}" target="_blank">Link to Virtual Tour</a>
+       {% if not listing.matterport_link %}
+                    <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
+                    {% else %}
+                    <a class="btn btn-secondary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>
+                    {% endif %}
     </div>
     
     <hr class="Separator">
