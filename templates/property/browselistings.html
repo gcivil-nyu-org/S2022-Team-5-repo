@@ -128,7 +128,7 @@
                             <h4>Rent: ${{listing.rent}}</h4>
                         </div>
                     </div>
-                    <a class="btn btn-primary" href="{{listing.listing_id}}" role="button">View</a>
+                    <a class="btn btn-primary" href='/property/{{listing.listing_id}}' role="button">View</a>
                     {% if not listing.map_url %}
                     <a class="btn btn-secondary disabled" href="#" role="button">Map Unavailable</a>
                     {% else %}
