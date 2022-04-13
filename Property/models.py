@@ -1,7 +1,6 @@
 from django.db import models
 from account.models import UserProfile
-from s3direct.fields import S3DirectField
-
+from django.template.defaultfilters import slugify
 
 
 # Create your models here.
@@ -54,9 +53,14 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+def get_image_filename(instance, filename):
+    title = instance.listing.name
+    slug = slugify(title)
+    return "post_images/%s-%s" % (slug, filename)
+
 
 class Images(models.Model):
 
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to="media/", verbose_name='Image')
+    image = models.ImageField(upload_to=get_image_filename, verbose_name='Image')
    # image= S3UploadField(dest='example_destination')
