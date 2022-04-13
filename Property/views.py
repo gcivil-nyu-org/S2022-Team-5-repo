@@ -25,7 +25,7 @@ def newlisting(request):
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
-        files = request.FILES.getlist('photo_url')
+        files = request.FILES.getlist("photo_url")
         # check whether it's valid:
         if form.is_valid():
             obj = form.save()
