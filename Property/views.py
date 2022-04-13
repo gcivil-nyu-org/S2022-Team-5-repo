@@ -27,7 +27,7 @@ def newlisting(request):
         form = ListingForm(request.POST, request.FILES or None)
         # check whether it's valid:
         if form.is_valid():
-            obj = form.save()                
+            obj = form.save()
             if request.user is not None:
                 user = request.user
                 obj.owner = user
