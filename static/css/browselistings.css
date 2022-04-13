@@ -1,0 +1,8 @@
+.cropped {
+    width: 220px; /* width of container */
+    height: 180px; /* height of container */
+    object-fit: cover;
+    overflow: hidden;
+    /* border: 5px solid black; */
+    margin: 8px 8px 8px 8px;
+}
