@@ -53,9 +53,17 @@ def newlisting(request):
     return render(request, "property/newlisting.html", context)
 
 
-def propertypage(request, listing_id):
-    # listing = Listing.objects.filter(listing_id=listing_id)[0]
-    listing = get_object_or_404(Listing, listing_id=listing_id)
+# def propertypage(request, slug=None):
+#     print(slug)
+#     listing = None
+#     if slug:
+#         listing = Listing.objects.get(slug=slug)
+
+#     return render(request, "property/property_page.html", {"listing": listing})
+
+
+def propertypage(request, address1):
+    listing = Listing.objects.get(address1=address1)
     return render(request, "property/property_page.html", {"listing": listing})
 
 
@@ -71,15 +79,15 @@ def filter(request, borough):
 
 
 @login_required(login_url="/account/loginform")
-def editlisting(request, listing_id):
+def editlisting(request, address1):
     # listing = Listing.objects.filter(listing_id=listing_id)[0]
-    listing = get_object_or_404(Listing, listing_id=listing_id)
+    listing = get_object_or_404(Listing, address1=address1)
     return render(request, "property/editlisting.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")
-def editlistingsubmit(request, listing_id):
-    listing = Listing.objects.filter(listing_id=listing_id)[0]
+def editlistingsubmit(request, address1):
+    listing = Listing.objects.filter(address1=address1)[0]
 
     listing.name = request.POST["listing_name"]
     listing.address1 = request.POST["address1"]

@@ -3,10 +3,22 @@ from .models import Listing
 
 
 class ListingForm(forms.ModelForm):
-    name = forms.CharField(max_length=100, required=False)
+    BOROUGHS = (
+        (1, "Brooklyn"),
+        (2, "Manhattan"),
+        (3, "Queens"),
+        (4, "Staten Island"),
+        (5, "Bronx"),
+    )
+
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Property Name"}),
+    )
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=False)
-    borough = forms.CharField(max_length=100, required=True)
+    borough = forms.ChoiceField(required=True, choices=BOROUGHS)
     zipcode = forms.CharField(max_length=100, required=True)
     latitude = forms.CharField(max_length=100, required=False)
     longitude = forms.CharField(max_length=100, required=False)
@@ -24,7 +36,12 @@ class ListingForm(forms.ModelForm):
     )
     matterport_link = forms.URLField(label="matterport Link", required=False)
     calendly_link = forms.URLField(label="calendly Link", required=False)
-    description = forms.CharField(required=False)
+    description = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={"placeholder": "My awesome property description"}
+        ),
+    )
 
     class Meta:
         model = Listing

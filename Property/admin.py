@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class ListingAdmin(admin.ModelAdmin):
     list_display = [
-        "listing_id",
+        # "listing_id",
         "created_at",
         "name",
         "address1",
