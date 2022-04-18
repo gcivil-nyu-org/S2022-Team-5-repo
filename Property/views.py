@@ -15,7 +15,7 @@ def index(request):
 
 
 def browselistings(request):
-    listings = Listing.objects.all()
+    listings = Listing.objects.all().order_by('rent')  
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
@@ -25,27 +25,33 @@ def newlisting(request):
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
-        files = request.FILES.getlist("photo_url")
         # check whether it's valid:
         if form.is_valid():
+
             obj = form.save()
+
             if request.user is not None:
+
                 user = request.user
                 obj.owner = user
                 print(f"valid user: {obj.owner} listing")
                 obj.save()
-                print(files)
+
             else:
+
                 print("unknown user listing")
             result = "Success"
             message = "Your profile has been updated"
+
         else:
+
             result = "Failed"
             message = "Failed to save listings form"
+
         data = {"result": result, "message": message}
         print(data)
-        return redirect(reverse("property:mylistings"))
 
+        return redirect(reverse("property:mylistings"))
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ListingForm()
@@ -68,11 +74,10 @@ def mylistings(request):
 def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
     return render(request, "property/browselistings.html", {"listings": listings})
-
+    
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):
-    # listing = Listing.objects.filter(listing_id=listing_id)[0]
     listing = get_object_or_404(Listing, listing_id=listing_id)
     return render(request, "property/editlisting.html", {"listing": listing})
 

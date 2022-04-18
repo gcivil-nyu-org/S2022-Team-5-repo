@@ -27,14 +27,22 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="{% static 'images/house1_in1.png' %}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% if listing.photo_url2 %}
+            <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% else %}
+                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+             {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5>Sell your home with a trusted local agent</h5>
               <p>It's easy to sell your home when we connect you with a participating Zillow Premier Agent partner. Start by entering your address to see if they're available in your area. They'll be in more places soon!</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="{% static 'images/house1_in2.png' %}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% if listing.photo_url3 %}
+            <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+            {% else %}
+                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+             {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5>Sell your home yourself</h5>
               <p>Deciding to sell your home yourself is referred to as for-sale-by-owner (FSBO). The FSBO process is similar to traditional selling, but without the help of a real estate agent. In this case, you’re responsible for the home prep,
@@ -79,11 +87,11 @@
                 <li class="list-group-item">Bathrooms: {{listing.bathrooms}}</li>
             </div>
             <div class="tab-pane fade" id="accommodations" role="tabpanel" aria-labelledby="accommodations-tab">
-                <li class="list-group-item">Furnished: {{listing.furnished}}</li>
-                <li class="list-group-item">Elevator: {{listing.elevator}}</li>
-                <li class="list-group-item">Heating: {{listing.heating}}</li>
-                <li class="list-group-item">Parking: {{listing.parking}}</li>
-                <li class="list-group-item">Laundry: {{listing.laundry}}</li>
+                <li class="list-group-item">Furnished: {{listing.furnished | yesno:"Yes,No"}}</li>
+                <li class="list-group-item">Elevator: {{listing.elevator| yesno:"Yes,No"}}</li>
+                <li class="list-group-item">Heating: {{listing.heating| yesno:"Yes,No"}}</li>
+                <li class="list-group-item">Parking: {{listing.parking| yesno:"Yes,No"}}</li>
+                <li class="list-group-item">Laundry: {{listing.laundry| yesno:"Yes,No"}}</li>
             </div>
         </div>
     </div>
@@ -94,8 +102,9 @@
     <div class="panel-group" id="accordion">
         <h5 class=""><b>Additional Information for {{listing.address1}}</b></h5>
         
-        <!-- TODO: only add this if listing has an actual VR tour link (do the same for the other fields, e.g., calendly, map, etc.) -->
-       {% if not listing.matterport_link %}
+
+
+        {% if not listing.matterport_link %}
                     <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
                     {% else %}
                     <a class="btn btn-secondary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>

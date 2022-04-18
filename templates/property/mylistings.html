@@ -9,27 +9,6 @@
 {% block content %}
 <div class="container-lg">
     <div class="row">
-        <div class="col-lg-4">
-            <div class="classroombox" style="padding: 10%; text-align: center; color: black;">
-                Filter by Borough
-                <hr>
-                <div class="">
-                    <a href="{% url 'property:filter' 'Manhattan' %}">Manhattan</a>
-                </div>
-                <div class="">
-                    <a href="{% url 'property:filter' 'Brooklyn' %}">Brooklyn</a>
-                </div>
-                <div class="">
-                    <a href="{% url 'property:filter' 'Queens' %}">Queens</a>
-                </div>
-                <div class="">
-                    <a href="{% url 'property:filter' 'Bronx' %}">Bronx</a>
-                </div>
-                <div class="">
-                    <a href="{% url 'property:filter' 'StatenIsland' %}">StatenIsland</a>
-                </div>
-            </div>
-        </div>
         <div class="col-lg-8">
             {% for listing in listings%}
             <div class="card mb-3" style="max-width: 720px; max-height: 250px; margin: 25px 25px 25px 25px ">
