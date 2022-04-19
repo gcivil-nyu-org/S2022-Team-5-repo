@@ -1,5 +1,6 @@
 from django import forms
 from .models import Listing
+from localflavor.us.forms import USZipCodeField
 
 
 class ListingForm(forms.ModelForm):
@@ -7,7 +8,7 @@ class ListingForm(forms.ModelForm):
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=False)
     borough = forms.CharField(max_length=100, required=True)
-    zipcode = forms.CharField(max_length=100, required=True)
+    zipcode = USZipCodeField()
     latitude = forms.CharField(max_length=100, required=False)
     longitude = forms.CharField(max_length=100, required=False)
     rent = forms.IntegerField(min_value=1, required=True)

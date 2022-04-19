@@ -4,6 +4,8 @@ from .forms import ListingForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.contrib import messages
+
 
 # TODO validate email
 # from django.core.validators import validate_email
@@ -15,7 +17,7 @@ def index(request):
 
 
 def browselistings(request):
-    listings = Listing.objects.all().order_by('rent')  
+    listings = Listing.objects.all().order_by('rent')
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
@@ -44,14 +46,15 @@ def newlisting(request):
             message = "Your profile has been updated"
 
         else:
-
+            print(form.errors)
             result = "Failed"
             message = "Failed to save listings form"
-
-        data = {"result": result, "message": message}
-        print(data)
-
+            data = {"result": result, "message": message}
+            print(data)
+            messages.error(request, form.errors)
+            return redirect(reverse("property:newlisting"))
         return redirect(reverse("property:mylistings"))
+
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ListingForm()
@@ -74,7 +77,7 @@ def mylistings(request):
 def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
     return render(request, "property/browselistings.html", {"listings": listings})
-    
+
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):

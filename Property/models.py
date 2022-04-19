@@ -1,8 +1,9 @@
 from django.db import models
 from account.models import UserProfile
 
-
 # Create your models here.
+
+
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(

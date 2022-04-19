@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "Property",
     "account",
-    "django_filters",
+    "localflavor",
 
 ]
 
