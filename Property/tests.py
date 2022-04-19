@@ -81,6 +81,8 @@ class TestPropertyForms(TestCase):
         self.laundry = "Yes"
         self.matterport_link = ""
         self.photo_url = ""
+        self.photo_url2 = ""
+        self.photo_url3 = ""
         self.calendly_link = ""
         self.description = "The best property!"
         self.username = "TestUser"
@@ -108,6 +110,8 @@ class TestPropertyForms(TestCase):
             laundry=True,
             matterport_link=self.matterport_link,
             photo_url=self.photo_url,
+            photo_url2=self.photo_url2,
+            photo_url3=self.photo_url3,
             calendly_link=self.calendly_link,
             description=self.description,
             owner=self.user,
