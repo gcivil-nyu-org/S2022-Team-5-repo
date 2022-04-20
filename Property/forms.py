@@ -1,6 +1,5 @@
 from datetime import datetime
 from django import forms
-from .models import Listing
 from localflavor.us.forms import USZipCodeField
 from .validators import file_size
 from .models import Listing, RequestTour

@@ -63,11 +63,11 @@ def newlisting(request):
     return render(request, "property/newlisting.html", context)
 
 
-
 @login_required(login_url="/account/loginform")
 def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
     return render(request, "property/mylistings.html", {"listings": user_listings})
+
 
 def propertypage(request, address1):
     if request.method == "POST":
@@ -112,6 +112,7 @@ def propertypage(request, address1):
 
         context = {"listing": listing, "form": form}
         return render(request, "property/property_page.html", context)
+
 
 def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
@@ -173,4 +174,3 @@ def editlistingsubmit(request, address1):
     listing.save()
 
     return HttpResponseRedirect("../browselistings")
-
