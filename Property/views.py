@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
-from .forms import ListingForm
+from account.models import UserProfile
+from .forms import ListingForm, RequestTourForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -62,17 +63,55 @@ def newlisting(request):
     return render(request, "property/newlisting.html", context)
 
 
-def propertypage(request, listing_id):
-    # listing = Listing.objects.filter(listing_id=listing_id)[0]
-    listing = get_object_or_404(Listing, listing_id=listing_id)
-    return render(request, "property/property_page.html", {"listing": listing})
-
 
 @login_required(login_url="/account/loginform")
 def mylistings(request):
     user_listings = Listing.objects.filter(owner=request.user)
     return render(request, "property/mylistings.html", {"listings": user_listings})
 
+def propertypage(request, address1):
+    if request.method == "POST":
+        listing = Listing.objects.get(address1=address1)
+        form = RequestTourForm(request.POST, request.FILES or None, user=request.user)
+        if form.is_valid():
+            obj = form.save(commit=False)
+
+            obj.requester = UserProfile.objects.get(
+                username=request.user.username
+                if request.user.is_authenticated
+                else None
+            )
+            obj.listing = listing
+            obj.firstName = (
+                request.POST.get("firstName")
+                if request.POST.get("firstName")
+                else form["firstName"].value()
+            )
+            obj.lastName = (
+                request.POST.get("lastName")
+                if request.POST.get("lastName")
+                else form["lastName"].value()
+            )
+            obj.email = (
+                request.POST.get("email")
+                if request.POST.get("email")
+                else form["email"].value()
+            )
+            obj.phone = request.POST.get("phone")
+            obj.message = request.POST.get("message")
+            obj.tourDate = request.POST.get("tourDate")
+
+            obj.save()
+
+        successMessage = "You have successfully requested a tour!"
+        context = {"listing": listing, "form": form, "successMessage": successMessage}
+        return render(request, "property/property_page.html", context)
+    else:
+        listing = Listing.objects.get(address1=address1)
+        form = RequestTourForm(user=request.user)
+
+        context = {"listing": listing, "form": form}
+        return render(request, "property/property_page.html", context)
 
 def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
@@ -134,3 +173,4 @@ def editlistingsubmit(request, listing_id):
     listing.save()
 
     return HttpResponseRedirect("../browselistings")
+

@@ -120,7 +120,7 @@ class TestPropertyForms(TestCase):
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:editlistingsubmit", args=[self.property.address1]),
             data={
                 "listing_name": self.listName + "1",
                 "address1": self.address1,
@@ -201,7 +201,7 @@ class TestPropertyFormsNew1(TestCase):
 
     def testEditListing(self):
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:editlistingsubmit", args=[self.property.address1]),
             data={
                 "listing_name": self.listName,
                 "address1": self.address1,

@@ -1,17 +1,11 @@
 from django.contrib import admin
-from .models import Listing
+from .models import Listing, RequestTour
 
 # Register your models here.
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ["id", "created_at", "username", "first_name", "last_name", "email"]
-    search_fields = ["id", "first_name", "last_name", "email"]
-
-
 class ListingAdmin(admin.ModelAdmin):
     list_display = [
-        "listing_id",
         "created_at",
         "name",
         "address1",
@@ -38,7 +32,31 @@ class ListingAdmin(admin.ModelAdmin):
     ]
 
 
+class RequestTourAdmin(admin.ModelAdmin):
+    list_display = [
+        "requester",
+        "listing",
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "message",
+        "tourDate",
+    ]
+    list_filter = [
+        "requester",
+        "listing",
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "message",
+        "tourDate",
+    ]
+
+
 admin.site.register(Listing, ListingAdmin)
+admin.site.register(RequestTour, RequestTourAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"
 admin.site.index_title = "HouseMe Admin"

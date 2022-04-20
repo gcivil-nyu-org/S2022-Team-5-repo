@@ -10,6 +10,7 @@ from django.utils.encoding import force_bytes
 from .models import UserProfile
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
@@ -125,3 +126,22 @@ def sign_out(request):
     """
     logout(request)
     return redirect(reverse("account:loginform"))
+
+
+# def profile(request, slug=None):
+#     account = None
+#     if slug:
+#         account = UserProfile.objects.get(username=slug)
+
+#     return render(request, "account/profile.html", {"account": account})
+
+
+def profile(request, username):
+    account = UserProfile.objects.get(username=username)
+    return render(request, "account/profile.html", {"account": account})
+
+
+@login_required(login_url="/account/loginform")
+def edit(request):
+    account = UserProfile.objects.get(username=request.user.username)
+    return render(request, "account/edit.html", {"account": account})
