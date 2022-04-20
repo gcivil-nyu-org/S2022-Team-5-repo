@@ -4,7 +4,7 @@ from datetime import datetime
 from django import forms
 from localflavor.us.forms import USZipCodeField
 from .validators import file_size
-from .models import Listing, RequestTour
+from .models import Listing, RequestTour, Comment
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, ButtonHolder, Submit
 
@@ -183,4 +183,13 @@ class RequestTourForm(forms.ModelForm):
             "phone",
             "tourDate",
             "message",
+        ]
+class CommentForm(forms.ModelForm):
+    text = forms.CharField(max_length=100, required=False, label="Review", widget=forms.TextInput(
+        attrs={"placeholder": "Add your review here"}),)
+    # listing = forms.CharField(max_length=100, required=False)
+    class Meta:
+        model = Comment
+        fields = [
+        "text",
         ]

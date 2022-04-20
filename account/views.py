@@ -15,9 +15,14 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 
+def index(request):
+    return render(request, "property/index.html")
 
 def signupform(request):
-    return render(request, "account/signupform.html")
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("index")
+    else:
+        return render(request, "account/signupform.html")
 
 
 def signupsubmit(request):

@@ -83,6 +83,7 @@
             <li class="list-group-item"><i class="fa-solid fa-ruler fa-fw"></i> Area: {{listing.area}} sq. ft</li>
             <li class="list-group-item"><i class="fa-solid fa-bed fa-fw"></i> Bedrooms: {{listing.bedrooms}}</li>
             <li class="list-group-item"><i class="fa-solid fa-shower fa-fw"></i> Bathrooms: {{listing.bathrooms}}</li>
+            <li class="list-group-item"><i class="fa-solid fa-star fa-fw"></i> Rating: {{listing.ratings}}</li>
         </div>
         <div class="tab-pane fade" id="accommodations" role="tabpanel" aria-labelledby="accommodations-tab">
             <li class="list-group-item"><i class="fa-solid fa-couch fa-fw"></i> Furnished: {{listing.furnished| yesno:"Yes,No"}}</li>
@@ -98,7 +99,7 @@
     <!-- Additional Property Information -->
     <div class="panel-group" id="accordion">
         <h5 class=""><b>Additional Information for {{listing.address1}}</b></h5>
-        
+
         <h6>Virtual Tour</h6>
         {% if not listing.matterport_link %}
             <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
@@ -115,7 +116,7 @@
                           </div>
                        {% endif %}
                     {% endfor %}
-                 {% endif %} 
+                 {% endif %}
         {% if messages %}
                         {% for message in messages %}
                {% if message.tags == 'success' %}
@@ -124,7 +125,7 @@
                                           </div>
                                        {% endif %}
                                     {% endfor %}
-                                 {% endif %} 
+                                 {% endif %}
         {% if listing.calendly_link and user.is_authenticated %}
             <div class="calendly-inline-widget" data-url={{listing.calendly_link}} style="min-width:320px;height:630px;"></div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -160,54 +161,44 @@
         <h6>How This Property Compares with Market Trends</h6>
 
         <br><br>
-        
-    </div>
 
-    <div class="panel-group" id="accordion">
-        <h5 class=""><b>Reviews</b></h5>
-        
-        <div class="container">
-            <div class="d-flex flex-column col-md-8">
-                <div class="coment-bottom bg-white p-2 px-4">
-                    <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
-                    <div class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">Geralt</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>
-                        </div>
-                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
-                        <div class="reply-section">
-                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                                <h6 class="ml-2 mt-1">Reply</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">Lambert</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">5 hours ago</span>
-                        </div>
-                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</span></div>
-                        <div class="reply-section">
-                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">15</span><span class="dot ml-2"></span>
-                                <h6 class="ml-2 mt-1">Reply</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">Eskel</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">10 hours ago</span>
-                        </div>
-                        <div class="comment-text-sm"><span>Nunc sed id semper risus in hendrerit gravida rutrum. Non odio euismod lacinia at quis risus sed. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Enim facilisis gravida neque convallis a. In mollis nunc sed id. Adipiscing elit pellentesque habitant morbi tristique senectus et netus. Ultrices mi tempus imperdiet nulla malesuada pellentesque.</span></div>
-                        <div class="reply-section">
-                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">25</span><span class="dot ml-2"></span>
-                                <h6 class="ml-2 mt-1">Reply</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    
+    <div class="container" style="padding: 2%;">
+      <div class="">
+        <form id = 'ratingsform' method="POST" action = "{% url 'property:newrating' property_id %}">
+            {% csrf_token %}
+            <label for="rating_value" class="form-label">Rating (0 - 5)</label>
+            <input name="rating_value" type="range" class="form-range" min="0" max="5" step="0.5" id="rating_value">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+      <br>
+      <div class="list-group">
+        {% for comment in comments %}
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{comment.text}}</h5>
+            <small>{{comment.created_at}}</small>
+          </div>
+          <small>- {{comment.user.first_name}} {{comment.user.last_name}}</small>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="">
+      <div class="container"  style="padding: 2%;">
+        <form id = 'listingform' method="POST" enctype="multipart/form-data" action = "{% url 'property:newcomment' property_id %}">
+          {% load crispy_forms_tags %}
+            {% csrf_token %}
+            {{ comment_form|crispy}}
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+      </div>
+
+  </div>
+
+
     <hr class="Separator">
 
     <!-- About the Seller -->

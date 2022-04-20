@@ -16,4 +16,8 @@ urlpatterns = [
     ),
     path("<address1>", views.propertypage, name="propertypage"),
     path("filter/<borough>", views.filter, name="filter"),
+    path("comment/<property_id>", views.comment, name="comment"),
+    path("newcomment/<property_id>", views.newcomment, name="newcomment"),
+    path("newrating/<property_id>", views.newrating, name="newrating"),
+
 ]

@@ -7,6 +7,7 @@ from account.models import UserProfile
 
 
 class Listing(models.Model):
+    listing_id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, null=True, blank=True
     )
@@ -14,7 +15,6 @@ class Listing(models.Model):
         # verbose_name="Address_1", max_length=100, null=True, blank=True
         verbose_name="Address_1",
         max_length=100,
-        primary_key=True,
     )
     address2 = models.CharField(
         verbose_name="Address_2", max_length=120, null=True, blank=True
@@ -66,6 +66,25 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+class Rating(models.Model):
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, null=True, blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    value = models.FloatField(max_length=100)
+
+class Comment(models.Model):
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, null=True, blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    text = models.CharField(max_length=100)
 
 # class Images(models.Model):
 
