@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing
+from .models import Listing, Comment
 
 
 class ListingForm(forms.ModelForm):
@@ -47,4 +47,13 @@ class ListingForm(forms.ModelForm):
             "matterport_link",
             "calendly_link",
             "description",
+        ]
+
+class CommentForm(forms.ModelForm):
+    text = forms.CharField(max_length=100, required=False)
+    # listing = forms.CharField(max_length=100, required=False)
+    class Meta:
+        model = Comment
+        fields = [
+        "text",
         ]

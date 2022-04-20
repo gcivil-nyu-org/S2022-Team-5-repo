@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Listing
+from .models import Listing, UserProfile, Comment, Rating
 
 # Register your models here.
 
@@ -37,8 +37,18 @@ class ListingAdmin(admin.ModelAdmin):
         "bedrooms",
     ]
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["listing", "user", "text"]
+    list_filter = ["listing", "user"]
+
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ["listing", "user", "value"]
+    list_filter = ["listing", "user", "value"]
 
 admin.site.register(Listing, ListingAdmin)
+# admin.site.register(UserProfile, UserAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(Rating, RatingAdmin)
 admin.site.site_header = "HouseMe Admin"
 admin.site.site_title = "HouseMe Admin"
 admin.site.index_title = "HouseMe Admin"

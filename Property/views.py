@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing
-from .forms import ListingForm
+from .models import Listing, Comment, Rating
+from .forms import ListingForm, CommentForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.db.models import Avg
 
 # TODO validate email
 # from django.core.validators import validate_email
@@ -27,7 +28,7 @@ def newlisting(request):
         form = ListingForm(request.POST, request.FILES or None)
         # check whether it's valid:
         if form.is_valid():
-            obj = form.save()                
+            obj = form.save()
             if request.user is not None:
                 user = request.user
                 obj.owner = user
@@ -67,6 +68,29 @@ def filter(request, borough):
     listings = Listing.objects.filter(borough=borough)
     return render(request, "property/browselistings.html", {"listings": listings})
 
+@login_required(login_url="/account/loginform")
+def comment(request, property_id):
+    # property_id = 1
+    comments = Comment.objects.filter(listing=property_id)
+    form = CommentForm()
+    context = {"form": form}
+    listing_rating = Listing.objects.filter(listing_id=property_id)[0].ratings
+    print("listing_rating", listing_rating)
+    return render(request, "property/comments.html", {"comments": comments, "property_id": property_id, "form": form, "listing_rating": listing_rating})
+
+@login_required(login_url="/account/loginform")
+def newcomment(request, property_id):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            obj = form.save()
+            if request.user is not None:
+                user = request.user
+                obj.user = user
+                listing = Listing.objects.filter(listing_id=property_id)[0]
+                obj.listing = listing
+                obj.save()
+    return redirect(reverse("property:comment", kwargs={'property_id':property_id}))
 
 @login_required(login_url="/account/loginform")
 def editlisting(request, listing_id):
@@ -124,3 +148,30 @@ def editlistingsubmit(request, listing_id):
     listing.save()
 
     return HttpResponseRedirect("../browselistings")
+
+@login_required(login_url="/account/loginform")
+def newrating(request, property_id):
+    if request.method == "POST":
+        rating = request.POST['rating_value']
+        print(rating)
+        user = request.user
+        listing = Listing.objects.filter(listing_id=property_id)[0]
+        print(listing)
+        print('listing ', listing)
+        existing_rating = Rating.objects.filter(user=user, listing=listing)
+        print("ratings ", existing_rating)
+        if len(existing_rating) > 0:
+            t = existing_rating[0]
+            t.value = rating
+        else:
+            t = Rating(listing = listing, user = user, value = rating)
+        print(t)
+        print(t.value)
+        t.save()
+        listing_rating = Rating.objects.filter(listing=listing)
+        listing_avg = listing_rating.aggregate(Avg('value'))
+        listing.ratings = listing_avg['value__avg']
+        listing.save()
+        print(listing_rating)
+        print("listing average", listing_avg['value__avg'])
+    return redirect(reverse("property:comment", kwargs={'property_id':property_id}))

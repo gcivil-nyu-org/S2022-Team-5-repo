@@ -40,9 +40,7 @@ class Listing(models.Model):
     laundry = models.BooleanField(verbose_name="Laundry", default=False)
     # Links and Files
     photo_url = models.ImageField(upload_to="media/", null=True, blank=True)
-    matterport_link = models.URLField(
-        verbose_name="Matterport_Link", max_length=300, null=True, blank=True
-    )
+    matterport_link = models.URLField(verbose_name="Matterport_Link", max_length=300, null=True, blank=True)
     calendly_link = models.URLField(
         verbose_name="Calendly_Link", max_length=300, null=True, blank=True
     )
@@ -60,6 +58,25 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+class Rating(models.Model):
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, null=True, blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    value = models.FloatField(max_length=100)
+
+class Comment(models.Model):
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, null=True, blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    text = models.CharField(max_length=100)
 
 # class Image(models.Model):
 #     image_id = models.AutoField(primary_key=True)
