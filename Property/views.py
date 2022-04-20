@@ -269,4 +269,4 @@ def newrating(request, property_id):
         address1 = listing.address1
         print(listing_rating)
         print("listing average", listing_avg['value__avg'])
-    return redirect(reverse("property: propertypage", kwargs={'address1': address1}))
+    return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
