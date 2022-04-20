@@ -1,5 +1,6 @@
 from datetime import datetime
-from faulthandler import disable
+
+# from faulthandler import disable
 from django import forms
 from localflavor.us.forms import USZipCodeField
 from .validators import file_size
@@ -31,20 +32,30 @@ class ListingForm(forms.ModelForm):
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
     area = forms.IntegerField(min_value=1, max_value=10000, required=True)
     bedrooms = forms.IntegerField(min_value=1, max_value=10, required=True)
-    bathrooms = forms.DecimalField(min_value=1, max_value=10, decimal_places=2, required=True)
+    bathrooms = forms.DecimalField(
+        min_value=1, max_value=10, decimal_places=2, required=True
+    )
     furnished = forms.BooleanField(required=False)
     elevator = forms.BooleanField(required=False)
     heating = forms.BooleanField(required=False)
     parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
     photo_url = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}), validators=[file_size], label="Upload Primary Photo"
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        validators=[file_size],
+        label="Upload Primary Photo",
     )
     photo_url2 = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}), validators=[file_size], label="Uplaod Second Photo", required=False
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        validators=[file_size],
+        label="Uplaod Second Photo",
+        required=False,
     )
     photo_url3 = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}), validators=[file_size], label="Upload Third Photo", required=False
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        validators=[file_size],
+        label="Upload Third Photo",
+        required=False,
     )
     calendly_link = forms.URLField(label="Calendly Link", required=False)
     description = forms.CharField(required=False)
@@ -136,7 +147,9 @@ class RequestTourForm(forms.ModelForm):
                     }
                 ),
             )
-            disable = True if self.user.username == self.listing.owner.username else False
+            disable = (
+                True if self.user.username == self.listing.owner.username else False
+            )
             self.helper = FormHelper()
             self.helper.layout = Layout(
                 Div(
@@ -155,7 +168,8 @@ class RequestTourForm(forms.ModelForm):
                     Submit(
                         "submit",
                         "Request Tour",
-                        css_class="btn btn-primary",disabled = disable,
+                        css_class="btn btn-primary",
+                        disabled=disable,
                     ),
                 ),
             )

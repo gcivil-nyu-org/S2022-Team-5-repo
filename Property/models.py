@@ -43,9 +43,15 @@ class Listing(models.Model):
     matterport_link = models.URLField(
         verbose_name="Matterport_Link", max_length=300, null=True, blank=True
     )
-    photo_url = models.ImageField(upload_to="media/", verbose_name="Upload Primary Image", null=True, blank=True)
-    photo_url2 = models.ImageField(upload_to="media/", null=True, verbose_name="Upload Second Image", blank=True)
-    photo_url3 = models.ImageField(upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True)
+    photo_url = models.ImageField(
+        upload_to="media/", verbose_name="Upload Primary Image", null=True, blank=True
+    )
+    photo_url2 = models.ImageField(
+        upload_to="media/", null=True, verbose_name="Upload Second Image", blank=True
+    )
+    photo_url3 = models.ImageField(
+        upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True
+    )
 
     calendly_link = models.URLField(
         verbose_name="Calendly_Link", max_length=300, null=True, blank=True
@@ -70,9 +76,8 @@ class RequestTour(models.Model):
     requester = models.ForeignKey(
         UserProfile,
         on_delete=models.CASCADE,
-        null=False,
-        blank=False,
-        default=-1,
+        null=True,
+        blank=True,
     )
     listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE, null=True, blank=True, default=-1

@@ -26,7 +26,9 @@ def signupsubmit(request):
         return render(request, "account/signupform.html")
     try:
         UserProfile.objects.get(username=request.POST.get("username"))
-        messages.error(request, "Username Already Exists, Please Select A Unique Username!")
+        messages.error(
+            request, "Username Already Exists, Please Select A Unique Username!"
+        )
         return render(request, "account/signupform.html")
     except Exception:
         first_name = request.POST["fname"]
@@ -36,9 +38,9 @@ def signupsubmit(request):
         email = request.POST["email"]
         phone = request.POST["phone"]
         password = request.POST["password"]
-    # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
+        # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
 
-    # TODO BUG UNIQUE constraint failed: UserProfile.username
+        # TODO BUG UNIQUE constraint failed: UserProfile.username
 
         user = UserProfile.objects.create_user(
             first_name=first_name,
@@ -47,7 +49,7 @@ def signupsubmit(request):
             phone=phone,
             password=password,
             email=email,
-        )               
+        )
         user.save()
         subject = "Welcome to House ME!"
         message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
