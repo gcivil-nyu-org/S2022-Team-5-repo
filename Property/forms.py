@@ -12,11 +12,11 @@ from crispy_forms.layout import Layout, Div, Field, ButtonHolder, Submit
 
 class ListingForm(forms.ModelForm):
     BOROUGHS = (
-        (1, "Brooklyn"),
-        (2, "Manhattan"),
-        (3, "Queens"),
-        (4, "Staten Island"),
-        (5, "Bronx"),
+        ("Brooklyn", "Brooklyn"),
+        ("Manhattan", "Manhattan"),
+        ("Queens", "Queens"),
+        ("Staten Island", "Staten Island"),
+        ("Bronx", "Bronx"),
     )
 
     name = forms.CharField(
@@ -185,12 +185,13 @@ class RequestTourForm(forms.ModelForm):
             "tourDate",
             "message",
         ]
+
+
 class CommentForm(forms.ModelForm):
     text = forms.CharField(max_length=100, required=False, label="Review", widget=forms.TextInput(
         attrs={"placeholder": "Add your review here"}),)
     # listing = forms.CharField(max_length=100, required=False)
+
     class Meta:
         model = Comment
-        fields = [
-        "text",
-        ]
+        fields = ["text", ]

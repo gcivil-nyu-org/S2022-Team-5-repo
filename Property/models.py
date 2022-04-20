@@ -66,6 +66,7 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+
 class Rating(models.Model):
     listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE, null=True, blank=True
@@ -75,6 +76,7 @@ class Rating(models.Model):
         UserProfile, on_delete=models.CASCADE, null=True, blank=True
     )
     value = models.FloatField(max_length=100)
+
 
 class Comment(models.Model):
     listing = models.ForeignKey(
@@ -91,6 +93,8 @@ class Comment(models.Model):
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
 #  image = models.FileField(upload_to="media/", verbose_name='Image')
 # image= S3DirectField(dest='example_destination')
+
+
 class RequestTour(models.Model):
     requester = models.ForeignKey(
         UserProfile,

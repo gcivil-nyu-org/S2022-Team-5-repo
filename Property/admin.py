@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Listing, UserProfile, Comment, Rating, RequestTour
+from .models import Listing, Comment, Rating, RequestTour
 
 # Register your models here.
 
@@ -31,13 +31,16 @@ class ListingAdmin(admin.ModelAdmin):
         "bedrooms",
     ]
 
+
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["listing", "user", "text"]
     list_filter = ["listing", "user"]
 
+
 class RatingAdmin(admin.ModelAdmin):
     list_display = ["listing", "user", "value"]
     list_filter = ["listing", "user", "value"]
+
 
 class RequestTourAdmin(admin.ModelAdmin):
     list_display = [
