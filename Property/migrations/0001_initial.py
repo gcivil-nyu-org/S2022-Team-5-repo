@@ -13,7 +13,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-<<<<<<< HEAD
             name='Comment',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -246,7 +245,6 @@ class Migration(migrations.Migration):
                         to="Property.listing",
                     ),
                 ),
->>>>>>> 00f1839d47c0832ea344f6b96701e0b4ae4f2a16
             ],
         ),
     ]
