@@ -106,7 +106,7 @@ def propertypage(request, address1):
             obj.tourDate = request.POST.get("tourDate")
 
             obj.save()
-            sub= "A User has requested to view your property at :" + " " + obj.listing.address1  
+            sub = "A User has requested to view your property at :" + " " + obj.listing.address1
             message = (
                 obj.message
                 + "\n\n"
@@ -123,10 +123,8 @@ def propertypage(request, address1):
                 + "Tour date requested:"
                 + " "
                 + obj.tourDate
-                +
-                "\n\n"
-                +
-                "Thanks and Have a Great Day!"
+                + "\n\n"
+                + "Thanks and Have a Great Day!"
             )
         send_mail(
             subject=sub,
@@ -282,4 +280,3 @@ def newrating(request, property_id):
         messages.error(request, "You cannot rate your own listing")
         address1 = listing.address1
         return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
-
