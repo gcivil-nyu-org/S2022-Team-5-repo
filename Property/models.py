@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from account.models import UserProfile
 
@@ -6,7 +7,6 @@ from account.models import UserProfile
 
 # Create your models here.
 class Listing(models.Model):
-    # listing_id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, null=True, blank=True
     )
@@ -63,3 +63,33 @@ class Listing(models.Model):
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
 #  image = models.FileField(upload_to="media/", verbose_name='Image')
 # image= S3DirectField(dest='example_destination')
+
+
+class RequestTour(models.Model):
+    requester = models.ForeignKey(
+        UserProfile,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        default=UserProfile,
+    )
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, null=False, blank=False, default=Listing
+    )
+
+    firstName = models.CharField(
+        verbose_name="First Name", max_length=32, null=False, blank=False, default="N/A"
+    )
+    lastName = models.CharField(
+        verbose_name="Last Name", max_length=32, null=False, blank=False, default="N/A"
+    )
+    email = models.EmailField(
+        verbose_name="Email", null=False, blank=False, default="N/A"
+    )
+    phone = models.CharField(verbose_name="Phone", max_length=12, null=True, blank=True)
+    message = models.CharField(
+        verbose_name="Message", max_length=500, null=True, blank=True
+    )
+    tourDate = models.DateField(
+        verbose_name="Tour Date", null=False, blank=False, default=datetime.now
+    )
