@@ -66,18 +66,16 @@ class Listing(models.Model):
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
 #  image = models.FileField(upload_to="media/", verbose_name='Image')
 # image= S3DirectField(dest='example_destination')
-
-
 class RequestTour(models.Model):
     requester = models.ForeignKey(
         UserProfile,
         on_delete=models.CASCADE,
         null=False,
         blank=False,
-        default=UserProfile,
+        default=-1,
     )
     listing = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, null=False, blank=False, default=Listing
+        Listing, on_delete=models.CASCADE, null=True, blank=True, default=-1
     )
 
     firstName = models.CharField(
