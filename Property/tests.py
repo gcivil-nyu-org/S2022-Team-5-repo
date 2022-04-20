@@ -87,7 +87,20 @@ class TestPropertyForms(TestCase):
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
+        self.firstname = "Firstname"
+        self.lastname = "Lastname"
+        self.email = "email123@email1.com"
+        self.phone = "1234567890"
+        self.message = "message"
+        self.date = "2020-10-10"
+        self.user = UserProfile.objects.create(
+            renter=True,
+            username=self.username,
+            first_name=self.firstname,
+            last_name=self.lastname,
+            email=self.email,
+            phone=self.phone,
+        )
         self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
@@ -116,6 +129,21 @@ class TestPropertyForms(TestCase):
             description=self.description,
             owner=self.user,
         )
+
+    def testPropertyView(self):
+        form_data = {
+            "firstName": self.firstname,
+            "lastName": self.lastname,
+            "email": self.email,
+            "phone": self.phone,
+            "tourDate": self.date,
+            "message": self.message,
+        }
+        response = self.client.post(
+            reverse("property:propertypage", args=[self.address1]), data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)
 
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)

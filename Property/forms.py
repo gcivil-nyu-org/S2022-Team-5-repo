@@ -2,7 +2,8 @@ from datetime import datetime
 
 # from faulthandler import disable
 from django import forms
-from localflavor.us.forms import USZipCodeField
+
+# from localflavor.us.forms import USZipCodeField
 from .validators import file_size
 from .models import Listing, RequestTour
 from crispy_forms.helper import FormHelper
@@ -26,7 +27,7 @@ class ListingForm(forms.ModelForm):
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=False)
     borough = forms.ChoiceField(required=True, choices=BOROUGHS)
-    zipcode = USZipCodeField()
+    # zipcode = USZipCodeField()
     latitude = forms.CharField(max_length=100, required=False)
     longitude = forms.CharField(max_length=100, required=False)
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
