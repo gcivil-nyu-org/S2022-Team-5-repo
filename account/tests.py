@@ -38,6 +38,22 @@ class TestAccountForms(TestCase):
                 "email": self.email,
                 "phone": self.phone,
                 "password": self.password,
+                "password2": self.password,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testSignupFail(self):
+        response = self.client.post(
+            reverse("account:signupsubmit"),
+            data={
+                "fname": self.firstName,
+                "lname": self.lastName,
+                "username": self.username,
+                "email": self.email,
+                "phone": self.phone,
+                "password": self.password,
+                "password2": self.password,
             },
         )
         self.assertEqual(response.status_code, 200)
