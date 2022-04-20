@@ -106,6 +106,7 @@ def propertypage(request, address1):
             obj.tourDate = request.POST.get("tourDate")
 
             obj.save()
+            sub= "A User has requested to view your property at :" + " " + obj.listing.address1  
             message = (
                 obj.message
                 + "\n\n"
@@ -122,9 +123,13 @@ def propertypage(request, address1):
                 + "Tour date requested:"
                 + " "
                 + obj.tourDate
+                +
+                "\n\n"
+                +
+                "Thanks and Have a Great Day!"
             )
         send_mail(
-            subject="A User has requested to view your property",
+            subject=sub,
             message=message,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[listing.owner.email],
@@ -245,28 +250,36 @@ def editlistingsubmit(request, address1):
 
 @login_required(login_url="/account/loginform")
 def newrating(request, property_id):
-    if request.method == "POST":
-        rating = request.POST['rating_value']
-        print(rating)
-        user = request.user
-        listing = Listing.objects.filter(listing_id=property_id)[0]
-        print(listing)
-        print('listing ', listing)
-        existing_rating = Rating.objects.filter(user=user, listing=listing)
-        print("ratings ", existing_rating)
-        if len(existing_rating) > 0:
-            t = existing_rating[0]
-            t.value = rating
-        else:
-            t = Rating(listing=listing, user=user, value=rating)
-        print(t)
-        print(t.value)
-        t.save()
-        listing_rating = Rating.objects.filter(listing=listing)
-        listing_avg = listing_rating.aggregate(Avg('value'))
-        listing.ratings = listing_avg['value__avg']
-        listing.save()
+    listing = Listing.objects.filter(listing_id=property_id)[0]
+    if request.user != listing.owner:
+        if request.method == "POST":
+            rating = request.POST['rating_value']
+            print(rating)
+            user = request.user
+            listing = Listing.objects.filter(listing_id=property_id)[0]
+
+            print(listing)
+            print('listing ', listing)
+            existing_rating = Rating.objects.filter(user=user, listing=listing)
+            print("ratings ", existing_rating)
+            if len(existing_rating) > 0:
+                t = existing_rating[0]
+                t.value = rating
+            else:
+                t = Rating(listing=listing, user=user, value=rating)
+            print(t)
+            print(t.value)
+            t.save()
+            listing_rating = Rating.objects.filter(listing=listing)
+            listing_avg = listing_rating.aggregate(Avg('value'))
+            listing.ratings = listing_avg['value__avg']
+            listing.save()
+            address1 = listing.address1
+            print(listing_rating)
+            print("listing average", listing_avg['value__avg'])
+        return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+    else:
+        messages.error(request, "You cannot rate your own listing")
         address1 = listing.address1
-        print(listing_rating)
-        print("listing average", listing_avg['value__avg'])
-    return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+        return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+
