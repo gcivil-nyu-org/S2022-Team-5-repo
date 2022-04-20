@@ -107,6 +107,24 @@
         {% endif %}<br><br>
 
         <h6>Schedule an Appointment</h6>
+        {% if messages %}
+        {% for message in messages %}
+{% if message.tags == 'error' %}
+        <div class="alert alert-danger my-2" role="alert">
+                             {{message}}
+                          </div>
+                       {% endif %}
+                    {% endfor %}
+                 {% endif %} 
+        {% if messages %}
+                        {% for message in messages %}
+               {% if message.tags == 'success' %}
+                        <div class="alert alert-danger my-2" role="alert">
+                                             {{message}}
+                                          </div>
+                                       {% endif %}
+                                    {% endfor %}
+                                 {% endif %} 
         {% if listing.calendly_link and user.is_authenticated %}
             <div class="calendly-inline-widget" data-url={{listing.calendly_link}} style="min-width:320px;height:630px;"></div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -240,28 +258,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="requestTourModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLongTitle">Success</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <div class="text-success mt-3">
-                    <i class="far fa-check-circle fa-6x"></i>
-                </div><br>
-                <div class="mb-3">
-                    {{successMessage}}
                 </div>
             </div>
         </div>

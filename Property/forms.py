@@ -1,4 +1,5 @@
 from datetime import datetime
+from faulthandler import disable
 from django import forms
 from localflavor.us.forms import USZipCodeField
 from .validators import file_size
@@ -85,7 +86,9 @@ class ListingForm(forms.ModelForm):
 
 class RequestTourForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        self.listing = kwargs.pop("listing", None)
         self.user = kwargs.pop("user", None)
+
         super(RequestTourForm, self).__init__(*args, **kwargs)
 
         if self.user:
@@ -133,7 +136,7 @@ class RequestTourForm(forms.ModelForm):
                     }
                 ),
             )
-
+            disable = True if self.user.username == self.listing.owner.username else False
             self.helper = FormHelper()
             self.helper.layout = Layout(
                 Div(
@@ -152,10 +155,8 @@ class RequestTourForm(forms.ModelForm):
                     Submit(
                         "submit",
                         "Request Tour",
-                        css_class="btn btn-primary",
-                        data_bs_toggle="modal",
-                        data_bs_target="#requestTourModal",
-                    )
+                        css_class="btn btn-primary",disabled = disable,
+                    ),
                 ),
             )
 

@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
+from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
 
 
 # TODO validate email
@@ -72,15 +74,13 @@ def mylistings(request):
 def propertypage(request, address1):
     if request.method == "POST":
         listing = Listing.objects.get(address1=address1)
-        form = RequestTourForm(request.POST, request.FILES or None, user=request.user)
+        form = RequestTourForm(request.POST, request.FILES or None, user=request.user, listing=listing)
         if form.is_valid():
             obj = form.save(commit=False)
-
-            obj.requester = UserProfile.objects.get(
+            if request.user.is_authenticated:
+                obj.requester = UserProfile.objects.get(
                 username=request.user.username
-                if request.user.is_authenticated
-                else None
-            )
+                )
             obj.listing = listing
             obj.firstName = (
                 request.POST.get("firstName")
@@ -97,19 +97,29 @@ def propertypage(request, address1):
                 if request.POST.get("email")
                 else form["email"].value()
             )
-            obj.phone = request.POST.get("phone")
+            obj.phone = (
+                request.POST.get("phone")
+                if request.POST.get("phone")
+                else form["phone"].value())
             obj.message = request.POST.get("message")
             obj.tourDate = request.POST.get("tourDate")
 
             obj.save()
-
+            message= obj.message + "\n\n" + "Contact details of the user:" + "\n" + obj.firstName + " " + obj.lastName + "\n" + obj.email + "\n" + obj.phone + "\n" + "Tour date requested:"+ obj.tourDate
+        send_mail(
+            subject="A User has requested to view your property",
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[listing.owner.email],
+            fail_silently=False,
+        )
         successMessage = "You have successfully requested a tour!"
+        messages.success(request, successMessage)
         context = {"listing": listing, "form": form, "successMessage": successMessage}
         return render(request, "property/property_page.html", context)
     else:
         listing = Listing.objects.get(address1=address1)
-        form = RequestTourForm(user=request.user)
-
+        form = RequestTourForm(user=request.user, listing=listing)
         context = {"listing": listing, "form": form}
         return render(request, "property/property_page.html", context)
 
