@@ -81,11 +81,26 @@ class TestPropertyForms(TestCase):
         self.laundry = "Yes"
         self.matterport_link = ""
         self.photo_url = ""
+        self.photo_url2 = ""
+        self.photo_url3 = ""
         self.calendly_link = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
+        self.firstname = "Firstname"
+        self.lastname = "Lastname"
+        self.email = "email123@email1.com"
+        self.phone = "1234567890"
+        self.message = "message"
+        self.date = "2020-10-10"
+        self.user = UserProfile.objects.create(
+            renter=True,
+            username=self.username,
+            first_name=self.firstname,
+            last_name=self.lastname,
+            email=self.email,
+            phone=self.phone,
+        )
         self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
@@ -108,15 +123,32 @@ class TestPropertyForms(TestCase):
             laundry=True,
             matterport_link=self.matterport_link,
             photo_url=self.photo_url,
+            photo_url2=self.photo_url2,
+            photo_url3=self.photo_url3,
             calendly_link=self.calendly_link,
             description=self.description,
             owner=self.user,
         )
 
+    def testPropertyView(self):
+        form_data = {
+            "firstName": self.firstname,
+            "lastName": self.lastname,
+            "email": self.email,
+            "phone": self.phone,
+            "tourDate": self.date,
+            "message": self.message,
+        }
+        response = self.client.post(
+            reverse("property:propertypage", args=[self.address1]), data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:editlistingsubmit", args=[self.property.address1]),
             data={
                 "listing_name": self.listName + "1",
                 "address1": self.address1,
@@ -197,7 +229,7 @@ class TestPropertyFormsNew1(TestCase):
 
     def testEditListing(self):
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:editlistingsubmit", args=[self.property.address1]),
             data={
                 "listing_name": self.listName,
                 "address1": self.address1,

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extend_head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-lg">
+    <ul class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="../">Accounts</a></li>
+        <li><a href="./">Profile</a></li>
+        <li>{{ account.username }}</li>
+    </ul>
+
+    <div class="card bg-light mb-3" style="max-width: 25rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ account.username }}</h5>
+            <p class="card-text text-center">Joined: {{ account.created_at.date }}</p><br>
+
+            {% if user.is_authenticated and user.username == account.username %}
+                <div class="text-center">
+                    <a href="../edit" class="btn btn-secondary" role="button" aria-pressed="true">Edit Profile</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
