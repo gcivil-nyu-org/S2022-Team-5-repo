@@ -26,7 +26,6 @@ def browselistings(request):
 
 def newlisting(request):
     # if this is a POST request we need to process the form data
-
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = ListingForm(request.POST, request.FILES or None)
@@ -39,7 +38,6 @@ def newlisting(request):
 
                 user = request.user
                 obj.owner = user
-                print(f"valid user: {obj.owner} listing")
                 obj.save()
 
             else:
@@ -71,9 +69,9 @@ def mylistings(request):
     return render(request, "property/mylistings.html", {"listings": user_listings})
 
 
-def propertypage(request, address1):
+def propertypage(request, listing_id):
     if request.method == "POST":
-        listing = Listing.objects.get(address1=address1)
+        listing = Listing.objects.get(listing_id=listing_id)
         form = RequestTourForm(
             request.POST, request.FILES or None, user=request.user, listing=listing
         )
@@ -144,7 +142,7 @@ def propertypage(request, address1):
         context = context = {"listing": listing, "successMessage": successMessage, "form": form, "comments": comments, "property_id": property_id, "listing_rating": listing_rating, "comment_form": comment_form}
         return render(request, "property/property_page.html", context)
     else:
-        listing = Listing.objects.get(address1=address1)
+        listing = Listing.objects.get(listing_id=listing_id)
         form = RequestTourForm(user=request.user, listing=listing)
         property_id = listing.listing_id
         comments = Comment.objects.filter(listing=property_id)
@@ -182,14 +180,15 @@ def newcomment(request, property_id):
                 listing = Listing.objects.filter(listing_id=property_id)[0]
                 obj.listing = listing
                 obj.save()
+                listing_id = listing.listing_id
                 address1 = listing.address1
                 print(address1)
-    return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+    return redirect(reverse("property:propertypage", kwargs={'listing_id': listing_id}))
 
 
 @login_required(login_url="/account/loginform")
-def editlisting(request, address1):
-    listing = get_object_or_404(Listing, address1=address1)
+def editlisting(request, listing_id):
+    listing = get_object_or_404(Listing, listing_id=listing_id)
     if request.user != listing.owner:
         return HttpResponseRedirect("../browselistings")
     else:
@@ -197,15 +196,13 @@ def editlisting(request, address1):
 
 
 @login_required(login_url="/account/loginform")
-def editlistingsubmit(request, address1):
-    listing = Listing.objects.filter(address1=address1)[0]
+def editlistingsubmit(request, listing_id):
+    listing = Listing.objects.filter(listing_id=listing_id)[0]
     listing.name = request.POST["listing_name"]
     listing.address1 = request.POST["address1"]
     listing.address2 = request.POST["address2"]
     listing.borough = request.POST["borough"]
     listing.zipcode = request.POST["zipcode"]
-    listing.latitude = request.POST["latitude"]
-    listing.longitude = request.POST["longitude"]
     listing.bedrooms = request.POST["bedrooms"]
     listing.bathrooms = request.POST["bathrooms"]
     listing.area = request.POST["area"]
@@ -216,8 +213,9 @@ def editlistingsubmit(request, address1):
     parking = request.POST["parking"]
     laundry = request.POST["laundry"]
     listing.photo_url = request.FILES.get("photo_url")
+    listing.photo_url2 = request.FILES.get("photo_url2")
+    listing.photo_url3 = request.FILES.get("photo_url3")
     listing.matterport_link = request.POST["matterport_link"]
-    listing.calendly_link = request.POST["calendly_link"]
     listing.description = request.POST["description"]
 
     if furnished == "Yes":
@@ -272,11 +270,25 @@ def newrating(request, property_id):
             listing_avg = listing_rating.aggregate(Avg('value'))
             listing.ratings = listing_avg['value__avg']
             listing.save()
-            address1 = listing.address1
+            listing_id = listing.listing_id
             print(listing_rating)
             print("listing average", listing_avg['value__avg'])
-        return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+        return redirect(reverse("property:propertypage", kwargs={'listing_id': listing_id}))
     else:
         messages.error(request, "You cannot rate your own listing")
-        address1 = listing.address1
-        return redirect(reverse("property:propertypage", kwargs={'address1': address1}))
+        listing_id = listing.listing_id
+        return redirect(reverse("property:propertypage", kwargs={'listing_id': listing_id}))
+
+
+@login_required(login_url="/account/loginform")
+def delete_post(request, listing_id):
+    listing = get_object_or_404(Listing, listing_id=listing_id)
+    if request.method == "POST":
+        if request.user == listing.owner:
+            post_to_delete = Listing.objects.get(listing_id=listing_id)
+            post_to_delete.delete()
+            return HttpResponseRedirect("../mylistings")
+        else:
+            return HttpResponseRedirect("../browselistings")
+    else:
+        return HttpResponseRedirect("../browselistings")

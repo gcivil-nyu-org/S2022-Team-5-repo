@@ -8,11 +8,10 @@ class ListingAdmin(admin.ModelAdmin):
     list_display = [
         "created_at",
         "name",
+        "listing_id",
         "address1",
         "address2",
         "zipcode",
-        "latitude",
-        "longitude",
         "description",
         "rent",
         "bedrooms",
@@ -25,6 +24,7 @@ class ListingAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         "created_at",
+        "listing_id",
         "ratings",
         "bathrooms",
         "active",

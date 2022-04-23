@@ -11,7 +11,7 @@
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container" style="width: 70%;">
             <div class="signup-content">
-                <form action="{% url 'property:editlistingsubmit' listing.address1 %}" method="POST"
+                <form action="{% url 'property:editlistingsubmit' listing.listing_id %}" method="POST"
                     enctype="multipart/form-data" id="createclass-form" class="signup-form">
                     {% csrf_token %}
                     <h2 class="form-title">Edit Information for {{listing.name}}</h2>
@@ -19,67 +19,57 @@
                         <div class="col-sm-12 form-group slideanim">
                             <label for="name">Change Listing Name</label>
                             <input type="text" class="form-input" name="listing_name" id="listing_name"
-                                placeholder="{{listing.name}}" />
+                                value="{{listing.name}}" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 form-group slideanim">
                             <label for="address1">Change Address 1</label>
                             <input type="text" class="form-input" name="address1" id="address1"
-                                placeholder="{{listing.address1}}" />
+                                value="{{listing.address1}}" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 form-group slideanim">
                             <label for="address2">Change Address 2</label>
                             <input type="text" class="form-input" name="address2" id="address2"
-                                placeholder="{{listing.address2}}" />
+                                value="{{listing.address2}}" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group slideanim">
                             <label for="borough">Change Borough</label>
                             <input type="text" class="form-input" name="borough" id="borough"
-                                placeholder="{{listing.borough}}" />
+                                value="{{listing.borough}}" />
                         </div>
                         <div class="col-sm-6 form-group slideanim">
                             <label for="zipcode">Update Zipcode</label>
                             <input type="text" class="form-input" name="zipcode" id="zipcode"
-                                placeholder="{{listing.zipcode}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <input type="text" class="form-input" name="latitude" id="latitude"
-                                placeholder="{{listing.latitude}}" />
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <input type="text" class="form-input" name="longitude" id="longitude"
-                                placeholder="{{listing.longitude}}" />
+                                value="{{listing.zipcode}}" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group slideanim">
                             <label for="bedrooms">Update Number of Bedrooms</label>
                             <input type="number" class="form-input" name="bedrooms" id="bedrooms"
-                                placeholder="{{listing.bedrooms}}" />
+                                value="{{listing.bedrooms}}" />
                         </div>
                         <div class="col-sm-6 form-group slideanim">
                             <label for="bathrooms">Update Number of Bathrooms</label>
                             <input type="number" class="form-input" name="bathrooms" id="bathrooms"
-                                placeholder="{{listing.bathrooms}}" />
+                                value="{{listing.bathrooms}}" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group slideanim">
                             <label for="area">Update Area</label>
                             <input type="text" class="form-input" name="area" id="area"
-                                placeholder="{{listing.area}}" />
+                                value="{{listing.area}}" />
                         </div>
                         <div class="col-sm-6 form-group slideanim">
                             <label for="rent">Update Rent</label>
                             <input type="text" class="form-input" name="rent" id="rent"
-                                placeholder="{{listing.rent}}" />
+                                value="{{listing.rent}}" />
                         </div>
                     </div>
                     <div class="row">
@@ -134,7 +124,7 @@
                         <label for="photo_url2">Re-Upload Second Photo</label>
                         <div class="col-sm-12 form-group slideanim">
                             <input type="file" class="form-input" name="photo_url2" id="photo_url2"
-                                placeholder="{{listing.photo_url2}}" />
+                                value="{{listing.photo_url2}}" />
                         </div>
                     </div>
                     <div class="row">
@@ -142,13 +132,6 @@
                         <div class="col-sm-12 form-group slideanim">
                             <input type="file" class="form-input" name="photo_url3" id="photo_url3"
                                 value="{{listing.photo_url3}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="calendly_link">Add calendly link</label>
-                            <input type="text" class="form-input" name="calendly_link" id="calendly_link"
-                                placeholder="{{listing.calendly_link}}" />
                         </div>
                     </div>
                     <div class="row">

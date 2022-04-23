@@ -1,9 +1,7 @@
 from datetime import datetime
-
-# from faulthandler import disable
 from django import forms
 
-# from localflavor.us.forms import USZipCodeField
+from localflavor.us.forms import USZipCodeField
 from .validators import file_size
 from .models import Listing, RequestTour, Comment
 from crispy_forms.helper import FormHelper
@@ -27,12 +25,10 @@ class ListingForm(forms.ModelForm):
     address1 = forms.CharField(max_length=100, required=True)
     address2 = forms.CharField(max_length=100, required=False)
     borough = forms.ChoiceField(required=True, choices=BOROUGHS)
-    # zipcode = USZipCodeField()
-    latitude = forms.CharField(max_length=100, required=False)
-    longitude = forms.CharField(max_length=100, required=False)
+    zipcode = USZipCodeField()
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
-    area = forms.IntegerField(min_value=1, max_value=10000, required=True)
-    bedrooms = forms.IntegerField(min_value=1, max_value=10, required=True)
+    area = forms.IntegerField(min_value=1, max_value=100000, required=True)
+    bedrooms = forms.IntegerField(min_value=1, max_value=15, required=True)
     bathrooms = forms.DecimalField(
         min_value=1, max_value=10, decimal_places=2, required=True
     )
@@ -58,7 +54,6 @@ class ListingForm(forms.ModelForm):
         label="Upload Third Photo",
         required=False,
     )
-    calendly_link = forms.URLField(label="Calendly Link", required=False)
     description = forms.CharField(required=False)
     matterport_link = forms.URLField(label="Matterport Link", required=False)
     description = forms.CharField(
@@ -76,8 +71,6 @@ class ListingForm(forms.ModelForm):
             "address2",
             "borough",
             "zipcode",
-            "latitude",
-            "longitude",
             "rent",
             "area",
             "bedrooms",
@@ -91,7 +84,6 @@ class ListingForm(forms.ModelForm):
             "photo_url2",
             "photo_url3",
             "matterport_link",
-            "calendly_link",
             "description",
         ]
 

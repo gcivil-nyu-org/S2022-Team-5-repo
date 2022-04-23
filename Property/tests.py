@@ -14,8 +14,6 @@ class TestPropertyFormsNew(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -40,8 +38,6 @@ class TestPropertyFormsNew(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -64,12 +60,11 @@ class TestPropertyFormsNew(TestCase):
 class TestPropertyForms(TestCase):
     def setUp(self):
         self.listName = "Test Property"
+        self.listing_id = 1
         self.address1 = "Test Address 1"
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -83,7 +78,6 @@ class TestPropertyForms(TestCase):
         self.photo_url = ""
         self.photo_url2 = ""
         self.photo_url3 = ""
-        self.calendly_link = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
@@ -110,8 +104,6 @@ class TestPropertyForms(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -125,7 +117,6 @@ class TestPropertyForms(TestCase):
             photo_url=self.photo_url,
             photo_url2=self.photo_url2,
             photo_url3=self.photo_url3,
-            calendly_link=self.calendly_link,
             description=self.description,
             owner=self.user,
         )
@@ -138,9 +129,10 @@ class TestPropertyForms(TestCase):
             "phone": self.phone,
             "tourDate": self.date,
             "message": self.message,
+            "listing_id": self.listing_id,
         }
         response = self.client.post(
-            reverse("property:propertypage", args=[self.address1]), data=form_data
+            reverse("property:propertypage", args=[self.listing_id]), data=form_data
         )
 
         self.assertEqual(response.status_code, 200)
@@ -148,15 +140,13 @@ class TestPropertyForms(TestCase):
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.address1]),
+            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName + "1",
                 "address1": self.address1,
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -168,7 +158,6 @@ class TestPropertyForms(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photo_url,
                 "matterport_link": self.matterport_link,
-                "calendly_link": self.calendly_link,
                 "description": self.description,
             },
         )
@@ -182,8 +171,6 @@ class TestPropertyFormsNew1(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -196,7 +183,6 @@ class TestPropertyFormsNew1(TestCase):
         self.mapURL = ""
         self.photoURL = ""
         self.vrLink = ""
-        self.calendlyLink = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
@@ -209,8 +195,6 @@ class TestPropertyFormsNew1(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -222,22 +206,19 @@ class TestPropertyFormsNew1(TestCase):
             laundry=False,
             photo_url=self.photoURL,
             matterport_link=self.vrLink,
-            calendly_link=self.calendlyLink,
             description=self.description,
             owner=self.user,
         )
 
     def testEditListing(self):
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.address1]),
+            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName,
                 "address1": self.address1,
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -249,7 +230,6 @@ class TestPropertyFormsNew1(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photoURL,
                 "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
                 "description": self.description,
             },
         )
