@@ -112,20 +112,20 @@
         {% for message in messages %}
 {% if message.tags == 'error' %}
         <div class="alert alert-danger my-2" role="alert">
-                             {{message}}
-                          </div>
-                       {% endif %}
-                    {% endfor %}
-                 {% endif %}
+                {{message}}
+        </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
         {% if messages %}
                         {% for message in messages %}
                {% if message.tags == 'success' %}
                         <div class="alert alert-danger my-2" role="alert">
-                                             {{message}}
-                                          </div>
-                                       {% endif %}
-                                    {% endfor %}
-                                 {% endif %}
+                             {{message}}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                     {% endif %}
             <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple action="/property/{{listing.listing_id}}" novalidate>
                 {% csrf_token %}
                 {% crispy form %}
@@ -153,9 +153,14 @@
 
         <br><br>
 
-        <h6>How This Property Compares with Market Trends</h6>
+        <h6>Check Previous Year Prices in {{listing.borough}}!</h6>
+        <a class="btn btn-primary" href="{% url 'property:charts' listing.borough %}"" role="button"> View Prices </a>
+
 
         <br><br>
+        <br><br>
+
+     <h8>Rate and Review this property!</h8>
 
     </div>
     <div class="container" style="padding: 2%;">

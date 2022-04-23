@@ -119,3 +119,28 @@ class RequestTour(models.Model):
     tourDate = models.DateField(
         verbose_name="Tour Date", null=False, blank=False, default=datetime.now
     )
+
+
+class ChartsBronx(models.Model):
+    neighbourhood = models.CharField(max_length=1000)
+    price = models.FloatField()
+
+
+class ChartsBrooklyn(models.Model):
+    neighbourhood = models.CharField(max_length=1000)
+    price = models.FloatField()
+
+
+class ChartsQueens(models.Model):
+    neighbourhood = models.CharField(max_length=1000)
+    price = models.FloatField()
+
+
+class ChartsStatenIsland(models.Model):
+    neighbourhood = models.CharField(max_length=1000)
+    price = models.FloatField()
+
+
+class ChartsManhattan(models.Model):
+    neighbourhood = models.CharField(max_length=1000)
+    price = models.FloatField()
