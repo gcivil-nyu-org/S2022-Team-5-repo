@@ -2,10 +2,20 @@ from datetime import datetime
 from django import forms
 
 from localflavor.us.forms import USZipCodeField
-from .validators import file_size
 from .models import Listing, RequestTour, Comment
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, ButtonHolder, Submit
+from django.core.exceptions import ValidationError
+
+
+def file_size(value):
+    limit = 3 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError(
+            "Image size should not exceed 3 MiB. Please upload a smaller photo."
+        )
+    else:
+        return value
 
 
 class ListingForm(forms.ModelForm):

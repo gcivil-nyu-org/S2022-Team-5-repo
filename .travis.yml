@@ -15,6 +15,11 @@ env:
 
 before_script:
   - python manage.py migrate
+  - python manage.py loader1
+  - python manage.py loader2
+  - python manage.py loader3
+  - python manage.py loader4
+  - python manage.py loader5
 
 script:
   - black .

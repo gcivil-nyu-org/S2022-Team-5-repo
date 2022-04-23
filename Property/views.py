@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing, Comment, Rating
+from .models import Listing, Comment, Rating, ChartsBronx, ChartsStatenIsland, ChartsQueens, ChartsBrooklyn, ChartsManhattan
 from account.models import UserProfile
 from .forms import ListingForm, RequestTourForm, CommentForm
 from django.http import HttpResponseRedirect
@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib import messages
 from django.core.mail import send_mail  # , BadHeaderError
 from django.conf import settings
+import plotly.express as px
+
 
 from django.db.models import Avg
 # TODO validate email
@@ -292,3 +294,91 @@ def delete_post(request, listing_id):
             return HttpResponseRedirect("../browselistings")
     else:
         return HttpResponseRedirect("../browselistings")
+
+
+def charts(request, borough):
+    if borough == "Bronx":
+        chart = ChartsBronx.objects.all()
+        fig = px.histogram(
+            x=[c.neighbourhood for c in chart],
+            y=[c.price for c in chart],
+            title="Bronx 2021 prices",
+            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
+        )
+        fig.update_layout(
+            title={
+                'font_size': 24,
+                'xanchor': 'center',
+                'x': 0.5
+            })
+        disp = fig.to_html()
+        context = {'disp': disp}
+        return render(request, 'property/chart.html', context)
+    elif borough == "Manhattan":
+        chart = ChartsManhattan.objects.all()
+        fig = px.histogram(
+            x=[c.neighbourhood for c in chart],
+            y=[c.price for c in chart],
+            title="Manhattan 2021 prices",
+            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
+        )
+        fig.update_layout(
+            title={
+                'font_size': 24,
+                'xanchor': 'center',
+                'x': 0.5
+            })
+        disp = fig.to_html()
+        context = {'disp': disp}
+        return render(request, 'property/chart.html', context)
+    elif borough == "Brooklyn":
+        chart = ChartsBrooklyn.objects.all()
+        fig = px.bar(
+            x=[c.neighbourhood for c in chart],
+            y=[c.price for c in chart],
+            title="Brooklyn 2021 Prices",
+            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
+        )
+        fig.update_layout(
+            title={
+                'font_size': 24,
+                'xanchor': 'center',
+                'x': 0.5
+            })
+        disp = fig.to_html()
+        context = {'disp': disp}
+        return render(request, 'property/chart.html', context)
+    elif borough == "Staten Island":
+        chart = ChartsStatenIsland.objects.all()
+        fig = px.bar(
+            x=[c.neighbourhood for c in chart],
+            y=[c.price for c in chart],
+            title="Staten Island 2021 prices",
+            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
+        )
+        fig.update_layout(
+            title={
+                'font_size': 24,
+                'xanchor': 'center',
+                'x': 0.5
+            })
+        disp = fig.to_html()
+        context = {'disp': disp}
+        return render(request, 'property/chart.html', context)
+    elif borough == "Queens":
+        chart = ChartsQueens.objects.all()
+        fig = px.bar(
+            x=[c.neighbourhood for c in chart],
+            y=[c.price for c in chart],
+            title="Queens 2021 prices",
+            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
+        )
+        fig.update_layout(
+            title={
+                'font_size': 24,
+                'xanchor': 'center',
+                'x': 0.5
+            })
+        disp = fig.to_html()
+        context = {'disp': disp}
+        return render(request, 'property/chart.html', context)

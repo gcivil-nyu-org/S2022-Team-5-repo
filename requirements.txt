@@ -9,3 +9,5 @@ django-storages
 boto3
 pillow
 django-localflavor
+pandas
+plotly==5.7.0
