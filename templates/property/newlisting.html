@@ -17,10 +17,6 @@
     <form id = 'listingform' method="POST" enctype="multipart/form-data" multiple action = "{% url 'property:newlisting' %}">
     {% csrf_token %}
     {{ form|crispy}}
-    {{formset.management_form}}
-    {% for i in formset %}
-        {{ i | crispy }}
-    {% endfor %}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>

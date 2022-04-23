@@ -26,12 +26,6 @@ class Listing(models.Model):
     zipcode = models.CharField(
         verbose_name="Zip Code", max_length=8, null=True, blank=True
     )
-    latitude = models.CharField(
-        verbose_name="Latitude", max_length=50, null=True, blank=True
-    )
-    longitude = models.CharField(
-        verbose_name="Longitude", max_length=50, null=True, blank=True
-    )
     rent = models.IntegerField(verbose_name="Rent", default=1)
     area = models.FloatField(verbose_name="Area", default=0)
     bedrooms = models.IntegerField(verbose_name="Bedrooms", default=1)
@@ -53,10 +47,6 @@ class Listing(models.Model):
     photo_url3 = models.ImageField(
         upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True
     )
-
-    calendly_link = models.URLField(
-        verbose_name="Calendly_Link", max_length=300, null=True, blank=True
-    )
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=True)
     description = models.TextField(verbose_name="Description", null=True, blank=True)
@@ -67,10 +57,12 @@ class Listing(models.Model):
     def __str__(self) -> str:
         return f"owner: {self.owner} \n address:{self.address1} {self.address2}"
 
+
 def get_image_filename(instance, filename):
     title = instance.listing.name
     slug = slugify(title)
     return "post_images/%s-%s" % (slug, filename)
+
 
 class Rating(models.Model):
     listing = models.ForeignKey(

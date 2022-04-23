@@ -14,8 +14,6 @@ class TestPropertyFormsNew(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -40,8 +38,6 @@ class TestPropertyFormsNew(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -68,8 +64,6 @@ class TestPropertyForms(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -83,7 +77,6 @@ class TestPropertyForms(TestCase):
         self.photo_url = ""
         self.photo_url2 = ""
         self.photo_url3 = ""
-        self.calendly_link = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
@@ -110,8 +103,6 @@ class TestPropertyForms(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -125,7 +116,6 @@ class TestPropertyForms(TestCase):
             photo_url=self.photo_url,
             photo_url2=self.photo_url2,
             photo_url3=self.photo_url3,
-            calendly_link=self.calendly_link,
             description=self.description,
             owner=self.user,
         )
@@ -155,8 +145,6 @@ class TestPropertyForms(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -168,7 +156,6 @@ class TestPropertyForms(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photo_url,
                 "matterport_link": self.matterport_link,
-                "calendly_link": self.calendly_link,
                 "description": self.description,
             },
         )
@@ -182,8 +169,6 @@ class TestPropertyFormsNew1(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -196,7 +181,6 @@ class TestPropertyFormsNew1(TestCase):
         self.mapURL = ""
         self.photoURL = ""
         self.vrLink = ""
-        self.calendlyLink = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
@@ -209,8 +193,6 @@ class TestPropertyFormsNew1(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -222,7 +204,6 @@ class TestPropertyFormsNew1(TestCase):
             laundry=False,
             photo_url=self.photoURL,
             matterport_link=self.vrLink,
-            calendly_link=self.calendlyLink,
             description=self.description,
             owner=self.user,
         )
@@ -236,8 +217,6 @@ class TestPropertyFormsNew1(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -249,7 +228,6 @@ class TestPropertyFormsNew1(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photoURL,
                 "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
                 "description": self.description,
             },
         )

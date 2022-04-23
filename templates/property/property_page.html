@@ -126,15 +126,10 @@
                                        {% endif %}
                                     {% endfor %}
                                  {% endif %}
-        {% if listing.calendly_link and user.is_authenticated %}
-            <div class="calendly-inline-widget" data-url={{listing.calendly_link}} style="min-width:320px;height:630px;"></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-        {% else %}
-            <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple action="/property/{{listing.address1}}" novalidate>
+            <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple action="/property/{{listing.listing_id}}" novalidate>
                 {% csrf_token %}
                 {% crispy form %}
             </form>
-
             <script>
                 (function() {
                     'use strict';
@@ -153,10 +148,8 @@
                         });
                     }, false);
                 })();
-            </script>
-        {% endif %}
-
-        <br><br>
+                  </script>
+             <br><br>
 
         <h6>How This Property Compares with Market Trends</h6>
 
