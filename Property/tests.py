@@ -60,6 +60,7 @@ class TestPropertyFormsNew(TestCase):
 class TestPropertyForms(TestCase):
     def setUp(self):
         self.listName = "Test Property"
+        self.listing_id = 1
         self.address1 = "Test Address 1"
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
@@ -128,9 +129,10 @@ class TestPropertyForms(TestCase):
             "phone": self.phone,
             "tourDate": self.date,
             "message": self.message,
+            "listing_id": self.listing_id,
         }
         response = self.client.post(
-            reverse("property:propertypage", args=[self.address1]), data=form_data
+            reverse("property:propertypage", args=[self.listing_id]), data=form_data
         )
 
         self.assertEqual(response.status_code, 200)
@@ -138,7 +140,7 @@ class TestPropertyForms(TestCase):
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.address1]),
+            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName + "1",
                 "address1": self.address1,
@@ -210,7 +212,7 @@ class TestPropertyFormsNew1(TestCase):
 
     def testEditListing(self):
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.address1]),
+            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName,
                 "address1": self.address1,
