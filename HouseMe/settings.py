@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "s3direct",
     "storages",
     "crispy_bootstrap5",
-    "s3upload",
     "Property",
     "account",
     "localflavor",
