@@ -20,6 +20,5 @@ urlpatterns = [
     path("property/", include("Property.urls")),
     path("admin/", admin.site.urls),
     path("", include("Property.urls")),
-    path(r'^s3upload/', include('s3upload.urls')),
     path("account/", include("account.urls", namespace="account")),
 ]
