@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing, Comment, Rating, ChartsBronx, ChartsStatenIsland, ChartsQueens, ChartsBrooklyn, ChartsManhattan
+from .models import Listing, Comment, Rating
 from account.models import UserProfile
 from .forms import ListingForm, RequestTourForm, CommentForm
 from django.http import HttpResponseRedirect
@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.core.mail import send_mail  # , BadHeaderError
 from django.conf import settings
 import plotly.express as px
+import pandas as pd
 
 
 from django.db.models import Avg
@@ -298,87 +299,132 @@ def delete_post(request, listing_id):
 
 def charts(request, borough):
     if borough == "Bronx":
-        chart = ChartsBronx.objects.all()
-        fig = px.histogram(
-            x=[c.neighbourhood for c in chart],
-            y=[c.price for c in chart],
-            title="Bronx 2021 prices",
-            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
-        )
-        fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            })
+        datafile1 = settings.BASE_DIR / 'data' / 'bronx.csv'
+        df = pd.read_csv(datafile1)
+        fig = px.bar(df,
+                     x="NEIGHBORHOOD",
+                     y="SALE PRICE",
+                     animation_frame="YEAR", animation_group="NEIGHBORHOOD",
+                     title="Bronx Price Trends from 2016-2021",
+                     color="NEIGHBORHOOD",
+                     range_y=[0, 1500],
+                     color_discrete_sequence=px.colors.qualitative.T10,
+                     labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
+        fig.update_yaxes(showgrid=True),
+        fig.update_traces(hovertemplate=None)
+        fig.update_xaxes(categoryorder='total descending')
+        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+                          hovermode="x unified",
+                          xaxis_title=' ', yaxis_title="Price in Millions",
+                          title_font=dict(size=10, color='#a5a7ab', family="Lato, sans-serif"),
+                          font=dict(color='#8a8d93'),)
+        fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
+        fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         disp = fig.to_html()
         context = {'disp': disp}
         return render(request, 'property/chart.html', context)
     elif borough == "Manhattan":
-        chart = ChartsManhattan.objects.all()
-        fig = px.histogram(
-            x=[c.neighbourhood for c in chart],
-            y=[c.price for c in chart],
-            title="Manhattan 2021 prices",
-            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
-        )
-        fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            })
+        datafile1 = settings.BASE_DIR / 'data' / 'manhattan.csv'
+        df = pd.read_csv(datafile1)
+        fig = px.bar(df,
+                     x="NEIGHBORHOOD",
+                     y="SALE PRICE",
+                     animation_frame="YEAR", animation_group="NEIGHBORHOOD",
+                     title="Manhattan Price Trends from 2016-2021",
+                     color="NEIGHBORHOOD",
+                     range_y=[0, 4500],
+                     color_discrete_sequence=px.colors.qualitative.T10,
+                     labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
+        fig.update_yaxes(showgrid=True),
+        fig.update_traces(hovertemplate=None)
+        fig.update_xaxes(categoryorder='total descending')
+        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+                          hovermode="x unified",
+                          xaxis_title=' ', yaxis_title="Price in Millions",
+                          title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
+                          font=dict(color='#8a8d93'),)
+        fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
+        fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         disp = fig.to_html()
         context = {'disp': disp}
         return render(request, 'property/chart.html', context)
     elif borough == "Brooklyn":
-        chart = ChartsBrooklyn.objects.all()
-        fig = px.bar(
-            x=[c.neighbourhood for c in chart],
-            y=[c.price for c in chart],
-            title="Brooklyn 2021 Prices",
-            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
-        )
-        fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            })
+        datafile1 = settings.BASE_DIR / 'data' / 'brooklyn.csv'
+        df = pd.read_csv(datafile1)
+        fig = px.bar(df,
+                     x="NEIGHBORHOOD",
+                     y="SALE PRICE",
+                     animation_frame="YEAR", animation_group="NEIGHBORHOOD",
+                     title="Brooklyn Price Trends from 2016-2021",
+                     color="NEIGHBORHOOD",
+                     range_y=[0, 1800],
+                     color_discrete_sequence=px.colors.qualitative.T10,
+                     labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
+        fig.update_yaxes(showgrid=True),
+        fig.update_traces(hovertemplate=None)
+        fig.update_xaxes(categoryorder='total descending')
+        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+                          hovermode="x unified",
+                          xaxis_title=' ', yaxis_title="Price in Millions",
+                          title_font=dict(size=10, color='#a5a7ab', family="Lato, sans-serif"),
+                          font=dict(color='#8a8d93'),)
+        fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
+        fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         disp = fig.to_html()
         context = {'disp': disp}
         return render(request, 'property/chart.html', context)
     elif borough == "Staten Island":
-        chart = ChartsStatenIsland.objects.all()
-        fig = px.bar(
-            x=[c.neighbourhood for c in chart],
-            y=[c.price for c in chart],
-            title="Staten Island 2021 prices",
-            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
-        )
-        fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            })
+        datafile1 = settings.BASE_DIR / 'data' / 'statenisland.csv'
+        df = pd.read_csv(datafile1)
+        fig = px.bar(df,
+                     x="NEIGHBORHOOD",
+                     y="SALE PRICE",
+                     animation_frame="YEAR", animation_group="NEIGHBORHOOD",
+                     title="Staten Island Price Trends from 2016-2021",
+                     color="NEIGHBORHOOD",
+                     range_y=[0, 300],
+                     color_discrete_sequence=px.colors.qualitative.T10,
+                     labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
+        fig.update_yaxes(showgrid=True),
+        fig.update_traces(hovertemplate=None)
+        fig.update_xaxes(categoryorder='total descending')
+        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+                          hovermode="x unified",
+                          xaxis_title=' ', yaxis_title="Price (In Millions)",
+                          title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
+                          font=dict(color='#8a8d93'),)
+        fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
+        fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         disp = fig.to_html()
         context = {'disp': disp}
         return render(request, 'property/chart.html', context)
     elif borough == "Queens":
-        chart = ChartsQueens.objects.all()
-        fig = px.bar(
-            x=[c.neighbourhood for c in chart],
-            y=[c.price for c in chart],
-            title="Queens 2021 prices",
-            labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'}
-        )
-        fig.update_layout(
-            title={
-                'font_size': 24,
-                'xanchor': 'center',
-                'x': 0.5
-            })
+        datafile1 = settings.BASE_DIR / 'data' / 'queens.csv'
+        df = pd.read_csv(datafile1)
+        fig = px.bar(df,
+                     x="NEIGHBORHOOD",
+                     y="SALE PRICE",
+                     animation_frame="YEAR", animation_group="NEIGHBORHOOD",
+                     title="Queens Price Trends from 2016-2021",
+                     color="NEIGHBORHOOD",
+                     range_y=[0, 2500],
+                     color_discrete_sequence=px.colors.qualitative.T10,
+                     labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
+        fig.update_yaxes(showgrid=True),
+        fig.update_traces(hovertemplate=None)
+        fig.update_xaxes(categoryorder='total descending')
+        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+                          hovermode="x unified",
+                          xaxis_title=' ', yaxis_title="Price (In Millions)",
+                          title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
+                          font=dict(color='#8a8d93'),)                        
+        fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
+        fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         disp = fig.to_html()
         context = {'disp': disp}
         return render(request, 'property/chart.html', context)
