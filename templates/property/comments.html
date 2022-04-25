@@ -38,7 +38,7 @@
         <form id = 'listingform' method="POST" enctype="multipart/form-data" action = "{% url 'property:newcomment' property_id %}">
           {% load crispy_forms_tags %}
             {% csrf_token %}
-            {{ form|crispy}}
+            {{ comment_form|crispy}}
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
 

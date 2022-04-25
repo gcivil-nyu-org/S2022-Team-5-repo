@@ -14,8 +14,6 @@ class TestPropertyFormsNew(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -40,8 +38,6 @@ class TestPropertyFormsNew(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -64,12 +60,11 @@ class TestPropertyFormsNew(TestCase):
 class TestPropertyForms(TestCase):
     def setUp(self):
         self.listName = "Test Property"
+        self.listing_id = 1
         self.address1 = "Test Address 1"
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -81,11 +76,25 @@ class TestPropertyForms(TestCase):
         self.laundry = "Yes"
         self.matterport_link = ""
         self.photo_url = ""
-        self.calendly_link = ""
+        self.photo_url2 = ""
+        self.photo_url3 = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
+        self.firstname = "Firstname"
+        self.lastname = "Lastname"
+        self.email = "email123@email1.com"
+        self.phone = "1234567890"
+        self.message = "message"
+        self.date = "2020-10-10"
+        self.user = UserProfile.objects.create(
+            renter=True,
+            username=self.username,
+            first_name=self.firstname,
+            last_name=self.lastname,
+            email=self.email,
+            phone=self.phone,
+        )
         self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
@@ -95,8 +104,6 @@ class TestPropertyForms(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -108,10 +115,27 @@ class TestPropertyForms(TestCase):
             laundry=True,
             matterport_link=self.matterport_link,
             photo_url=self.photo_url,
-            calendly_link=self.calendly_link,
+            photo_url2=self.photo_url2,
+            photo_url3=self.photo_url3,
             description=self.description,
             owner=self.user,
         )
+
+    def testPropertyView(self):
+        form_data = {
+            "firstName": self.firstname,
+            "lastName": self.lastname,
+            "email": self.email,
+            "phone": self.phone,
+            "tourDate": self.date,
+            "message": self.message,
+            "listing_id": self.listing_id,
+        }
+        response = self.client.post(
+            reverse("property:propertypage", args=[self.listing_id]), data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)
 
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
@@ -123,8 +147,6 @@ class TestPropertyForms(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -136,7 +158,6 @@ class TestPropertyForms(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photo_url,
                 "matterport_link": self.matterport_link,
-                "calendly_link": self.calendly_link,
                 "description": self.description,
             },
         )
@@ -150,8 +171,6 @@ class TestPropertyFormsNew1(TestCase):
         self.address2 = "Test Address 2"
         self.borough = "Manhattan"
         self.zipcode = "00000"
-        self.latitude = 100
-        self.longitude = 100
         self.bedrooms = 2
         self.bathrooms = 2
         self.area = 100
@@ -164,7 +183,6 @@ class TestPropertyFormsNew1(TestCase):
         self.mapURL = ""
         self.photoURL = ""
         self.vrLink = ""
-        self.calendlyLink = ""
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
@@ -177,8 +195,6 @@ class TestPropertyFormsNew1(TestCase):
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            latitude=self.latitude,
-            longitude=self.longitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -190,7 +206,6 @@ class TestPropertyFormsNew1(TestCase):
             laundry=False,
             photo_url=self.photoURL,
             matterport_link=self.vrLink,
-            calendly_link=self.calendlyLink,
             description=self.description,
             owner=self.user,
         )
@@ -204,8 +219,6 @@ class TestPropertyFormsNew1(TestCase):
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -217,7 +230,6 @@ class TestPropertyFormsNew1(TestCase):
                 "laundry": self.laundry,
                 "photo_url": self.photoURL,
                 "matterport_link": self.vrLink,
-                "calendly_link": self.calendlyLink,
                 "description": self.description,
             },
         )

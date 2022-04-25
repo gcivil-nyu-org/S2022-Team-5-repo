@@ -1,145 +1,104 @@
 {% extends 'base.html'%}
 {% load static %}
-
 {% block extend_head %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/browselistings.css' %}">
 {% endblock %}
-
 {% block content %}
-<div class="row">
-    <div class="col-lg-12">
-        {% for listing in listings %}
-        <div class="row classroombox" style="padding: 1%;">
-            <div class="col-md-4 col-xs-12 ">
-                {% if listing.photo_url %}
-                <img class="classroomboximg" src="{{listing.photo_url.url}}" alt="" style="width: 600px;">
-                {% else %}
-                <p></p>
-                {% endif %}
-            </div>
-            <div class="col-md-8">
-                  <h3>{{listing.name}}</h3>
-                Description: {{listing.description}}
-                <div class="row">
-                        <div class="col-md-4">
-                            Address : {{listing.address1}} {{listing.address2}}
-                        </div>
-                        </div>
-                <div class="row">
+<div class="container-lg">
+    <div class="row">
+        <div class="col-lg-8">
+            {% for listing in listings%}
+            <div class="card mb-3" style="max-width: 720px; max-height: 250px; margin: 25px 25px 25px 25px ">
+                <div class="row g-0">
                     <div class="col-md-4">
-                        Borough : {{listing.borough}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        Zip Code : {{listing.zipcode}}
-                    </div>
-                    <div class="col-md-4">
-                        Latitude : {{listing.latitude}}
-                    </div>
-                    <div class="col-md-4">
-                        Longitude : {{listing.longitude}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        Bedroom : {{listing.bedrooms}}
-                    </div>
-                    <div class="col-md-4">
-                        Bathroom : {{listing.bathrooms}}
-                    </div>
-                    <div class="col-md-4">
-                        Area : {{listing.area}} Sq
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        {% if listing.furnished %}
-                        Furnished: Yes
+                        {% if listing.photo_url %}
+                        <img class="rounded-start cropped" src="{{listing.photo_url.url}}" alt="...">
                         {% else %}
-                        Furnished: No
+                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
                         {% endif %}
                     </div>
-                    <div class="col-md-4">
-                        {% if listing.elevator %}
-                        Elevator: Yes
-                        {% else %}
-                        Elevator: No
-                        {% endif %}
-                    </div>
-                    <div class="col-md-4">
-                        {% if listing.heating %}
-                        Heating: Yes
-                        {% else %}
-                        Heating: No
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        {% if listing.parking %}
-                        Parking: Yes
-                        {% else %}
-                        Parking: No
-                        {% endif %}
-                    </div>
-                    <div class="col-md-4">
-                        {% if listing.laundry %}
-                        Laundry: Yes
-                        {% else %}
-                        Laundry: No
-                        {% endif %}
-                    </div>
-                    <div class="col-md-4">
-                        {% if listing.active %}
-                        Listing Status: Active
-                        {% else %}
-                        Listing Status: Inactive
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Rent: ${{listing.rent}}</h4>
-                    </div>
-                </div>
-                <a class="btn btn-primary" href="{{listing.listing_id}}" role="button">View</a>
-                    {% if not listing.map_url %}
-                    <a class="btn btn-secondary disabled" href="#" role="button">Map Unavailable</a>
-                    {% else %}
-                    <a class="btn btn-secondary " href="{{listing.map_url}}" role="button">Map</a>
-                    {% endif %}
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{listing.address1}} {{listing.address2}}</h5>
+                            <p class="card-text">{{listing.description}}</p>
+                            <div class="row">
+                                <div class="col-md-4"> Zip Code: {{listing.zipcode}} </div>
+                                <div class="col-md-4"> Borough: {{listing.borough}} </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"> Bedroom: {{listing.bedrooms}} </div>
+                                <div class="col-md-4"> Bathroom: {{listing.bathrooms}}</div>
+                                <div class="col-md-4"> Area : {{listing.area}} Sq</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"> Furnished: {{listing.furnished}} </div>
+                                <div class="col-md-4"> Laundry: {{listing.laundry}}</div>
+                                <div class="col-md-4"> Heating: {{listing.heating}} </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"> Parking: {{listing.parking}} </div>
+                                <div class="col-md-4"> Elevator: {{listing.elevator}}</div>
+                            </div>
+                            <div class="d-flex align-items-end">
+                                <a class="btn btn-primary" href="{{listing.listing_id}}" role="button" style="margin: 2px 2px 2px 2px">View</a>
+                                <a class="btn btn-secondary " style="margin: 2px 2px 2px 2px" href="{% url 'property:editlisting' listing.listing_id %}" role="button" style="margin: 2px 2px 2px 2px">Edit</a>
+                                <form method="POST" action="{% url 'property:delete' listing.listing_id %}" onsubmit="return confirm('Are you sure you want to delete your listing?')">
+                                    {% csrf_token %}
+                                <input type="submit" class="btn btn-secondary" target="_blank" style="margin: 2px 2px 2px 2px" value="Delete Listing"></a>
+                                </form>
+                            </div>
 
-
-                    {% if not listing.matterport_link %}
-                    <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
-                    {% else %}
-                    <a class="btn btn-secondary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>
-                    {% endif %}
-                    {% if not listing.calendly_link %}
-                    <a class="btn btn-secondary disabled btn-block" href="#" role="button">Schedule Tour Unavailable</a>
-                    {% else %}
-                    <a class="btn btn-secondary btn-block " href="{{listing.calendly_link}}" role="button">Schedule Tour</a>
-                    {% endif %}
-                    <div class="col-md-4">
-                        <input onclick="location.href='/property/editlisting/{{listing.listing_id}}'" type="button"
-                        style="margin:5px;" class="btn btn-secondary btn-block" onsubmit="" value="Edit"></input>
+                        </div>
                     </div>
-                <br>
-                <form action="#" method="post" id="form">
-                    {% csrf_token %}
-                    <input type="hidden" name="classroomid" value="{{classroom.class_id}}">
-                </form>
+                </div>
             </div>
-            </br>
+            {% endfor %}
         </div>
-        {% endfor %}
-
     </div>
 </div>
-
 {% endblock %}
 
 {% block extend_footer %}
 
 {% endblock %}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+    function confirm() {
+
+        swal({
+
+                title: 'Warning!',
+
+                text: 'do you want to delete?',
+
+                icon: 'warning',
+
+                showCancelButton: true,
+
+                confirmButtonColor: '#3085d6',
+
+                cancelButtonColor: '#d33',
+
+                cancelButtonText: 'No',
+
+                confirmButtonText: 'Yes'
+
+            },
+
+            function (isConfirm) {
+
+                if (isConfirm) {
+
+                    document.querySelector(del).submit();
+
+                }
+
+            })
+
+    }
+
+</script> 
