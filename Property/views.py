@@ -307,16 +307,16 @@ def charts(request, borough):
                      animation_frame="YEAR", animation_group="NEIGHBORHOOD",
                      title="Bronx Price Trends from 2016-2021",
                      color="NEIGHBORHOOD",
-                     range_y=[0, 1500],
+                     range_y=[0, 2700],
                      color_discrete_sequence=px.colors.qualitative.T10,
                      labels={'x': 'Neighbourhoods', 'y': 'Price (In Millions)'})
         fig.update_yaxes(showgrid=True),
         fig.update_traces(hovertemplate=None)
         fig.update_xaxes(categoryorder='total descending')
-        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+        fig.update_layout(margin=dict(l=15, r=20, t=20, b=200),
                           hovermode="x unified",
                           xaxis_title=' ', yaxis_title="Price in Millions",
-                          title_font=dict(size=10, color='#a5a7ab', family="Lato, sans-serif"),
+                          title_font=dict(size=15, color='#a5a7ab', family="Lato, sans-serif"),
                           font=dict(color='#8a8d93'),)
         fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
         fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
@@ -339,10 +339,10 @@ def charts(request, borough):
         fig.update_yaxes(showgrid=True),
         fig.update_traces(hovertemplate=None)
         fig.update_xaxes(categoryorder='total descending')
-        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+        fig.update_layout(margin=dict(l=15, r=20, t=20, b=200),
                           hovermode="x unified",
                           xaxis_title=' ', yaxis_title="Price in Millions",
-                          title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
+                          title_font=dict(size=15, color='#a5a7ab', family="Lato, sans-serif"),
                           font=dict(color='#8a8d93'),)
         fig['layout']['updatemenus'][0]['pad'] = dict(r=10, t=150)
         fig['layout']['sliders'][0]['pad'] = dict(r=10, t=150,)
@@ -365,7 +365,7 @@ def charts(request, borough):
         fig.update_yaxes(showgrid=True),
         fig.update_traces(hovertemplate=None)
         fig.update_xaxes(categoryorder='total descending')
-        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+        fig.update_layout(margin=dict(l=15, r=20, t=20, b=200),
                           hovermode="x unified",
                           xaxis_title=' ', yaxis_title="Price in Millions",
                           title_font=dict(size=10, color='#a5a7ab', family="Lato, sans-serif"),
@@ -391,7 +391,7 @@ def charts(request, borough):
         fig.update_yaxes(showgrid=True),
         fig.update_traces(hovertemplate=None)
         fig.update_xaxes(categoryorder='total descending')
-        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+        fig.update_layout(margin=dict(l=15, r=20, t=20, b=200),
                           hovermode="x unified",
                           xaxis_title=' ', yaxis_title="Price (In Millions)",
                           title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
@@ -417,7 +417,7 @@ def charts(request, borough):
         fig.update_yaxes(showgrid=True),
         fig.update_traces(hovertemplate=None)
         fig.update_xaxes(categoryorder='total descending')
-        fig.update_layout(margin=dict(l=20, r=20, t=20, b=200),
+        fig.update_layout(margin=dict(l=15, r=20, t=20, b=200),
                           hovermode="x unified",
                           xaxis_title=' ', yaxis_title="Price (In Millions)",
                           title_font=dict(size=25, color='#a5a7ab', family="Lato, sans-serif"),
