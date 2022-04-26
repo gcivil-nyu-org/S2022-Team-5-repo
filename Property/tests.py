@@ -294,10 +294,28 @@ class TestNewRating(TestCase):
             owner=self.user,
         )
 
+    def testNewComment(self):
+        response = self.client.post(
+            reverse("property:newcomment", args=[self.property.listing_id]),
+            data={"text": "Test comment"},
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def testCommentview(self):
+        response = self.client.get(
+            reverse("property:comment", args=[self.property.listing_id]),
+        )
+        self.assertEqual(response.status_code, 200)
+
     def testNewRating(self):
         response = self.client.post(
             reverse("property:newrating", args=[self.property.listing_id]),
             data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 3},
         )
         self.assertEqual(response.status_code, 302)
 
