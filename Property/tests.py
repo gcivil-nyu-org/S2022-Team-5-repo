@@ -235,6 +235,72 @@ class TestPropertyFormsNew1(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
+    def testNewComments(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+
+
+class TestNewRating(TestCase):
+    def setUp(self):
+        self.listName = "Test Property"
+        self.address1 = "Test Address 1"
+        self.address2 = "Test Address 2"
+        self.borough = "Manhattan"
+        self.zipcode = "00000"
+        self.bedrooms = 2
+        self.bathrooms = 2
+        self.area = 100
+        self.rent = 100
+        self.furnished = "No"
+        self.elevator = "Yes"
+        self.heating = "No"
+        self.parking = "Yes"
+        self.laundry = "No"
+        self.mapURL = ""
+        self.photoURL = ""
+        self.vrLink = ""
+        self.description = "The best property!"
+        self.username = "TestUser"
+        self.password = "1a2b3c4d"
+        self.user = UserProfile.objects.create(renter=True, username=self.username)
+        self.user.set_password(self.password)
+        self.user.save()
+        self.user1 = UserProfile.objects.create(
+            renter=True, username=self.username + "1"
+        )
+        self.user1.set_password(self.password)
+        self.user1.save()
+        self.client.login(username=self.username + "1", password=self.password)
+        self.property = Listing.objects.create(
+            address1=self.address1,
+            address2=self.address2,
+            borough=self.borough,
+            zipcode=self.zipcode,
+            bedrooms=self.bedrooms,
+            bathrooms=self.bathrooms,
+            area=self.area,
+            rent=self.rent,
+            furnished=False,
+            elevator=True,
+            heating=False,
+            parking=True,
+            laundry=False,
+            photo_url=self.photoURL,
+            matterport_link=self.vrLink,
+            description=self.description,
+            owner=self.user,
+        )
+
+    def testNewRating(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+
 
 class TestCharts(TestCase):
     def testBronx(self):
