@@ -143,8 +143,8 @@ class TestPropertyForms(TestCase):
             reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName + "1",
-                "address1": self.address1,
-                "address2": self.address2,
+                "address1": self.address1 + "1",
+                "address2": self.address2 + "1",
                 "borough": self.borough,
                 "zipcode": self.zipcode,
                 "bedrooms": self.bedrooms,
@@ -234,3 +234,11 @@ class TestPropertyFormsNew1(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
+
+
+class TestCharts(TestCase):
+    def testBronx(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Bronx"]),
+        )
+        self.assertEqual(response.status_code, 200)
