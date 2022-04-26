@@ -5,3 +5,4 @@ staticfiles/*
 .env
 .coverage
 .env
+Property/migrations/0001_initial.py
