@@ -176,8 +176,34 @@ def propertypage(request, listing_id):
         return render(request, "property/property_page.html", context)
 
 
-def filter(request, borough):
+def filterborough(request, borough):
     listings = Listing.objects.filter(borough=borough)
+    return render(request, "property/browselistings.html", {"listings": listings})
+
+def filter(request):
+    filters = request.POST.getlist('filters')
+    if 'furnished' in filters:
+        furnished = True
+    else:
+        furnished = False
+    if 'elevator' in filters:
+        elevator = True
+    else:
+        elevator = False
+    if 'heating' in filters:
+        heating = True
+    else:
+        heating = False
+    if 'parking' in filters:
+        parking = True
+    else:
+        parking = False
+    if 'laundry' in filters:
+        laundry = True
+    else:
+        laundry = False
+    print(filters)
+    listings = Listing.objects.filter(furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry)
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
