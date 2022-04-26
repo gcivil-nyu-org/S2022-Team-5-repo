@@ -180,30 +180,37 @@ def filterborough(request, borough):
     listings = Listing.objects.filter(borough=borough)
     return render(request, "property/browselistings.html", {"listings": listings})
 
+
 def filter(request):
-    filters = request.POST.getlist('filters')
-    if 'furnished' in filters:
+    filters = request.POST.getlist("filters")
+    if "furnished" in filters:
         furnished = True
     else:
         furnished = False
-    if 'elevator' in filters:
+    if "elevator" in filters:
         elevator = True
     else:
         elevator = False
-    if 'heating' in filters:
+    if "heating" in filters:
         heating = True
     else:
         heating = False
-    if 'parking' in filters:
+    if "parking" in filters:
         parking = True
     else:
         parking = False
-    if 'laundry' in filters:
+    if "laundry" in filters:
         laundry = True
     else:
         laundry = False
     print(filters)
-    listings = Listing.objects.filter(furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry)
+    listings = Listing.objects.filter(
+        furnished=furnished,
+        elevator=elevator,
+        heating=heating,
+        parking=parking,
+        laundry=laundry,
+    )
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
