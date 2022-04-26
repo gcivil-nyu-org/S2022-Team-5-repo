@@ -1,13 +1,12 @@
 from django.db import models
-from account.models import UserProfile
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
-    owner = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, null=True, blank=True
-    )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     address1 = models.CharField(
         verbose_name="Address_1", max_length=100, null=True, blank=True
     )
@@ -38,9 +37,15 @@ class Listing(models.Model):
     matterport_link = models.URLField(
         verbose_name="Matterport_Link", max_length=300, null=True, blank=True
     )
-    photo_url = models.ImageField(upload_to="media/", verbose_name="Upload Primary Image", null=True, blank=True)
-    photo_url2 = models.ImageField(upload_to="media/", null=True, verbose_name="Upload Second Image", blank=True)
-    photo_url3 = models.ImageField(upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True)
+    photo_url = models.ImageField(
+        upload_to="media/", verbose_name="Upload Primary Image", null=True, blank=True
+    )
+    photo_url2 = models.ImageField(
+        upload_to="media/", null=True, verbose_name="Upload Second Image", blank=True
+    )
+    photo_url3 = models.ImageField(
+        upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True
+    )
 
     calendly_link = models.URLField(
         verbose_name="Calendly_Link", max_length=300, null=True, blank=True

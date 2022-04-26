@@ -7,8 +7,8 @@ urlpatterns = [
     # path("", views.index, name="index"),
     path("loginform", views.loginform, name="loginform"),
     path("loginsubmit", views.loginsubmit, name="loginsubmit"),
-    path("signupform", views.signupform, name="signupform"),
-    path("signupsubmit", views.signupsubmit, name="signupsubmit"),
+    # path("signupform", views.signupform, name="signupform"),
+    # path("signupsubmit", views.signupsubmit, name="signupsubmit"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path(
         "password_reset/done/",
@@ -31,5 +31,6 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("sign-out", views.sign_out, name="sign-out"),
     path("sign-out", views.sign_out, name="sign-out"),
 ]

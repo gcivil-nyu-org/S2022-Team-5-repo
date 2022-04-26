@@ -12,7 +12,7 @@ import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTH_USER_MODEL = "account.UserProfile"
+# AUTH_USER_MODEL = "account.UserProfile"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "Property",
     "account",
     "localflavor",
-
+    "storages",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 
 # Internationalization
@@ -130,6 +130,11 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+# after signup redirect to loginform
+LOGIN_URL = "account:loginform"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -168,3 +173,6 @@ S3DIRECT_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
+
+PHONENUMBER_DB_FORMAT = "NATIONAL"
+PHONENUMBER_DEFAULT_REGION = "US"

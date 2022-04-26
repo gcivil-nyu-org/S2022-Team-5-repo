@@ -15,7 +15,7 @@
               {{ user.username }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item disabled" href="#">Profile</a></li>
+              <li><a class="dropdown-item " href="{% url 'profile'%}">Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'property:mylistings' %}">My listings</a></li>
               <li><a class="dropdown-item" href="{% url 'property:newlisting' %}">New listing</a></li>
             </ul>
@@ -23,7 +23,7 @@
             <a class="nav-link me-2" href="{% url 'account:sign-out' %}">Sign out</a>
         {% else %}
           <a class="btn btn-primary" href="{% url 'account:loginform'%}" role="button">Log In</a>
-          <a class="nav-link" href="{% url 'account:signupform'%}">Sign Up</a>
+          <a class="nav-link" href="{% url 'register'%}">Sign Up</a>
         {% endif%}
       </div>
     </div>

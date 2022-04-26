@@ -9,3 +9,4 @@ django-storages
 boto3
 pillow
 django-localflavor
+django-phonenumber-field[phonenumbers]

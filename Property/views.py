@@ -17,7 +17,7 @@ def index(request):
 
 
 def browselistings(request):
-    listings = Listing.objects.all().order_by('rent')
+    listings = Listing.objects.all().order_by("rent")
     return render(request, "property/browselistings.html", {"listings": listings})
 
 

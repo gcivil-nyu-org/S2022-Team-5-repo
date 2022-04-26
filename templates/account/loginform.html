@@ -20,7 +20,13 @@
     
                                 <h6 class="h5 mb-0">Welcome back!</h6>
                                 <p class="text-muted mt-2 mb-5">Enter your username and password to login.</p>
-    
+                                {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
                                 <form action="{% url 'account:loginsubmit' %}" method="POST" id="signup-form" class="signup-form">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -51,9 +57,9 @@
                             <div class="account-block rounded-right">
                                 <div class="overlay rounded-right"></div>
                                 <div class="account-testimonial">
-                                    <h4 class="text-white mb-4">This  beautiful theme yours!</h4>
-                                    <p class="lead text-white">"Best investment i made for a long time. Can only recommend it for other users."</p>
-                                    <p>- Admin User</p>
+                                    <h4 class="text-white mb-4">Welcome to HouseMe</h4>
+                                    <p class="lead text-white">Find Housing in seconds</p>
+                                    <p>- HouseMe Team</p>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +70,7 @@
             </div>
             <!-- end card -->
     
-            <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="{% url 'account:signupform' %}" class="text-primary ml-1">register</a></p>
+            <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="{% url 'register' %}" class="text-primary ml-1">register</a></p>
     
             <!-- end row -->
     
