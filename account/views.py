@@ -135,7 +135,10 @@ def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.phone = form.cleaned_data.get("phone_number")
+            user.save()
             username = form.cleaned_data.get("username")
             email = form.cleaned_data.get("email")
             messages.success(request, f"Account created for {username}!")

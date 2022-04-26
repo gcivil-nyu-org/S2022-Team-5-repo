@@ -9,12 +9,14 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
+    phone_number = PhoneNumberField()
 
     class Meta:
         model = User
         fields = [
             "username",
             "email",
+            "phone_number",
             "first_name",
             "last_name",
             "password1",
