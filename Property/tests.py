@@ -242,3 +242,27 @@ class TestCharts(TestCase):
             reverse("property:charts", args=["Bronx"]),
         )
         self.assertEqual(response.status_code, 200)
+
+    def testManhattan(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Manhattan"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testBrooklyn(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Brooklyn"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testQueens(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Queens"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testStaten(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Staten Island"]),
+        )
+        self.assertEqual(response.status_code, 200)

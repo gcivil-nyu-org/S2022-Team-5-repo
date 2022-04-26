@@ -17,7 +17,6 @@ before_script:
   - python manage.py migrate
 
 script:
-  - black .
   - python -m black . --check
   - flake8 .
   - python -m coverage run --source=. manage.py test
