@@ -31,7 +31,7 @@ def loginsubmit(request):
     if user is not None:
         login(request, user)
         print("sucess")
-        return HttpResponseRedirect(reverse("property:browselistings"))
+        return HttpResponseRedirect(reverse("property:index"))
     else:
         print("wrong password")
         messages.error(request, "Wrong password or username, please check")
