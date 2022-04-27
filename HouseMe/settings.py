@@ -185,5 +185,11 @@ S3UPLOAD_DESTINATIONS = {
     },
 }
 
-PHONENUMBER_DB_FORMAT = "NATIONAL"
-PHONENUMBER_DEFAULT_REGION = "US"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "CONFIG": {
+        #     "hosts": [("127.0.0.1", 8000)]
+        # }
+    }
+}
