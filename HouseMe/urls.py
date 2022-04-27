@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path("", include("Property.urls")),
     path("property/", include("Property.urls")),
     path("admin/", admin.site.urls),
-    path("", include("Property.urls")),
     path("account/", include("account.urls", namespace="account")),
+    path("chat/", include("chat.urls", namespace="chat")),
 ]

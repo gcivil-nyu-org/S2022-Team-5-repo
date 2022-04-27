@@ -190,10 +190,16 @@ class RequestTourForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(max_length=100, required=False, label="Review and Comments", widget=forms.TextInput(
-        attrs={"placeholder": "Add your review/comment here"}),)
+    text = forms.CharField(
+        max_length=100,
+        required=False,
+        label="Review and Comments",
+        widget=forms.TextInput(attrs={"placeholder": "Add your review/comment here"}),
+    )
     # listing = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Comment
-        fields = ["text", ]
+        fields = [
+            "text",
+        ]
