@@ -84,7 +84,6 @@ class Comment(models.Model):
 
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
 #  image = models.FileField(upload_to="media/", verbose_name='Image')
-# image= S3DirectField(dest='example_destination')
 
 
 class RequestTour(models.Model):
