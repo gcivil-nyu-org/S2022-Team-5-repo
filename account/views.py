@@ -11,57 +11,13 @@ from django.contrib.auth.models import User
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-
-
-# def signupform(request):
-#     return render(request, "account/signupform.html")
-
-
-# def signupsubmit(request):
-#     if request.POST.get("password") != request.POST.get("password2"):
-#         messages.error(request, "Passwords Don't Match. Try Again!")
-#         return render(request, "account/signupform.html")
-#     try:
-#         UserProfile.objects.get(username=request.POST.get("username"))
-#         messages.error(request, "Username Already Exists, Please Select A Unique Username!")
-#         return render(request, "account/signupform.html")
-#     except Exception:
-#         first_name = request.POST["fname"]
-#         last_name = request.POST["lname"]
-#         username = request.POST["username"]
-#         # TODO validate email
-#         email = request.POST["email"]
-#         phone = request.POST["phone"]
-#         password = request.POST["password"]
-#     # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
-
-#     # TODO BUG UNIQUE constraint failed: UserProfile.username
-
-#         user = UserProfile.objects.create_user(
-#             first_name=first_name,
-#             last_name=last_name,
-#             username=username,
-#             phone=phone,
-#             password=password,
-#             email=email,
-#         )
-#         user.save()
-#         subject = "Welcome to House ME!"
-#         message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
-#         send_mail(
-#             subject=subject,
-#             message=message,
-#             from_email=settings.EMAIL_HOST_USER,
-#             recipient_list=[email],
-#             fail_silently=False,
-#         )
-#         return render(request, "account/loginform.html")
 
 
 def loginform(request):

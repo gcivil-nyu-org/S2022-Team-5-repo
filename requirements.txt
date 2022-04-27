@@ -10,3 +10,5 @@ boto3
 pillow
 django-localflavor
 django-phonenumber-field[phonenumbers]
+pandas
+plotly==5.7.0

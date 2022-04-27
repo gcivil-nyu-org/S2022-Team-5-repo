@@ -1,31 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'property:index' %}">HouseMe</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav me-auto">
-        <a class="nav-link" href="{% url 'property:browselistings' %}">Browse Listings</a>
-      </div>
-      <div class="navbar-nav ms-auto">
-        {% if user.is_authenticated %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ user.username }}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item " href="{% url 'profile'%}">Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'property:mylistings' %}">My listings</a></li>
-              <li><a class="dropdown-item" href="{% url 'property:newlisting' %}">New listing</a></li>
-            </ul>
-          </li>
-            <a class="nav-link me-2" href="{% url 'account:sign-out' %}">Sign out</a>
-        {% else %}
-          <a class="btn btn-primary" href="{% url 'account:loginform'%}" role="button">Log In</a>
-          <a class="nav-link" href="{% url 'register'%}">Sign Up</a>
-        {% endif%}
-      </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'property:index' %}">HouseMe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav me-auto">
+                <a class="nav-link" href="{% url 'property:browselistings' %}">Browse Listings</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" onclick="event.stopPropagation()">
+                            <li><a class="dropdown-item disabled">{{ user.first_name }} {{user.last_name}}</a></li>
+                            <li><a class="dropdown-item " href="{% url 'profile'%}">Profile</a></li>
+                            <div class="dropdown-divider"></div>
+
+                            <li><a class="dropdown-item" href="{% url 'property:mylistings' %}">My listings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'property:newlisting' %}">New listing</a></li>
+
+                            <div class="dropdown-divider"></div>
+                            
+                            <li><a class="dropdown-item" href="{% url 'account:sign-out' %}">Sign out</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'account:loginform' %}" role="button">Log In</a>
+                    <a class="nav-link" href="{% url 'account:signupform' %}">Sign Up</a>
+                {% endif%}
+            </div>
+        </div>
     </div>
-  </div>
 </nav>

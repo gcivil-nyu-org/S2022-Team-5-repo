@@ -4,7 +4,7 @@ from . import views
 
 app_name = "account"
 urlpatterns = [
-    # path("", views.index, name="index"),
+    path("index", views.index, name="index"),
     path("loginform", views.loginform, name="loginform"),
     path("loginsubmit", views.loginsubmit, name="loginsubmit"),
     # path("signupform", views.signupform, name="signupform"),
@@ -31,6 +31,6 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path("sign-out", views.sign_out, name="sign-out"),
-    path("sign-out", views.sign_out, name="sign-out"),
+    path("sign-out", views.sign_out, name="sign-out"),åå
+    path("edit", views.edit, name="edit"),
 ]
