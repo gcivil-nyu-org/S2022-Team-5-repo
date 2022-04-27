@@ -12,4 +12,5 @@ django-phonenumber-field
 phonenumbers
 easy-thumbnails 
 pandas
+channels
 plotly==5.7.0

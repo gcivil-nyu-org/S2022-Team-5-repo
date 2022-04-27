@@ -1,9 +1,10 @@
+from curses.ascii import US
 from django.test import TransactionTestCase
 
 # from django.urls import reverse
 from channels.testing import WebsocketCommunicator
 
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from HouseMe.asgi import application
 from .models import Thread
 
@@ -12,19 +13,17 @@ from .models import Thread
 
 class TestChat(TransactionTestCase):
     def setUp(self):
-        self.user1 = UserProfile.objects.create_user(
+        self.user1 = User.objects.create_user(
             first_name="first1",
             last_name="last1",
             username="test1",
-            phone="1231231234",
             password="1234",
             email="test1@nyu.edu",
         )
-        self.user2 = UserProfile.objects.create_user(
+        self.user2 = User.objects.create_user(
             first_name="first2",
             last_name="last2",
             username="test2",
-            phone="1231231234",
             password="1234",
             email="tes2t@nyu.edu",
         )

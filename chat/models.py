@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Q
-from account.models import UserProfile
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -16,14 +16,14 @@ class ThreadManager(models.Manager):
 
 class Thread(models.Model):
     first_person = models.ForeignKey(
-        UserProfile,
+        User,
         on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name="thread_first_person",
     )
     second_person = models.ForeignKey(
-        UserProfile,
+        User,
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -46,6 +46,6 @@ class ChatMessage(models.Model):
         on_delete=models.CASCADE,
         related_name="chatmessage_thread",
     )
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)

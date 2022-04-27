@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "Property",
     "account",
     "localflavor",
-    'easy_thumbnails',
+    "easy_thumbnails",
     "chat",
     "channels",
 ]
@@ -127,12 +127,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+THUMBNAIL_DEFAULT_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 THUMBNAIL_ALIASES = {
-    '': {
-        'avatar': {'size': (100, 100), 'crop': True},
-        'nav': {'size': (30, 30), 'crop': True}
+    "": {
+        "avatar": {"size": (100, 100), "crop": True},
+        "nav": {"size": (30, 30), "crop": True},
     },
 }
 
@@ -195,3 +195,5 @@ CHANNEL_LAYERS = {
         # }
     }
 }
+
+ASGI_APPLICATION = "HouseMe.asgi.application"
