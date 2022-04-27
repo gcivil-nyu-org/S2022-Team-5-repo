@@ -20,13 +20,13 @@ class TestAccountForms(TestCase):
         )
         self.user.save()
 
-    def testRegisterPage(self):
-        """
-        A get request on signup form
-        """
-        response = self.client.post(reverse("register"))
-        print(response)
-        self.assertEqual(response.status_code, 200)
+    # def testRegisterPage(self):
+    #     """
+    #     A get request on signup form
+    #     """
+    #     response = self.client.post(reverse("register"))
+    #     print(response)
+    #     self.assertEqual(response.status_code, 200)
 
     def testRegisterPage(self):
         response = self.client.post(
