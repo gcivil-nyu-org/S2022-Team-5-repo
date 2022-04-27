@@ -195,5 +195,5 @@ CHANNEL_LAYERS = {
         # }
     }
 }
-
+PHONENUMBER_DEFAULT_REGION = "US"
 ASGI_APPLICATION = "HouseMe.asgi.application"
