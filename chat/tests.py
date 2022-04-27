@@ -1,4 +1,3 @@
-from curses.ascii import US
 from django.test import TransactionTestCase
 
 # from django.urls import reverse
