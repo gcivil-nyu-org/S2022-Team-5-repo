@@ -5,3 +5,9 @@ staticfiles/*
 htmlcov
 .env
 .coverage
+<<<<<<< HEAD
+=======
+.env
+Property/migrations/0001_initial.py
+venv/
+>>>>>>> develop

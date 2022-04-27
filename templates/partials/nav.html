@@ -12,12 +12,13 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ user.username }}
+                            {% load thumbnail %}
+                            <img class="rounded-circle account-img" src="{{ user.profile.image.nav.url}}">
+                            {{ user.username }} 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" onclick="event.stopPropagation()">
                             <li><a class="dropdown-item disabled">{{ user.first_name }} {{user.last_name}}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account:profile' user.username %}">Profile</a></li>
-
+                            <li><a class="dropdown-item " href="{% url 'profile'%}">Profile</a></li>
                             <div class="dropdown-divider"></div>
 
                             <li><a class="dropdown-item" href="{% url 'property:mylistings' %}">My listings</a></li>
@@ -30,7 +31,7 @@
                     </li>
                 {% else %}
                     <a class="btn btn-primary" href="{% url 'account:loginform' %}" role="button">Log In</a>
-                    <a class="nav-link" href="{% url 'account:signupform' %}">Sign Up</a>
+                    <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
                 {% endif%}
             </div>
         </div>

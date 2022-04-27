@@ -1,4 +1,5 @@
 [flake8]
 max-line-length = 500
 ignore=W291
+exclude = account/apps.py
 extend-ignore=W503

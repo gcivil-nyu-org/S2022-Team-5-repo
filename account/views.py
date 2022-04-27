@@ -7,7 +7,8 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from .models import UserProfile
+
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -15,59 +16,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 
-
-def index(request):
-    return render(request, "property/index.html")
-
-
-def signupform(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect("index")
-    else:
-        return render(request, "account/signupform.html")
-
-
-def signupsubmit(request):
-    if request.POST.get("password") != request.POST.get("password2"):
-        messages.error(request, "Passwords Don't Match. Try Again!")
-        return render(request, "account/signupform.html")
-    try:
-        UserProfile.objects.get(username=request.POST.get("username"))
-        messages.error(
-            request, "Username Already Exists, Please Select A Unique Username!"
-        )
-        return render(request, "account/signupform.html")
-    except Exception:
-        first_name = request.POST["fname"]
-        last_name = request.POST["lname"]
-        username = request.POST["username"]
-        # TODO validate email
-        email = request.POST["email"]
-        phone = request.POST["phone"]
-        password = request.POST["password"]
-        # uid = request.user.id # TODO: doesnt work since user is anonymous first and request has no ID (since not logged in)
-
-        # TODO BUG UNIQUE constraint failed: UserProfile.username
-
-        user = UserProfile.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
-            username=username,
-            phone=phone,
-            password=password,
-            email=email,
-        )
-        user.save()
-        subject = "Welcome to House ME!"
-        message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=False,
-        )
-        return render(request, "account/loginform.html")
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.models import User
 
 
 def loginform(request):
@@ -93,7 +43,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data["email"]
-            associated_users = UserProfile.objects.filter(Q(email=data))
+            associated_users = User.objects.filter(Q(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -101,7 +51,7 @@ def password_reset_request(request):
                     c = {
                         "email": user.email,
                         # TODO Change the domain address
-                        "domain": "houseme-app.herokuapp.com",
+                        "domain": "housieme.herokuapp.com",
                         "site_name": "Website",
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
@@ -137,20 +87,48 @@ def sign_out(request):
     return redirect(reverse("account:loginform"))
 
 
-# def profile(request, slug=None):
-#     account = None
-#     if slug:
-#         account = UserProfile.objects.get(username=slug)
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.phone = form.cleaned_data.get("phone_number")
+            user.save()
+            username = form.cleaned_data.get("username")
+            email = form.cleaned_data.get("email")
+            messages.success(request, f"Account created for {username}!")
+            subject = "Welcome to House ME!"
+            message = "Congratulations! Your email ID has been authenticated. You can now go back to the login page."
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            return redirect("account:loginform")
+    else:
+        form = UserRegisterForm()
+    return render(request, "account/register.html", {"form": form})
 
-#     return render(request, "account/profile.html", {"account": account})
 
+@login_required
+def profile(request):
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, "Your account has been updated!")
+            return redirect("profile")
 
-def profile(request, username):
-    account = UserProfile.objects.get(username=username)
-    return render(request, "account/profile.html", {"account": account})
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {"u_form": u_form, "p_form": p_form}
 
-
-@login_required(login_url="/account/loginform")
-def edit(request):
-    account = UserProfile.objects.get(username=request.user.username)
-    return render(request, "account/edit.html", {"account": account})
+    return render(request, "account/profile.html", context)

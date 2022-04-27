@@ -3,7 +3,7 @@ from django.urls import reverse
 
 # from account.tests import TestAccountForms
 from . import views
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from Property.models import Listing
 
 
@@ -19,13 +19,12 @@ class TestPropertyFormsNew(TestCase):
         self.area = 100
         self.rent = 100
 
-        self.user = UserProfile.objects.create_user(
-            first_name="test_f",
-            last_name="test_l",
-            username="testuser",
-            phone="123455555",
-            password="12345",
-            email="yx2304@nyu.com",
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username= "testuser",
+            password= "12345",
+            email="test@test.com",
         )
         self.client.login(username="testuser", password="12345")
 
@@ -87,15 +86,14 @@ class TestPropertyForms(TestCase):
         self.phone = "1234567890"
         self.message = "message"
         self.date = "2020-10-10"
-        self.user = UserProfile.objects.create(
-            renter=True,
-            username=self.username,
-            first_name=self.firstname,
-            last_name=self.lastname,
-            email=self.email,
-            phone=self.phone,
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username= self.username,
+            password= self.password,
+            email="1" + self.email,
         )
-        self.user.set_password(self.password)
+        # self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
         self.property = Listing.objects.create(
@@ -143,8 +141,8 @@ class TestPropertyForms(TestCase):
             reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
                 "listing_name": self.listName + "1",
-                "address1": self.address1,
-                "address2": self.address2,
+                "address1": self.address1 + "1",
+                "address2": self.address2 + "1",
                 "borough": self.borough,
                 "zipcode": self.zipcode,
                 "bedrooms": self.bedrooms,
@@ -186,8 +184,13 @@ class TestPropertyFormsNew1(TestCase):
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
-        self.user.set_password(self.password)
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username=self.username + "1",
+            password=self.password + "1",
+            email="test@test.com",
+        )
         self.user.save()
         self.client.login(username=self.username, password=self.password)
         self.property = Listing.objects.create(
@@ -234,3 +237,119 @@ class TestPropertyFormsNew1(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
+
+    def testNewComments(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+
+
+class TestNewRating(TestCase):
+    def setUp(self):
+        self.listName = "Test Property"
+        self.address1 = "Test Address 1"
+        self.address2 = "Test Address 2"
+        self.borough = "Manhattan"
+        self.zipcode = "00000"
+        self.bedrooms = 2
+        self.bathrooms = 2
+        self.area = 100
+        self.rent = 100
+        self.furnished = "No"
+        self.elevator = "Yes"
+        self.heating = "No"
+        self.parking = "Yes"
+        self.laundry = "No"
+        self.mapURL = ""
+        self.photoURL = ""
+        self.vrLink = ""
+        self.description = "The best property!"
+        self.username = "TestUser"
+        self.password = "1a2b3c4d"
+        self.user = User.objects.create(username=self.username)
+        self.user.set_password(self.password)
+        self.user.save()
+        self.user1 = User.objects.create(
+            username=self.username + "1"
+        )
+        self.user1.set_password(self.password)
+        self.user1.save()
+        self.client.login(username=self.username + "1", password=self.password)
+        self.property = Listing.objects.create(
+            address1=self.address1,
+            address2=self.address2,
+            borough=self.borough,
+            zipcode=self.zipcode,
+            bedrooms=self.bedrooms,
+            bathrooms=self.bathrooms,
+            area=self.area,
+            rent=self.rent,
+            furnished=False,
+            elevator=True,
+            heating=False,
+            parking=True,
+            laundry=False,
+            photo_url=self.photoURL,
+            matterport_link=self.vrLink,
+            description=self.description,
+            owner=self.user,
+        )
+
+    def testNewComment(self):
+        response = self.client.post(
+            reverse("property:newcomment", args=[self.property.listing_id]),
+            data={"text": "Test comment"},
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def testCommentview(self):
+        response = self.client.get(
+            reverse("property:comment", args=[self.property.listing_id]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testNewRating(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 3},
+        )
+        self.assertEqual(response.status_code, 302)
+
+
+class TestCharts(TestCase):
+    def testBronx(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Bronx"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testManhattan(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Manhattan"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testBrooklyn(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Brooklyn"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testQueens(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Queens"]),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testStaten(self):
+        response = self.client.get(
+            reverse("property:charts", args=["Staten Island"]),
+        )
+        self.assertEqual(response.status_code, 200)
