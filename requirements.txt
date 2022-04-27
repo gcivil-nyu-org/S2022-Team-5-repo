@@ -11,4 +11,3 @@ pillow
 django-localflavor
 pandas
 plotly==5.7.0
-channels==3.0.4
