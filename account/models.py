@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from easy_thumbnails.fields import ThumbnailerImageField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="default.jpg", upload_to="profile_pics")
+    image = ThumbnailerImageField(default="default.jpg", upload_to="profile_pics")
     phone = PhoneNumberField(null=True, blank=True)
 
     def __str__(self):

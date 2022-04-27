@@ -9,6 +9,8 @@ django-storages
 boto3
 pillow
 django-localflavor
-django-phonenumber-field[phonenumbers]
+django-phonenumber-field
+phonenumbers
+easy-thumbnails 
 pandas
 plotly==5.7.0

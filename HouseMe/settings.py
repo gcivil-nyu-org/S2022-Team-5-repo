@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "Property",
     "account",
     "localflavor",
+    'easy_thumbnails',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -125,6 +126,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (100, 100), 'crop': True},
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
