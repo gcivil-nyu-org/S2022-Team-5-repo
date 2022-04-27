@@ -66,7 +66,6 @@ class RequestTourAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Listing, ListingAdmin)
-# admin.site.register(UserProfile, UserAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Rating, RatingAdmin)
 admin.site.register(RequestTour, RequestTourAdmin)

@@ -26,6 +26,7 @@ urlpatterns = [
     path("profile/", account_view.profile, name="profile"),
     path("", include("Property.urls")),
     path("account/", include("account.urls", namespace="account")),
+    path("chat/", include("chat.urls", namespace="chat")),
 ]
 
 if settings.DEBUG:

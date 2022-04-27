@@ -1,7 +1,7 @@
 import json
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from .models import Thread, ChatMessage
 
 
@@ -66,7 +66,7 @@ class ChatConsumer(AsyncConsumer):
 
     @database_sync_to_async
     def get_user_object(self, username):
-        qs = UserProfile.objects.filter(username=username)
+        qs = User.objects.filter(username=username)
         if qs.exists():
             obj = qs.first()
         else:

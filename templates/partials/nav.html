@@ -13,7 +13,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {% load thumbnail %}
-                            <img class="rounded-circle" src="{{ user.profile.image.nav.url }}">
+                            <img class="rounded-circle" src="{{ user.profile.image.nav.url}}">
                             {{ user.username }} 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" onclick="event.stopPropagation()">

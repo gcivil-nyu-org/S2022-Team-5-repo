@@ -22,8 +22,8 @@ class TestPropertyFormsNew(TestCase):
         self.user = User.objects.create_user(
             first_name="Firstname",
             last_name="Lastname",
-            username= "testuser",
-            password= "12345",
+            username="testuser",
+            password="12345",
             email="test@test.com",
         )
         self.client.login(username="testuser", password="12345")
@@ -89,8 +89,8 @@ class TestPropertyForms(TestCase):
         self.user = User.objects.create_user(
             first_name="Firstname",
             last_name="Lastname",
-            username= self.username,
-            password= self.password,
+            username=self.username,
+            password=self.password,
             email="1" + self.email,
         )
         # self.user.set_password(self.password)
@@ -271,9 +271,7 @@ class TestNewRating(TestCase):
         self.user = User.objects.create(username=self.username)
         self.user.set_password(self.password)
         self.user.save()
-        self.user1 = User.objects.create(
-            username=self.username + "1"
-        )
+        self.user1 = User.objects.create(username=self.username + "1")
         self.user1.set_password(self.password)
         self.user1.save()
         self.client.login(username=self.username + "1", password=self.password)
