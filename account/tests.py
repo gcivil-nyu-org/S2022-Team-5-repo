@@ -41,7 +41,7 @@ class TestAccountForms(TestCase):
                 "password2": self.password,
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     # def testSignupFail(self):
     #     response = self.client.post(
