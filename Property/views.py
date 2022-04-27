@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing, Comment, Rating
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from .forms import ListingForm, RequestTourForm, CommentForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -82,7 +82,7 @@ def propertypage(request, listing_id):
         if form.is_valid():
             obj = form.save(commit=False)
             if request.user.is_authenticated:
-                obj.requester = UserProfile.objects.get(username=request.user.username)
+                obj.requester = User.objects.get(username=request.user.username)
             obj.listing = listing
             obj.firstName = (
                 request.POST.get("firstName")

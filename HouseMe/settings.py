@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
-from pathlib import Path
+
+# from pathlib import Path
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     "Property",
     "account",
     "localflavor",
-    "storages",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

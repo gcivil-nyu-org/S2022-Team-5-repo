@@ -7,7 +7,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.contrib.auth.models import User
+
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -17,7 +17,7 @@ from django.urls import reverse
 from django.contrib import messages
 
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def loginform(request):

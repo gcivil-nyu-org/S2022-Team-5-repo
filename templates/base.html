@@ -21,12 +21,9 @@
 
 <body>
     {% include 'partials/nav.html' %}
-    <div class=container>
         {% block content %}
 
         {% endblock %}
-    </div>
-
     {% include 'partials/footer.html' %}
 
     {% block extend_footer %}
