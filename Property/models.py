@@ -85,6 +85,7 @@ class Comment(models.Model):
     )
     text = models.CharField(max_length=100)
 
+
 # class Images(models.Model):
 
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
