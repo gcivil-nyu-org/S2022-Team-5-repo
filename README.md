@@ -12,4 +12,4 @@ https://houseme-app.herokuapp.com/account/signupform
 
 
 Dev instance: 
-https://housieme.herokuapp.com/account/signupform
+https://housieme.herokuapp.com/
