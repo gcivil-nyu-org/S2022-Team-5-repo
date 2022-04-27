@@ -18,6 +18,7 @@ from django.urls import path, include
 from account import views as account_view
 from django.conf.urls.static import static
 from django.conf import settings
+from chat import views as chat_view
 
 urlpatterns = [
     path("property/", include("Property.urls")),
@@ -26,7 +27,7 @@ urlpatterns = [
     path("profile/", account_view.profile, name="profile"),
     path("", include("Property.urls")),
     path("account/", include("account.urls", namespace="account")),
-    path("chat/", include("chat.urls", namespace="chat")),
+    path("chat/", chat_view.chatPage, name="chat"),
 ]
 
 if settings.DEBUG:

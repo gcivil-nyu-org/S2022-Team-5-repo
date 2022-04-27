@@ -19,6 +19,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" onclick="event.stopPropagation()">
                             <li><a class="dropdown-item disabled">{{ user.first_name }} {{user.last_name}}</a></li>
                             <li><a class="dropdown-item " href="{% url 'profile'%}">Profile</a></li>
+                            <li><a class="dropdown-item " href="{% url 'chat'%}">Chat</a></li>
                             <div class="dropdown-divider"></div>
 
                             <li><a class="dropdown-item" href="{% url 'property:mylistings' %}">My listings</a></li>

@@ -3,6 +3,6 @@ from . import views
 
 
 app_name = "chat"
-urlpatterns = [
-    path("", views.chatPage),
-]
+# urlpatterns = [
+#     path("", views.chatPage),
+# ]
