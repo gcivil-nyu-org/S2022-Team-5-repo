@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "Property",
     "account",
+    "chat",
     "localflavor",
+    "channels",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -78,7 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "HouseMe.wsgi.application"
-
+ASGI_APPLICATION = "HouseMe.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -169,4 +171,13 @@ S3UPLOAD_DESTINATIONS = {
         "allowed": ["image/jpeg", "image/png", "video/mp4"],
         "allow_existence_optimization": False,
     },
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "CONFIG": {
+        #     "hosts": [("127.0.0.1", 8000)]
+        # }
+    }
 }
