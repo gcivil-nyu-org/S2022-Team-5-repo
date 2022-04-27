@@ -1,5 +1,6 @@
 from django.test import TransactionTestCase
-from django.urls import reverse
+
+# from django.urls import reverse
 from channels.testing import WebsocketCommunicator
 
 from account.models import UserProfile
@@ -32,25 +33,35 @@ class TestChat(TransactionTestCase):
         self.thread = Thread(first_person=self.user1, second_person=self.user2)
 
     async def testConsumer(self):
-        headers = [(b'origin', b'...'), (b'cookie', self.client.cookies.output(header='', sep='; ').encode())]
-        communicator = WebsocketCommunicator(application, '/chat/', headers)
+        headers = [
+            (b"origin", b"..."),
+            (b"cookie", self.client.cookies.output(header="", sep="; ").encode()),
+        ]
+        communicator = WebsocketCommunicator(application, "/chat/", headers)
 
         connected, _ = await communicator.connect()
         self.assertTrue(connected)
         # self.assertEquals(communicator.scope["user"], self.user1)
 
-        await communicator.send_json_to({"message": "hello from unit test", "sent_by": self.user1.username, "send_to": self.user2.username})
+        await communicator.send_json_to(
+            {
+                "message": "hello from unit test",
+                "sent_by": self.user1.username,
+                "send_to": self.user2.username,
+            }
+        )
         response = await communicator.receive_json_from()
         self.assertTrue(response["message"] == "hello from unit test")
 
         await communicator.disconnect()
-        
+
     def testUserThreads(self):
         threads = (
             Thread.objects.byUser(user=self.user1)
             .prefetch_related("chatmessage_thread")
             .order_by("timestamp")
         )
-        
+        print(threads)
+
         # response = self.client.post(reverse("chat:chatPage"), data=threads)
         # self.assertEqual(response.status_code, 200)
