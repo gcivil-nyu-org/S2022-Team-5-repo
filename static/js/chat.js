@@ -5,13 +5,13 @@ const USERNAME = $('#logged-in-user').val();
 
 let loc = window.location;
 let ws_start = "ws://";
-let end_point = ws_start + loc.host + loc.pathname
+let endpoint = ws_start + loc.host + loc.pathname
 
 if (loc.protocol === "https") {
     ws_start = "wss://";
 }
 
-var socket = new WebSocket(end_point);
+var socket = new WebSocket(endpoint);
 
 socket.onopen = async function (e) {
     console.log("open", e);
