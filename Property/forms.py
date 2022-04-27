@@ -132,7 +132,7 @@ class RequestTourForm(forms.ModelForm):
                 max_length=12,
                 required=False,
                 widget=forms.TextInput(attrs={"placeholder": "000-000-0000"}),
-                initial=self.user.phone if self.user.is_authenticated else "",
+                initial=self.user.profile.phone if self.user.is_authenticated else "",
                 disabled=True if self.user.is_authenticated else False,
             )
             self.fields["tourDate"] = forms.DateField(
