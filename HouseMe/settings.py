@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "account",
     "localflavor",
     'easy_thumbnails',
+    "chat",
+    "channels",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
