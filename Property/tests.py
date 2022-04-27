@@ -3,7 +3,7 @@ from django.urls import reverse
 
 # from account.tests import TestAccountForms
 from . import views
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from Property.models import Listing
 
 
@@ -19,13 +19,12 @@ class TestPropertyFormsNew(TestCase):
         self.area = 100
         self.rent = 100
 
-        self.user = UserProfile.objects.create_user(
-            first_name="test_f",
-            last_name="test_l",
-            username="testuser",
-            phone="123455555",
-            password="12345",
-            email="yx2304@nyu.com",
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username= "testuser",
+            password= "12345",
+            email="test@test.com",
         )
         self.client.login(username="testuser", password="12345")
 
@@ -87,15 +86,14 @@ class TestPropertyForms(TestCase):
         self.phone = "1234567890"
         self.message = "message"
         self.date = "2020-10-10"
-        self.user = UserProfile.objects.create(
-            renter=True,
-            username=self.username,
-            first_name=self.firstname,
-            last_name=self.lastname,
-            email=self.email,
-            phone=self.phone,
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username= self.username,
+            password= self.password,
+            email="1" + self.email,
         )
-        self.user.set_password(self.password)
+        # self.user.set_password(self.password)
         self.user.save()
         self.client.login(username=self.username, password=self.password)
         self.property = Listing.objects.create(
@@ -186,8 +184,13 @@ class TestPropertyFormsNew1(TestCase):
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
-        self.user.set_password(self.password)
+        self.user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username=self.username + "1",
+            password=self.password + "1",
+            email="test@test.com",
+        )
         self.user.save()
         self.client.login(username=self.username, password=self.password)
         self.property = Listing.objects.create(
@@ -265,11 +268,11 @@ class TestNewRating(TestCase):
         self.description = "The best property!"
         self.username = "TestUser"
         self.password = "1a2b3c4d"
-        self.user = UserProfile.objects.create(renter=True, username=self.username)
+        self.user = User.objects.create(username=self.username)
         self.user.set_password(self.password)
         self.user.save()
-        self.user1 = UserProfile.objects.create(
-            renter=True, username=self.username + "1"
+        self.user1 = User.objects.create(
+            username=self.username + "1"
         )
         self.user1.set_password(self.password)
         self.user1.save()

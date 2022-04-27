@@ -4,10 +4,12 @@ django
 django-environ
 django_crispy_forms
 crispy-bootstrap5
-django-s3direct
 django-storages
 boto3
 pillow
 django-localflavor
+django-phonenumber-field
+phonenumbers
+easy-thumbnails 
 pandas
 plotly==5.7.0

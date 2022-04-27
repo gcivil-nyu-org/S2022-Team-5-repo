@@ -6,3 +6,4 @@ staticfiles/*
 .coverage
 .env
 Property/migrations/0001_initial.py
+venv/

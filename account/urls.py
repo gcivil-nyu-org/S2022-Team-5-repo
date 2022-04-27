@@ -4,11 +4,8 @@ from . import views
 
 app_name = "account"
 urlpatterns = [
-    path("index", views.index, name="index"),
     path("loginform", views.loginform, name="loginform"),
     path("loginsubmit", views.loginsubmit, name="loginsubmit"),
-    path("signupform", views.signupform, name="signupform"),
-    path("signupsubmit", views.signupsubmit, name="signupsubmit"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path(
         "password_reset/done/",
@@ -32,6 +29,4 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("sign-out", views.sign_out, name="sign-out"),
-    path("profile/<username>", views.profile, name="profile"),
-    path("edit", views.edit, name="edit"),
 ]
