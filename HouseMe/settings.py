@@ -187,6 +187,7 @@ S3UPLOAD_DESTINATIONS = {
     },
 }
 
+ASGI_APPLICATION = "HouseMe.asgi.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -196,4 +197,3 @@ CHANNEL_LAYERS = {
     }
 }
 PHONENUMBER_DEFAULT_REGION = "US"
-ASGI_APPLICATION = "HouseMe.asgi.application"
