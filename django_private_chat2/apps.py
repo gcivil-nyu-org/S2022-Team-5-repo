@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 
 class DjangoPrivateChat2Config(AppConfig):
-    name = 'django_private_chat2'
+    name = "django_private_chat2"

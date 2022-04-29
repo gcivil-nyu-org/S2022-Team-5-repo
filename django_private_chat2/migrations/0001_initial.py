@@ -19,40 +19,117 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='MessageModel',
+            name="MessageModel",
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('is_removed', models.BooleanField(default=False)),
-                ('id', models.BigAutoField(primary_key=True, serialize=False, verbose_name='Id')),
-                ('text', models.TextField(blank=True, verbose_name='Text')),
-                ('file', models.FileField(blank=True, upload_to=django_private_chat2.models.user_directory_path, verbose_name='File')),
-                ('read', models.BooleanField(default=False, verbose_name='Read')),
-                ('recipient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_user', to=settings.AUTH_USER_MODEL, verbose_name='Recipient')),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_user', to=settings.AUTH_USER_MODEL, verbose_name='Author')),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                ("is_removed", models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        primary_key=True, serialize=False, verbose_name="Id"
+                    ),
+                ),
+                ("text", models.TextField(blank=True, verbose_name="Text")),
+                (
+                    "file",
+                    models.FileField(
+                        blank=True,
+                        upload_to=django_private_chat2.models.user_directory_path,
+                        verbose_name="File",
+                    ),
+                ),
+                ("read", models.BooleanField(default=False, verbose_name="Read")),
+                (
+                    "recipient",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="to_user",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Recipient",
+                    ),
+                ),
+                (
+                    "sender",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="from_user",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Author",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Message',
-                'verbose_name_plural': 'Messages',
-                'ordering': ('-created',),
+                "verbose_name": "Message",
+                "verbose_name_plural": "Messages",
+                "ordering": ("-created",),
             },
             managers=[
-                ('all_objects', django.db.models.manager.Manager()),
+                ("all_objects", django.db.models.manager.Manager()),
             ],
         ),
         migrations.CreateModel(
-            name='DialogsModel',
+            name="DialogsModel",
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.BigAutoField(primary_key=True, serialize=False, verbose_name='Id')),
-                ('user1', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to=settings.AUTH_USER_MODEL, verbose_name='User1')),
-                ('user2', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to=settings.AUTH_USER_MODEL, verbose_name='User2')),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                (
+                    "id",
+                    models.BigAutoField(
+                        primary_key=True, serialize=False, verbose_name="Id"
+                    ),
+                ),
+                (
+                    "user1",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User1",
+                    ),
+                ),
+                (
+                    "user2",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User2",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Dialog',
-                'verbose_name_plural': 'Dialogs',
-                'unique_together': {('user1', 'user2'), ('user2', 'user1')},
+                "verbose_name": "Dialog",
+                "verbose_name_plural": "Dialogs",
+                "unique_together": {("user1", "user2"), ("user2", "user1")},
             },
         ),
     ]

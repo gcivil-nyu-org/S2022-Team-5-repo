@@ -43,6 +43,7 @@ class MessageTypes(enum.IntEnum):
 # class OutgoingEventBase(TypedDict):
 #
 
+
 class OutgoingEventMessageRead(NamedTuple):
     message_id: int
     sender: str
@@ -50,12 +51,14 @@ class OutgoingEventMessageRead(NamedTuple):
     type: str = "message_read"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.MessageRead,
-            "message_id": self.message_id,
-            "sender": self.sender,
-            "receiver": self.receiver
-        })
+        return json.dumps(
+            {
+                "msg_type": MessageTypes.MessageRead,
+                "message_id": self.message_id,
+                "sender": self.sender,
+                "receiver": self.receiver,
+            }
+        )
 
 
 class OutgoingEventNewTextMessage(NamedTuple):
@@ -67,14 +70,16 @@ class OutgoingEventNewTextMessage(NamedTuple):
     type: str = "new_text_message"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.TextMessage,
-            "random_id": self.random_id,
-            "text": self.text,
-            "sender": self.sender,
-            "receiver": self.receiver,
-            "sender_username": self.sender_username,
-        })
+        return json.dumps(
+            {
+                "msg_type": MessageTypes.TextMessage,
+                "random_id": self.random_id,
+                "text": self.text,
+                "sender": self.sender,
+                "receiver": self.receiver,
+                "sender_username": self.sender_username,
+            }
+        )
 
 
 class OutgoingEventNewFileMessage(NamedTuple):
@@ -86,14 +91,16 @@ class OutgoingEventNewFileMessage(NamedTuple):
     type: str = "new_file_message"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.FileMessage,
-            "db_id": self.db_id,
-            "file": self.file,
-            "sender": self.sender,
-            "receiver": self.receiver,
-            "sender_username": self.sender_username,
-        })
+        return json.dumps(
+            {
+                "msg_type": MessageTypes.FileMessage,
+                "db_id": self.db_id,
+                "file": self.file,
+                "sender": self.sender,
+                "receiver": self.receiver,
+                "sender_username": self.sender_username,
+            }
+        )
 
 
 class OutgoingEventNewUnreadCount(NamedTuple):
@@ -102,11 +109,13 @@ class OutgoingEventNewUnreadCount(NamedTuple):
     type: str = "new_unread_count"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.NewUnreadCount,
-            "sender": self.sender,
-            "unread_count": self.unread_count,
-        })
+        return json.dumps(
+            {
+                "msg_type": MessageTypes.NewUnreadCount,
+                "sender": self.sender,
+                "unread_count": self.unread_count,
+            }
+        )
 
 
 class OutgoingEventMessageIdCreated(NamedTuple):
@@ -115,11 +124,13 @@ class OutgoingEventMessageIdCreated(NamedTuple):
     type: str = "message_id_created"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.MessageIdCreated,
-            "random_id": self.random_id,
-            "db_id": self.db_id,
-        })
+        return json.dumps(
+            {
+                "msg_type": MessageTypes.MessageIdCreated,
+                "random_id": self.random_id,
+                "db_id": self.db_id,
+            }
+        )
 
 
 class OutgoingEventIsTyping(NamedTuple):
@@ -127,10 +138,7 @@ class OutgoingEventIsTyping(NamedTuple):
     type: str = "is_typing"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.IsTyping,
-            "user_pk": self.user_pk
-        })
+        return json.dumps({"msg_type": MessageTypes.IsTyping, "user_pk": self.user_pk})
 
 
 class OutgoingEventStoppedTyping(NamedTuple):
@@ -138,10 +146,9 @@ class OutgoingEventStoppedTyping(NamedTuple):
     type: str = "stopped_typing"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.TypingStopped,
-            "user_pk": self.user_pk
-        })
+        return json.dumps(
+            {"msg_type": MessageTypes.TypingStopped, "user_pk": self.user_pk}
+        )
 
 
 class OutgoingEventWentOnline(NamedTuple):
@@ -149,10 +156,9 @@ class OutgoingEventWentOnline(NamedTuple):
     type: str = "user_went_online"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.WentOnline,
-            "user_pk": self.user_pk
-        })
+        return json.dumps(
+            {"msg_type": MessageTypes.WentOnline, "user_pk": self.user_pk}
+        )
 
 
 class OutgoingEventWentOffline(NamedTuple):
@@ -160,7 +166,6 @@ class OutgoingEventWentOffline(NamedTuple):
     type: str = "user_went_offline"
 
     def to_json(self) -> str:
-        return json.dumps({
-            "msg_type": MessageTypes.WentOffline,
-            "user_pk": self.user_pk
-        })
+        return json.dumps(
+            {"msg_type": MessageTypes.WentOffline, "user_pk": self.user_pk}
+        )
