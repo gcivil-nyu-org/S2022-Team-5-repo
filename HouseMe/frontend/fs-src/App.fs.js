@@ -222,15 +222,15 @@ export function sendMessageReadMessage(sock, user_pk, message_id) {
 
 export const backendUrl = window.location.host;
 
-export const messagesEndpoint = toText(printf("%s/messages/"))(backendUrl);
+export const messagesEndpoint = toText(printf("/messages/"));
 
-export const dialogsEndpoint = toText(printf("%s/dialogs/"))(backendUrl);
+export const dialogsEndpoint = toText(printf("/dialogs/"));
 
-export const selfEndpoint = toText(printf("%s/self/"))(backendUrl);
+export const selfEndpoint = toText(printf("/self/"));
 
-export const usersEndpoint = toText(printf("%s/users/"))(backendUrl);
+export const usersEndpoint = toText(printf("/users/"));
 
-export const uploadEndpoint = toText(printf("%s/upload/"))(backendUrl);
+export const uploadEndpoint = toText(printf("/upload/"));
 
 export function uploadFile(f, csrfToken) {
     return PromiseBuilder__Run_212F1D4B(promise, PromiseBuilder__Delay_62FBFDE1(promise, () => {
