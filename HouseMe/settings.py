@@ -188,7 +188,7 @@ S3UPLOAD_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
-
+CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
 ASGI_APPLICATION = "HouseMe.asgi.application"
 CHANNEL_LAYERS = {
     "default": {
