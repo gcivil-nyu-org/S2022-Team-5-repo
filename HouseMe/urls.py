@@ -20,7 +20,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
 
 from typing import List
 
@@ -29,19 +29,19 @@ from account.models import User
 
 
 class UsersListView(LoginRequiredMixin, ListView):
-    http_method_names = ['get', ]
+    http_method_names = [
+        "get",
+    ]
 
     def get_queryset(self):
         return User.objects.all().exclude(id=self.request.user.id)
 
     def render_to_response(self, context, **response_kwargs):
-        users: List[AbstractBaseUser] = context['object_list']
+        users: List[AbstractBaseUser] = context["object_list"]
 
-        data = [{
-            "username": user.get_username(),
-            "pk": str(user.pk)
-        } for user in users]
+        data = [{"username": user.get_username(), "pk": str(user.pk)} for user in users]
         return JsonResponse(data, safe=False, **response_kwargs)
+
 
 urlpatterns = [
     path("property/", include("Property.urls")),
@@ -50,7 +50,7 @@ urlpatterns = [
     path("profile/", account_view.profile, name="profile"),
     path("", include("Property.urls")),
     path("account/", include("account.urls", namespace="account")),
-    path('users/', UsersListView.as_view(), name='users_list'),
+    path("users/", UsersListView.as_view(), name="users_list"),
     re_path(
         r"", include("django_private_chat2.urls", namespace="django_private_chat2")
     ),
