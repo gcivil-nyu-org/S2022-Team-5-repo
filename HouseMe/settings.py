@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "corsheaders",
     "storages",
     "crispy_bootstrap5",
     "Property",
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "django_private_chat2",
     "channels",
-    "corsheaders",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -189,7 +189,9 @@ S3UPLOAD_DESTINATIONS = {
     },
 }
 
-ASGI_APPLICATION = "HouseMe.asgi.application"
+CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
+
+ASGI_APPLICATION = "HouseMe.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
