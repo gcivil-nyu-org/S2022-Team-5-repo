@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from account import views as account_view
 from django.conf.urls.static import static
 from django.conf import settings
-from chat import views as chat_view
 
 urlpatterns = [
     path("property/", include("Property.urls")),
@@ -27,7 +26,7 @@ urlpatterns = [
     path("profile/", account_view.profile, name="profile"),
     path("", include("Property.urls")),
     path("account/", include("account.urls", namespace="account")),
-    path("chat/", chat_view.chatPage, name="chat"),
+    re_path(r'', include('django_private_chat2.urls', namespace='django_private_chat2')),
 ]
 
 if settings.DEBUG:

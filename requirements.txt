@@ -13,4 +13,6 @@ phonenumbers
 easy-thumbnails 
 pandas
 channels
+django-private-chat2
+django-cors-headers
 plotly==5.7.0
