@@ -113,6 +113,7 @@ def propertypage(request, listing_id):
                 + " "
                 + obj.listing.address1
             )
+            ph = obj.phone
             message = (
                 obj.message
                 + "\n\n"
@@ -124,7 +125,7 @@ def propertypage(request, listing_id):
                 + "\n"
                 + obj.email
                 + "\n"
-                + obj.phone
+                + str(ph)
                 + "\n"
                 + "Tour date requested:"
                 + " "
@@ -141,7 +142,7 @@ def propertypage(request, listing_id):
         )
 
         successMessage = "You have successfully requested a tour!"
-        messages.success(request, successMessage)
+        messages.info(request, successMessage)
         property_id = listing.listing_id
         comments = Comment.objects.filter(listing=property_id)
         print("Comments", comments)
@@ -342,7 +343,7 @@ def newrating(request, property_id):
             reverse("property:propertypage", kwargs={"listing_id": listing_id})
         )
     else:
-        messages.error(request, "You cannot rate your own listing")
+        messages.warning(request, "You cannot rate your own listing")
         listing_id = listing.listing_id
         return redirect(
             reverse("property:propertypage", kwargs={"listing_id": listing_id})

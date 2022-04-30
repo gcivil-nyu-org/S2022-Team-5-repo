@@ -136,8 +136,8 @@
         {% endif %}
         {% if messages %}
         {% for message in messages %}
-        {% if message.tags == 'success' %}
-        <div class="alert alert-danger my-2" role="alert">
+        {% if message.tags == 'info' %}
+        <div class="alert alert-info my-2" role="alert">
             {{message}}
         </div>
         {% endif %}
@@ -179,7 +179,15 @@
         <br><br>
 
         <h6>Rate and Review this property!</h6>
-
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'warning' %}
+        <div class="alert alert-danger my-2" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
     </div>
     <div class="container" style="padding: 2%;">
         <div class="">
