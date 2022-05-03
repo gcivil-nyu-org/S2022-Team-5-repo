@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extend_head %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 <link rel="stylesheet" href="{% static 'css/browselistings.css' %}">
 {% endblock %}
 
@@ -113,7 +113,7 @@
             <div class="card-body">
               <h5 class="card-title">{{listing.address1}} {{listing.address2}}
                 {% if listing.active %}
-                <img src="https://www.citypng.com/public/uploads/preview/-31622652360keqnmdomq3.png" alt="" style="height: 50px; weight: 50px;">
+                <img src="https://www.citypng.com/public/uploads/preview/-31622652360keqnmdomq3.png" alt="" style="height: 20px; weight: 50px;">
                 {% endif %}
               </h5>
               <div class="row">
