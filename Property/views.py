@@ -181,6 +181,9 @@ def filterborough(request, borough):
     listings = Listing.objects.filter(borough=borough)
     return render(request, "property/browselistings.html", {"listings": listings})
 
+def sortby(request, attribute):
+    listings = Listing.objects.order_by("-" + attribute)
+    return render(request, "property/browselistings.html", {"listings": listings})
 
 def filter(request):
     filters = request.POST.getlist("filters")
@@ -204,14 +207,12 @@ def filter(request):
         laundry = True
     else:
         laundry = False
+    if 'verified' in filters:
+        active = True
+    else:
+        active = False
     print(filters)
-    listings = Listing.objects.filter(
-        furnished=furnished,
-        elevator=elevator,
-        heating=heating,
-        parking=parking,
-        laundry=laundry,
-    )
+    listings = Listing.objects.filter(furnished=furnished, elevator=elevator, heating=heating, parking=parking, laundry=laundry, active=active)
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
