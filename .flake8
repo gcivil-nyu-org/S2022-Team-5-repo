@@ -1,5 +1,8 @@
 [flake8]
-max-line-length = 500
+max-line-length=500
 ignore=W291
-exclude = account/apps.py
-extend-ignore=W503
+exclude = account/apps.py 
+    django_private_chat2/consumers 
+    django_private_chat2/views.py 
+    django_private_chat2/models.py
+extend-ignore=W503, E402

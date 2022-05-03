@@ -38,13 +38,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "corsheaders",
     "storages",
     "crispy_bootstrap5",
     "Property",
     "account",
     "localflavor",
     "easy_thumbnails",
-    "chat",
+    "django_private_chat2",
     "channels",
 ]
 
@@ -53,9 +54,10 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -187,6 +189,9 @@ S3UPLOAD_DESTINATIONS = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
+
+ASGI_APPLICATION = "HouseMe.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -196,4 +201,3 @@ CHANNEL_LAYERS = {
     }
 }
 PHONENUMBER_DEFAULT_REGION = "US"
-ASGI_APPLICATION = "HouseMe.asgi.application"

@@ -6,3 +6,5 @@ omit =
     *manage.py*
     *asgi*
     *wsgi*
+    django_private_chat2/*
+    HouseMe/routing.py
