@@ -1,5 +1,4 @@
 from datetime import datetime
-from email.headerregistry import Address
 from django import forms
 
 from localflavor.us.forms import USZipCodeField
@@ -34,24 +33,24 @@ class ListingForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"placeholder": "Property Name"}),
     )
     address1 = forms.CharField(
-        max_length=100, 
-        required=True, 
-        widget=forms.TextInput(attrs={'id':"address1", 'class':'hidden-el'}), 
-        )
-    address2 = forms.CharField(
-        max_length=100, 
-        required=False,
-        widget=forms.TextInput(attrs={'id':"address2", 'class':'hidden-el' }), 
-        )
-    borough = forms.CharField(
-        max_length=100, 
+        max_length=100,
         required=True,
-        widget=forms.TextInput(attrs={'id':"borough", 'class':'hidden-el'}), 
-        )
+        widget=forms.TextInput(attrs={"id": "address1", "class": "hidden-el"}),
+    )
+    address2 = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"id": "address2", "class": "hidden-el"}),
+    )
+    borough = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "borough", "class": "hidden-el"}),
+    )
     zipcode = USZipCodeField(
         required=True,
-        widget=forms.TextInput(attrs={'id':"zipcode", 'class':'hidden-el'}), 
-        )
+        widget=forms.TextInput(attrs={"id": "zipcode", "class": "hidden-el"}),
+    )
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
     area = forms.IntegerField(min_value=1, max_value=100000, required=True)
     bedrooms = forms.IntegerField(min_value=1, max_value=15, required=True)
@@ -81,61 +80,56 @@ class ListingForm(forms.ModelForm):
         required=False,
     )
     description = forms.CharField(
-        required=False, 
-        max_length=300, 
-        widget=forms.Textarea(
-            attrs={'rows': 4, 'cols': 40}
-            )
+        required=False,
+        max_length=300,
+        widget=forms.Textarea(attrs={"rows": 4, "cols": 40}),
     )
     matterport_link = forms.URLField(label="Matterport Link", required=False)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('address1', css_class = 'form-group col-md-8 mb-0 disabled'),
-                Column('address2', css_class = 'form-group col-md-4 mb-0'),
-                css_class='form-row'
+                Column("address1", css_class="form-group col-md-8 mb-0 disabled"),
+                Column("address2", css_class="form-group col-md-4 mb-0"),
+                css_class="form-row",
             ),
             Row(
-                Column('borough', css_class = 'form-group col-md-6 mb-0'),
-                Column('zipcode', css_class = 'form-group col-md-6 mb-0'),
-                css_class='form-row'
+                Column("borough", css_class="form-group col-md-6 mb-0"),
+                Column("zipcode", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
             ),
-            'name',
+            "name",
             Row(
-                Column('rent', css_class = 'form-group col-md-6 mb-0'),
-                Column('area', css_class = 'form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('bedrooms', css_class = 'form-group col-md-6 mb-0'),
-                Column('bathrooms', css_class = 'form-group col-md-6 mb-0'),
-                css_class='form-row'
+                Column("rent", css_class="form-group col-md-6 mb-0"),
+                Column("area", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
             ),
             Row(
-                Column('furnished', css_class = 'form-group col-md-2 mb-0'),
-                Column('laundry', css_class = 'form-group col-md-2 mb-0'),
-                Column('heating', css_class = 'form-group col-md-2 mb-0'),
-                Column('elevator', css_class = 'form-group col-md-2 mb-0'),
-                Column('parking', css_class = 'form-group col-md-2 mb-0'),
-                css_class='form-row'
+                Column("bedrooms", css_class="form-group col-md-6 mb-0"),
+                Column("bathrooms", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
             ),
             Row(
-                Column('photo_url', css_class = 'form-group col-md-4 mb-0'),
-                Column('photo_url2', css_class = 'form-group col-md-4 mb-0'),
-                Column('photo_url3', css_class = 'form-group col-md-4 mb-0'),
-                css_class='form-row'
+                Column("furnished", css_class="form-group col-md-2 mb-0"),
+                Column("laundry", css_class="form-group col-md-2 mb-0"),
+                Column("heating", css_class="form-group col-md-2 mb-0"),
+                Column("elevator", css_class="form-group col-md-2 mb-0"),
+                Column("parking", css_class="form-group col-md-2 mb-0"),
+                css_class="form-row",
             ),
-            'matterport_link',
-            'description',
+            Row(
+                Column("photo_url", css_class="form-group col-md-4 mb-0"),
+                Column("photo_url2", css_class="form-group col-md-4 mb-0"),
+                Column("photo_url3", css_class="form-group col-md-4 mb-0"),
+                css_class="form-row",
+            ),
+            "matterport_link",
+            "description",
             ButtonHolder(
-                    Submit(
-                        "submit",
-                        "Submit",
-                        css_class="btn btn-primary"
-                    ),
-                ),
+                Submit("submit", "Submit", css_class="btn btn-primary"),
+            ),
         )
 
     class Meta:
