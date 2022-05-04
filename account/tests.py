@@ -97,12 +97,16 @@ class TestAccountForms(TestCase):
                 "phone": self.phone,
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def testProfile2(self):
         response = self.client.get(
             reverse("profile"),
             data={
+                "first_name": self.firstName,
+                "last_name": self.lastName,
+                "username": self.username + "3",
+                "email": "3" + self.email,
                 "phone": self.phone,
             },
         )
