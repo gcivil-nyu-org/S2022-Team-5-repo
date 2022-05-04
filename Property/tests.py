@@ -331,6 +331,13 @@ class TestPropertyFormsNew1(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
+    def testNewRating(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
+
 
 class TestNewRating(TestCase):
     def setUp(self):
