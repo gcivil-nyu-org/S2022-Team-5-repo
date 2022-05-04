@@ -41,9 +41,6 @@ class TestPropertyFormsNew(TestCase):
         response = self.client.post(
             reverse("property:newlisting"),
             data={
-                "name": self.name,
-                "address1": self.address1,
-                "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
                 "bedrooms": self.bedrooms,
@@ -186,6 +183,22 @@ class TestPropertyForms(TestCase):
             "listing_id": self.listing_id,
         }
         response = self.client.post(
+            reverse("property:propertypage", args=[self.listing_id]), data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def testPropertyViewGet(self):
+        form_data = {
+            "firstName": self.firstname,
+            "lastName": self.lastname,
+            "email": self.email,
+            "phone": self.phone,
+            "tourDate": self.date,
+            "message": self.message,
+            "listing_id": self.listing_id,
+        }
+        response = self.client.get(
             reverse("property:propertypage", args=[self.listing_id]), data=form_data
         )
 
