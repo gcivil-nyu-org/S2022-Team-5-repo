@@ -228,7 +228,7 @@ class TestPropertyForms(TestCase):
 
     def testEditListingFileSize(self):
         # self.client.login(username = self.username, password = self.password)
-        with open('..\static\images\house1.png') as fp:
+        with open('../static/images/house1.png') as fp:
             response = self.client.post(
                 reverse("property:editlistingsubmit", args=[self.property.listing_id]),
                 data={
