@@ -229,14 +229,14 @@ class TestPropertyForms(TestCase):
     def testAllFilters(self):
         form = {"filters[]": ["furnished", "elevator", "heating", "parking", "laundry", "verified"]}
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:filter"),
             form, follow = True)
         self.assertEqual(response.status_code, 302)
 
     def testNoFilter(self):
         form = {"filters[]": []}
         response = self.client.post(
-            reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+            reverse("property:filter"),
             form, follow=True)
         self.assertEqual(response.status_code, 302)
 
