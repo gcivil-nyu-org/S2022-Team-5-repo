@@ -226,43 +226,13 @@ class TestPropertyForms(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
-    def testEditListingFileSize(self):
-        # self.client.login(username = self.username, password = self.password)
-        with open(
-            "/home/travis/build/gcivil-nyu-org/S2022-Team-5-repo/static/images/house.jpeg",
-            "rb",
-        ) as fp:
-            response = self.client.post(
-                reverse("property:editlistingsubmit", args=[self.property.listing_id]),
-                data={
-                    "listing_name": self.listName + "1",
-                    "address1": self.address1 + "1",
-                    "address2": self.address2 + "1",
-                    "borough": self.borough,
-                    "zipcode": self.zipcode,
-                    "bedrooms": self.bedrooms,
-                    "bathrooms": self.bathrooms,
-                    "area": self.area,
-                    "rent": self.rent,
-                    "furnished": self.furnished,
-                    "elevator": self.elevator,
-                    "heating": self.heating,
-                    "parking": self.parking,
-                    "laundry": self.laundry,
-                    "photo_url": fp,
-                    "matterport_link": self.matterport_link,
-                    "description": self.description,
-                },
-            )
-            self.assertEqual(response.status_code, 302)
-
     def testAllFilters(self):
-        form = {"filters[]": ["elevator", "parking", "verified"]}
+        form = {"filters": ["elevator", "parking", "verified"]}
         response = self.client.post(reverse("property:filter"), form, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def testNoFilter(self):
-        form = {"filters[]": ["furnished", "heating", "laundry"]}
+        form = {"filters": ["furnished", "heating", "laundry"]}
         response = self.client.post(reverse("property:filter"), form, follow=True)
         self.assertEqual(response.status_code, 200)
 
