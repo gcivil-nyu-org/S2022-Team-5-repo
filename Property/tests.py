@@ -54,19 +54,17 @@ class TestPropertyFormsNew(TestCase):
     def testNewListingPass(self):
         form_data = {
             "name": self.name,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
-                "rent": self.rent,
-                "area": self.area,
-                "bedrooms": self.bedrooms,
-                "bathrooms": self.bathrooms,
-                "photo_url": self.photo_url,
+            "address1": self.address1,
+            "address2": self.address2,
+            "borough": self.borough,
+            "zipcode": self.zipcode,
+            "rent": self.rent,
+            "area": self.area,
+            "bedrooms": self.bedrooms,
+            "bathrooms": self.bathrooms,
+            "photo_url": self.photo_url,
         }
-        response = self.client.post(
-            reverse("property:newlisting"), data=form_data
-        )
+        response = self.client.post(reverse("property:newlisting"), data=form_data)
         self.assertEqual(response.status_code, 302)
 
     def testNewListingGETBlank(self):
@@ -95,8 +93,6 @@ class TestPropertyFormsNew(TestCase):
             },
         )
         self.assertEqual(response.status_code, 200)
-
-
 
     # def testIndex(self):
     #     request = RequestFactory().get(path="Property/index.html")
@@ -232,20 +228,18 @@ class TestPropertyForms(TestCase):
 
     def testAllFilters(self):
         form = {"filters[]": ["elevator", "parking", "verified"]}
-        response = self.client.post(
-            reverse("property:filter"),
-            form, follow = True)
+        response = self.client.post(reverse("property:filter"), form, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def testNoFilter(self):
         form = {"filters[]": ["furnished", "heating", "laundry"]}
-        response = self.client.post(
-            reverse("property:filter"),
-            form, follow=True)
+        response = self.client.post(reverse("property:filter"), form, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def testDeleteProperty(self):
-        response = self.client.post(reverse("property:delete", args=[self.property.listing_id]))
+        response = self.client.post(
+            reverse("property:delete", args=[self.property.listing_id])
+        )
         self.assertEqual(response.status_code, 302)
 
 
@@ -304,9 +298,9 @@ class TestPropertyFormsNew1(TestCase):
         response = self.client.post(
             reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
-                "listing_name": self.listName+'1',
-                "address1": self.address1+'1',
-                "address2": self.address2+'1',
+                "listing_name": self.listName + "1",
+                "address1": self.address1 + "1",
+                "address2": self.address2 + "1",
                 "borough": "Brooklyn",
                 "zipcode": "11201",
                 "bedrooms": self.bedrooms,
@@ -408,7 +402,9 @@ class TestNewRating(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def testDeleteListingError(self):
-        response = self.client.post(reverse("property:delete", args=[self.property.listing_id]))
+        response = self.client.post(
+            reverse("property:delete", args=[self.property.listing_id])
+        )
         self.assertEqual(response.status_code, 302)
 
 

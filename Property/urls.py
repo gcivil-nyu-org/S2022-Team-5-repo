@@ -21,7 +21,6 @@ urlpatterns = [
     path("newcomment/<int:property_id>", views.newcomment, name="newcomment"),
     path("newrating/<int:property_id>", views.newrating, name="newrating"),
     path("delete/<int:listing_id>", views.delete_post, name="delete"),
-    path("charts/<borough>", views.charts, name='charts'),
+    path("charts/<borough>", views.charts, name="charts"),
     path("sortby/<attribute>", views.sortby, name="sortby"),
-
 ]
