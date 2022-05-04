@@ -229,7 +229,7 @@ class TestPropertyForms(TestCase):
     def testEditListingFileSize(self):
         # self.client.login(username = self.username, password = self.password)
         with open(
-            "/home/travis/build/gcivil-nyu-org/S2022-Team-5-repo/static/images/house1.png",
+            "/home/travis/build/gcivil-nyu-org/S2022-Team-5-repo/static/images/house.jpeg",
             "rb",
         ) as fp:
             response = self.client.post(
