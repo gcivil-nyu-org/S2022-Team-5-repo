@@ -228,7 +228,10 @@ class TestPropertyForms(TestCase):
 
     def testEditListingFileSize(self):
         # self.client.login(username = self.username, password = self.password)
-        with open('/home/travis/build/gcivil-nyu-org/S2022-Team-5-repo/static/images/house1.png') as fp:
+        with open(
+            "/home/travis/build/gcivil-nyu-org/S2022-Team-5-repo/static/images/house1.png",
+            "rb",
+        ) as fp:
             response = self.client.post(
                 reverse("property:editlistingsubmit", args=[self.property.listing_id]),
                 data={
@@ -330,7 +333,8 @@ class TestPropertyFormsNew1(TestCase):
 
     def testEditListingPage(self):
         response = self.client.post(
-            reverse("property:editlisting", args=[self.property.listing_id]),)
+            reverse("property:editlisting", args=[self.property.listing_id]),
+        )
         self.assertEqual(response.status_code, 302)
 
     def testEditListing(self):
@@ -442,7 +446,8 @@ class TestNewRating(TestCase):
 
     def testEditListingPage(self):
         response = self.client.post(
-            reverse("property:editlisting", args=[self.property.listing_id]),)
+            reverse("property:editlisting", args=[self.property.listing_id]),
+        )
         self.assertEqual(response.status_code, 302)
 
     def testDeleteListingError(self):
