@@ -69,6 +69,7 @@ class TestAccountForms(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def testPasswordResetRequest(self):
+        self.client.login(username=self.username, password=self.password)
         response = self.client.post(
             reverse("account:password_reset"),
             data={
