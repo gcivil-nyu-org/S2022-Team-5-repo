@@ -24,7 +24,7 @@ class TestPropertyFormsNew(TestCase):
         self.parking = "No"
         self.laundry = "Yes"
         self.matterport_link = ""
-        self.photo_url = "www.google.com"
+        self.photo_url = ""
         self.photo_url2 = ""
         self.photo_url3 = ""
         self.description = "The best property!"

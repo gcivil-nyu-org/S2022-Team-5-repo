@@ -51,6 +51,7 @@ class ListingForm(forms.ModelForm):
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
         validators=[file_size],
         label="Upload Primary Photo",
+        required=False,
     )
     photo_url2 = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
