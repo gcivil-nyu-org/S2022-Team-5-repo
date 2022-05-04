@@ -4,6 +4,7 @@ omit =
     *tests*
     *apps.py*
     *manage.py*
+    *urls.py*
     *asgi*
     *wsgi*
     django_private_chat2/*
