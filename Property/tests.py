@@ -233,19 +233,22 @@ class TestPropertyForms(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def testAllFilters(self):
-        form = {"filters[]": ["furnished", "elevator", "heating", "parking", "laundry", "verified"]}
+        form = {"filters[]": ["elevator", "parking", "verified"]}
         response = self.client.post(
             reverse("property:filter"),
             form, follow = True)
         self.assertEqual(response.status_code, 200)
 
     def testNoFilter(self):
-        form = {"filters[]": []}
+        form = {"filters[]": ["furnished", "heating", "laundry"]}
         response = self.client.post(
             reverse("property:filter"),
             form, follow=True)
         self.assertEqual(response.status_code, 200)
 
+    def testDeleteProperty(self):
+        response = self.client.post(reverse("property:delete", args=[self.property.listing_id]))
+        self.assertEqual(response.status_code, 302)
 
 
 class TestPropertyFormsNew1(TestCase):
@@ -303,11 +306,11 @@ class TestPropertyFormsNew1(TestCase):
         response = self.client.post(
             reverse("property:editlistingsubmit", args=[self.property.listing_id]),
             data={
-                "listing_name": self.listName,
-                "address1": self.address1,
-                "address2": self.address2,
-                "borough": self.borough,
-                "zipcode": self.zipcode,
+                "listing_name": self.listName+'1',
+                "address1": self.address1+'1',
+                "address2": self.address2+'1',
+                "borough": "Brooklyn",
+                "zipcode": "11201",
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -404,6 +407,10 @@ class TestNewRating(TestCase):
             reverse("property:newrating", args=[self.property.listing_id]),
             data={"rating_value": 3},
         )
+        self.assertEqual(response.status_code, 302)
+
+    def testDeleteListingError(self):
+        response = self.client.post(reverse("property:delete", args=[self.property.listing_id]))
         self.assertEqual(response.status_code, 302)
 
 

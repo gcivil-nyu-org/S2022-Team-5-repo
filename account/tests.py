@@ -96,7 +96,7 @@ class TestAccountForms(TestCase):
                 "email": '3'+self.email,
             },
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def testProfile2(self):
         response = self.client.post(
