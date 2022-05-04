@@ -51,6 +51,16 @@ class ListingForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={"id": "zipcode", "class": "hidden-el"}),
     )
+    longitude = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "longitude", "class": "hidden-el"}),
+    )
+    latitude = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "latitude", "class": "hidden-el"}),
+    )
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
     area = forms.IntegerField(min_value=1, max_value=100000, required=True)
     bedrooms = forms.IntegerField(min_value=1, max_value=15, required=True)
@@ -98,6 +108,11 @@ class ListingForm(forms.ModelForm):
             Row(
                 Column("borough", css_class="form-group col-md-6 mb-0"),
                 Column("zipcode", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("longitude", css_class="form-group col-md-6 mb-0"),
+                Column("latitude", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
             "name",

@@ -24,6 +24,12 @@ class Listing(models.Model):
     zipcode = models.CharField(
         verbose_name="Zip Code", max_length=8, null=True, blank=True
     )
+    longitude = models.CharField(
+        verbose_name="Longitude", max_length=50, null=True, blank=True
+    )
+    latitude = models.CharField(
+        verbose_name="Latitude", max_length=50, null=True, blank=True
+    )
     rent = models.IntegerField(verbose_name="Rent", default=1)
     area = models.FloatField(verbose_name="Area", default=0)
     bedrooms = models.IntegerField(verbose_name="Bedrooms", default=1)

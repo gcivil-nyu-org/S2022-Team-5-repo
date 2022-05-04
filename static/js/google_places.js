@@ -31,8 +31,8 @@ function onPlaceChanged (){
             var latitude = results[0].geometry.location.lat();
             var longitude = results[0].geometry.location.lng();
 
-            $('#id_longitude').val(longitude) 
-            $('#id_latitude').val(latitude) 
+            document.getElementById('longitude').value = longitude
+            document.getElementById('latitude').value = latitude
         } 
     }); 
 
@@ -75,6 +75,5 @@ function onPlaceChanged (){
 
         //fade in the completed form
         $('.hidden-el').fadeIn()
-        $('#profile-btn').removeAttr("disabled")
     }
 }
