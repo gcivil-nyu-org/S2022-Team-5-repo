@@ -200,6 +200,12 @@ class TestPropertyForms(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        response = self.client.get(
+            reverse("property:propertypage", args=[self.listing_id]), data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
     def testEditListing(self):
         # self.client.login(username = self.username, password = self.password)
         response = self.client.post(
