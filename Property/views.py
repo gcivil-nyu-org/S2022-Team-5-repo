@@ -49,6 +49,8 @@ def newlisting(request):
                 print("unknown user listing")
             result = "Success"
             message = "Your profile has been updated"
+            data = {"result": result, "message": message}
+            print(data)
 
         else:
             print(form.errors)

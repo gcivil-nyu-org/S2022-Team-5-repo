@@ -55,29 +55,20 @@ class TestPropertyFormsNew(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def testNewListingPass(self):
-        response = self.client.post(
-            reverse("property:newlisting"),
-            data={
-                "name": self.name,
+        form_data = {
+            "name": self.name,
                 "address1": self.address1,
                 "address2": self.address2,
                 "borough": self.borough,
                 "zipcode": self.zipcode,
+                "rent": self.rent,
+                "area": self.area,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
-                "area": self.area,
-                "rent": self.rent,
-                "furnished": self.furnished,
-                "elevator": self.elevator,
-                "heating": self.heating,
-                "parking": self.parking,
-                "laundry": self.laundry,
                 "photo_url": self.photo_url,
-                "photo_url3": self.photo_url,
-                "photo_url2": self.photo_url,
-                "matterport_link": self.matterport_link,
-                "description": self.description,
-            },
+        }
+        response = self.client.post(
+            reverse("property:newlisting"), data=form_data
         )
         self.assertEqual(response.status_code, 302)
 
@@ -195,12 +186,6 @@ class TestPropertyForms(TestCase):
             "listing_id": self.listing_id,
         }
         response = self.client.post(
-            reverse("property:propertypage", args=[self.listing_id]), data=form_data
-        )
-
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(
             reverse("property:propertypage", args=[self.listing_id]), data=form_data
         )
 
