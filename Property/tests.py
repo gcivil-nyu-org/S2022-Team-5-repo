@@ -106,7 +106,7 @@ class TestPropertyFormsNew(TestCase):
                 "description": self.description,
             },
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
 
 
@@ -231,14 +231,14 @@ class TestPropertyForms(TestCase):
         response = self.client.post(
             reverse("property:filter"),
             form, follow = True)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def testNoFilter(self):
         form = {"filters[]": []}
         response = self.client.post(
             reverse("property:filter"),
             form, follow=True)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
 
 
