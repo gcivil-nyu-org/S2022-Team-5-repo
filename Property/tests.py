@@ -294,6 +294,11 @@ class TestPropertyFormsNew1(TestCase):
             owner=self.user,
         )
 
+    def testEditListingPage(self):
+        response = self.client.post(
+            reverse("property:editlisting", args=[self.property.listing_id]),)
+        self.assertEqual(response.status_code, 302)
+
     def testEditListing(self):
         response = self.client.post(
             reverse("property:editlistingsubmit", args=[self.property.listing_id]),
@@ -399,6 +404,11 @@ class TestNewRating(TestCase):
             reverse("property:newrating", args=[self.property.listing_id]),
             data={"rating_value": 3},
         )
+        self.assertEqual(response.status_code, 302)
+
+    def testEditListingPage(self):
+        response = self.client.post(
+            reverse("property:editlisting", args=[self.property.listing_id]),)
         self.assertEqual(response.status_code, 302)
 
     def testDeleteListingError(self):
