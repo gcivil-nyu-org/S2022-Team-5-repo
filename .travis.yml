@@ -21,6 +21,7 @@ script:
   - python -m black . --check
   - flake8 .
   - python -m coverage run --source=. manage.py test
+  - python -m coverage report -m
 
 after_script:
   - coveralls
