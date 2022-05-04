@@ -64,6 +64,8 @@ def newlisting(request):
     else:
         form = ListingForm()
         context = {"form": form}
+        context['google_api_key'] = settings.GOOGLE_API_KEY
+        context['base_country'] = settings.BASE_COUNTRY
     return render(request, "property/newlisting.html", context)
 
 
