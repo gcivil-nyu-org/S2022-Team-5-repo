@@ -226,6 +226,33 @@ class TestPropertyForms(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
+    def testEditListingFileSize(self):
+        # self.client.login(username = self.username, password = self.password)
+        with open('..\static\images\house1.png') as fp:
+            response = self.client.post(
+                reverse("property:editlistingsubmit", args=[self.property.listing_id]),
+                data={
+                    "listing_name": self.listName + "1",
+                    "address1": self.address1 + "1",
+                    "address2": self.address2 + "1",
+                    "borough": self.borough,
+                    "zipcode": self.zipcode,
+                    "bedrooms": self.bedrooms,
+                    "bathrooms": self.bathrooms,
+                    "area": self.area,
+                    "rent": self.rent,
+                    "furnished": self.furnished,
+                    "elevator": self.elevator,
+                    "heating": self.heating,
+                    "parking": self.parking,
+                    "laundry": self.laundry,
+                    "photo_url": fp,
+                    "matterport_link": self.matterport_link,
+                    "description": self.description,
+                },
+            )
+            self.assertEqual(response.status_code, 302)
+
     def testAllFilters(self):
         form = {"filters[]": ["elevator", "parking", "verified"]}
         response = self.client.post(reverse("property:filter"), form, follow=True)
@@ -235,6 +262,13 @@ class TestPropertyForms(TestCase):
         form = {"filters[]": ["furnished", "heating", "laundry"]}
         response = self.client.post(reverse("property:filter"), form, follow=True)
         self.assertEqual(response.status_code, 200)
+
+    def testNewRating(self):
+        response = self.client.post(
+            reverse("property:newrating", args=[self.property.listing_id]),
+            data={"rating_value": 4},
+        )
+        self.assertEqual(response.status_code, 302)
 
     def testDeleteProperty(self):
         response = self.client.post(
@@ -325,13 +359,6 @@ class TestPropertyFormsNew1(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def testNewComments(self):
-        response = self.client.post(
-            reverse("property:newrating", args=[self.property.listing_id]),
-            data={"rating_value": 4},
-        )
-        self.assertEqual(response.status_code, 302)
-
-    def testNewRating(self):
         response = self.client.post(
             reverse("property:newrating", args=[self.property.listing_id]),
             data={"rating_value": 4},
