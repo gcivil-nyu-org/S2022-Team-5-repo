@@ -168,6 +168,10 @@ class TestPropertyForms(TestCase):
             owner=self.user,
         )
 
+    def testMyListing(self):
+        response = self.client.post(reverse("property:mylistings")
+        self.assertEqual(response.status_code, 200)
+
     def testPropertyView(self):
         form_data = {
             "firstName": self.firstname,
