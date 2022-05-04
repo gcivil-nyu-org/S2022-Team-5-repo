@@ -169,7 +169,13 @@ class TestPropertyForms(TestCase):
         )
 
     def testMyListing(self):
-        response = self.client.post(reverse("property:mylistings")
+        response = self.client.get(reverse("property:mylistings"))
+        self.assertEqual(response.status_code, 200)
+
+    def testBoroghFilter(self):
+        response = self.client.post(
+            reverse("property:filterborough", args=[self.borough])
+        )
         self.assertEqual(response.status_code, 200)
 
     def testPropertyView(self):
