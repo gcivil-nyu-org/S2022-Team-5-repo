@@ -174,6 +174,7 @@ def propertypage(request, listing_id):
             "property_id": property_id,
             "listing_rating": listing_rating,
             "comment_form": comment_form,
+            "google_api_key":settings.GOOGLE_API_KEY,
         }
         return render(request, "property/property_page.html", context)
 

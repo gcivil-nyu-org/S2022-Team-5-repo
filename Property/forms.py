@@ -155,6 +155,8 @@ class ListingForm(forms.ModelForm):
             "address2",
             "borough",
             "zipcode",
+            "longitude",
+            "latitude",
             "rent",
             "area",
             "bedrooms",

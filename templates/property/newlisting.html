@@ -3,20 +3,23 @@
 {% load static %}
 
 {% block extend_head %}
-{% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
+{% comment %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
 {% endblock %}
 
 {% block content %}
 <div class="container mt-3 mb-3 w-75 p-3">
     <h1> New Listing</h1>
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
     {% endif %}
     <label for="google_address">Address autocomplete</label>
-    <input type="text" class="form-control mt-2 mb-2" placeholder="*Begin typing address" id="id-google-address" name="google_address">
-    <form id = 'listingform' method="POST" enctype="multipart/form-data" multiple action = "{% url 'property:newlisting' %}">
+    <input type="text" class="form-control mt-2 mb-2" placeholder="*Begin typing address" id="id-google-address"
+        name="google_address">
+    <form id='listingform' method="POST" enctype="multipart/form-data" multiple
+        action="{% url 'property:newlisting' %}">
         {% csrf_token %}
         {% crispy form form.helper %}
     </form>
@@ -26,11 +29,9 @@
 
 {% block extend_footer %}
 <script type="text/javascript">
-
     var google_api_key = "{{google_api_key|safe}}";
     var base_country = "{{base_country|safe}}";
-  
-  </script>
-  
-  <script src="{% static 'js/google_places.js' %}"></script>
+</script>
+
+<script src="{% static 'js/google_places.js' %}"></script>
 {% endblock %}
