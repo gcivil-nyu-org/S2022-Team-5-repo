@@ -76,3 +76,47 @@ class TestAccountForms(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
+
+    def testProfile(self):
+        user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username=self.username + "2",
+            email="2" + self.email,
+        )
+        user.set_password(self.password + "2")
+        user.save()
+        self.client.login(username=self.username + "2", password=self.password + "2")
+        response = self.client.post(
+            reverse("profile"),
+            data={
+                "first_name": self.firstName,
+                "last_name": self.lastName,
+                "username": self.username + "3",
+                "email": "3" + self.email,
+                "phone": self.phone,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def testProfile2(self):
+        user = User.objects.create_user(
+            first_name="Firstname",
+            last_name="Lastname",
+            username=self.username + "2",
+            email="2" + self.email,
+        )
+        user.set_password(self.password + "2")
+        user.save()
+        self.client.login(username=self.username + "2", password=self.password + "2")
+        response = self.client.get(
+            reverse("profile"),
+            data={
+                "first_name": self.firstName,
+                "last_name": self.lastName,
+                "username": self.username + "3",
+                "email": "3" + self.email,
+                "phone": self.phone,
+            },
+        )
+        self.assertEqual(response.status_code, 200)

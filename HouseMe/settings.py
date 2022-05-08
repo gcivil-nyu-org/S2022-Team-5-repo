@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     "account",
     "localflavor",
     "easy_thumbnails",
-    "chat",
+    "django_private_chat2",
     "channels",
+    "corsheaders",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -53,9 +54,10 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -186,7 +188,7 @@ S3UPLOAD_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
-
+CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",

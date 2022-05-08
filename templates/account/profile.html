@@ -11,6 +11,15 @@
     <div class='row'>
         <div class="col-md-8">
             <div class="content-section">
+                {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success my-2" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
                 <div class="media">
                     {% load thumbnail %}
                     <img class="rounded-circle account-img" src="{{ user.profile.image.avatar.url }}">
