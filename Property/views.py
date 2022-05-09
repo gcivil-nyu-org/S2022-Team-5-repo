@@ -28,6 +28,7 @@ def browselistings(request):
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
+@login_required(login_url="/account/loginform")
 def newlisting(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -177,7 +178,7 @@ def propertypage(request, listing_id):
             "property_id": property_id,
             "listing_rating": listing_rating,
             "comment_form": comment_form,
-            "google_api_key":settings.GOOGLE_API_KEY,
+            "google_api_key": settings.GOOGLE_API_KEY,
         }
         return render(request, "property/property_page.html", context)
 
