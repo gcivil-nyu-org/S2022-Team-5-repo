@@ -24,26 +24,6 @@ class TestAccountForms(TestCase):
         response = self.client.get(reverse("account:loginform"))
         self.assertEqual(response.status_code, 200)
 
-    def testLoginSubmit(self):
-        response = self.client.post(
-            reverse("account:loginsubmit"),
-            data={
-                "username": self.username + "1",
-                "password": self.password + "1",
-            },
-        )
-        self.assertEqual(response.status_code, 302)
-
-    def testLoginSubmitFail(self):
-        response = self.client.post(
-            reverse("account:loginsubmit"),
-            data={
-                "username": self.username + "1",
-                "password": self.password,
-            },
-        )
-        self.assertEqual(response.status_code, 200)
-
     def testPasswordResetRequestPost(self):
         response = self.client.post(
             reverse("account:password_reset"),
@@ -89,7 +69,7 @@ class TestAccountForms(TestCase):
 
     # def testSignupFail(self):
     #     response = self.client.post(
-    #         reverse("account:signupsubmit"),
+    #         reverse("aƒloccount:signupsubmit"),
     #         data={
     #             "fname": self.firstName,
     #             "lname": self.lastName,
