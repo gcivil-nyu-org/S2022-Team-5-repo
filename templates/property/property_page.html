@@ -6,12 +6,14 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 <link rel="stylesheet" href="{% static 'css/property_page.css' %}">
 {% endblock %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 {% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <div class="container mt-5 mb-5">
     <div class="row">
-        <div class='col-md-8'>
-            <!-- TODO: need to use a loop to display images for each specific property, not just a static amount like right now  -->
+        <!-- <div class='col-md-8'>
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -81,8 +83,68 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-        </div>
-        <div class='col-md-4'>
+        </div> -->
+        <div class='col-md-8'>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                {% if listing.photo_url %}
+                        <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
+                        {% else %}
+                        <img src="https://via.placeholder.com/300" class="d-block w-100" style="width: 100%; height:750px;">>
+                        {% endif %}
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>We make it easy for you!</h5>
+                            <p>Weather you're a renter or property owner, our website is designed to help you out with all your property related concerns!
+                                Reach out to the property owner using our chat feature and take the first step towards finding your dream home!
+                            </p>
+                        </div>
+              </div>
+              <div class="carousel-item">
+                {% if listing.photo_url2 %}
+                    <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..."
+                        style="width: 100%; height:750px;">
+                    {% else %}
+                    <img src="../static/images/house1_in1.png" class="d-block w-100" style="width: 100%; height:750px;">>
+                    {% endif %}
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Sell your home yourself</h5>
+                        <p>Deciding to sell your home yourself is referred to as for-sale-by-owner (FSBO). The FSBO
+                            process is
+                            similar to traditional selling, but without the help of a real estate agent. In this case,
+                            you’re
+                            responsible for the home prep,
+                            marketing, showings, and negotiations.</p>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                {% if listing.photo_url3 %}
+                <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..."
+                    style="width: 100%; height:750px;">
+                {% else %}
+                <img src="../static/images/house1_in2.png" class="d-block w-100" style="width: 100%; height:750px;">
+                {% endif %}
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Look for your dream house yourself!</h5>
+                    <p>Deciding to buy/rent your home yourself is a challenging task and we're there to help! Take advantage of our website to 
+                        make informed decisions & get one step closer to your dream house!
+                    </p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          </div>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        
+          <div class='col-md-4'>
             <!-- Property Location -->
             <div class='container mt-5'>
                 <h2>
@@ -121,6 +183,8 @@
                         <li class="list-group-item"><i class="fa-solid fa-shower fa-fw"></i> Bathrooms:
                             {{listing.bathrooms}}</li>
                         <li class="list-group-item"><i class="fa-solid fa-star fa-fw"></i> Rating: {{listing.ratings}}
+                        </li>
+                        <li class="list-group-item"><i class="fa-solid fa-person fa-fw"></i> Owner: {{listing.owner}}
                         </li>
                     </div>
                     <div class="tab-pane fade" id="accommodations" role="tabpanel" aria-labelledby="accommodations-tab">
