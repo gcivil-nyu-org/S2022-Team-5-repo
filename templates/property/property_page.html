@@ -153,6 +153,7 @@
     </div>
     <div class="row mt-5">
         <div class='col-md-8'>
+            {% if comments %}
             <div class="list-group">
                 {% for comment in comments %}
                 <a href="#" class="list-group-item list-group-item-action" aria-current="true">
@@ -164,8 +165,11 @@
                 </a>
                 {% endfor %}
             </div>
-        </div>
+        {% else %}
+        <h3> <b> There are no comments </b></h3>
+        {% endif %}
 
+        </div>
         <div class='col-md-4'>
             <div class="container">
                 {% if messages %}
