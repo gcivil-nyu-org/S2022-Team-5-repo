@@ -27,7 +27,6 @@ from typing import List
 from account import views as account_view
 from account.models import User
 
-
 class UsersListView(LoginRequiredMixin, ListView):
     http_method_names = [
         "get",
@@ -58,5 +57,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 handler404 = "HouseMe.views.page_not_found_view"

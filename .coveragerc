@@ -9,3 +9,7 @@ omit =
     *wsgi*
     django_private_chat2/*
     HouseMe/routing.py
+    HouseMe/views.py
+    HouseMe/settings.py
+
+    
