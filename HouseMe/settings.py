@@ -12,6 +12,7 @@ import environ
 
 from pathlib import Path
 
+
 env = environ.Env()
 READ_DOT_ENV_FILE = True
 environ.Env.read_env()
