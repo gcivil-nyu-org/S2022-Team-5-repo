@@ -162,7 +162,7 @@ class TestPropertyForms(TestCase):
             borough=self.borough,
             zipcode=self.zipcode,
             longitude=self.longitude,
-            latitude = self.latitude,
+            latitude=self.latitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -233,8 +233,8 @@ class TestPropertyForms(TestCase):
                 "address2": self.address2 + "1",
                 "borough": self.borough,
                 "zipcode": self.zipcode,
-                "longitude":self.longitude,
-                "latitude":self.latitude,
+                "longitude": self.longitude,
+                "latitude": self.latitude,
                 "bedrooms": self.bedrooms,
                 "bathrooms": self.bathrooms,
                 "area": self.area,
@@ -309,13 +309,13 @@ class TestPropertyFormsNew1(TestCase):
         self.user.save()
         self.client.login(username=self.username, password=self.password)
         self.property = Listing.objects.create(
-            name = self.listName + 'AAA',
+            name=self.listName + "AAA",
             address1=self.address1,
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            longitude = self.longitude,
-            latitude = self.latitude,
+            longitude=self.longitude,
+            latitude=self.latitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,
@@ -398,13 +398,13 @@ class TestNewRating(TestCase):
         self.user1.save()
         self.client.login(username=self.username + "1", password=self.password)
         self.property = Listing.objects.create(
-            name = self.listName,
+            name=self.listName,
             address1=self.address1,
             address2=self.address2,
             borough=self.borough,
             zipcode=self.zipcode,
-            longitude = self.longitude,
-            latitude = self.latitude,
+            longitude=self.longitude,
+            latitude=self.latitude,
             bedrooms=self.bedrooms,
             bathrooms=self.bathrooms,
             area=self.area,

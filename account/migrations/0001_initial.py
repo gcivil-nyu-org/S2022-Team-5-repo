@@ -17,12 +17,36 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', easy_thumbnails.fields.ThumbnailerImageField(default='default.jpg', upload_to='profile_pics')),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "image",
+                    easy_thumbnails.fields.ThumbnailerImageField(
+                        default="default.jpg", upload_to="profile_pics"
+                    ),
+                ),
+                (
+                    "phone",
+                    phonenumber_field.modelfields.PhoneNumberField(
+                        blank=True, max_length=128, null=True, region=None
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
