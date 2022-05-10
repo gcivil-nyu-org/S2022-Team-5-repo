@@ -393,7 +393,10 @@ class TestNewRating(TestCase):
         self.user = User.objects.create(username=self.username)
         self.user.set_password(self.password)
         self.user.save()
-        self.client.login(username=self.username + "1", password=self.password)
+        self.user1 = User.objects.create(username=self.username+"1", email ="abc@abcd.com")
+        self.user1.set_password(self.password)
+        self.user1.save()
+        self.client.login(username=self.username+"1", password=self.password)
         self.property = Listing.objects.create(
             name=self.listName,
             address1=self.address1,
@@ -429,7 +432,7 @@ class TestNewRating(TestCase):
         response = self.client.get(
             reverse("property:comment", args=[self.property.listing_id]),
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def testNewRating(self):
         response = self.client.post(
