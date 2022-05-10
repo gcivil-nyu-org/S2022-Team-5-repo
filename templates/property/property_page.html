@@ -86,9 +86,12 @@
             <!-- Property Location -->
             <div class='container mt-5'>
                 <h2>
+                   {{listing.name}} 
+                </h2>
+                <h6>
                     <span class="">{{listing.address1}}</span><br>
                     <span class="">{{listing.borough}}, NY {{listing.zipcode}}</span><br><br>
-                </h2>
+                </h6>
                 <!-- Property Description and Information -->
                 {% if listing.description %}
                 <h4>Description</h4>
@@ -152,128 +155,122 @@
             <div id="map"></div>
         </div>
         <div class='col-md-4'>
-
+            <div class='container'>
+                <h6>Check Previous Years Price Trends Of All Neighborhoods Accross {{listing.borough}}!</h6>
+                <a class="btn btn-primary" href="{% url 'property:charts' listing.borough %}" role="button"> View Trends
+                </a>
+            </div>
         </div>
     </div>
-    <br>
-    <!-- Additional Property Information -->
-    <div class="panel-group" id="accordion">
-
-
-        <h6>Schedule an Appointment</h6>
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'error' %}
-        <div class="alert alert-danger my-2" role="alert">
-            {{message}}
+    <div class="row mt-5">
+        <div class='col-md-8'>
+            <div class="list-group">
+                {% for comment in comments %}
+                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{comment.text}}</h5>
+                        <small>{{comment.created_at}}</small>
+                    </div>
+                    <small>- {{comment.user.first_name}} {{comment.user.last_name}}</small>
+                </a>
+                {% endfor %}
+            </div>
         </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'info' %}
-        <div class="alert alert-info my-2" role="alert">
-            {{message}}
-        </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple
-            action="/property/{{listing.listing_id}}" novalidate>
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
 
-        <script>
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
-
-        <br><br>
-
-        <h6>Check Previous Years Price Trends Of All Neighborhoods Accross {{listing.borough}}!</h6>
-        <a class="btn btn-primary" href="{% url 'property:charts' listing.borough %}"" role=" button"> View Trends </a>
-
-
-        <br><br>
-        <br><br>
-
-        <h6>Rate and Review this property!</h6>
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'warning' %}
-        <div class="alert alert-danger my-2" role="alert">
-            {{message}}
-        </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-    </div>
-    <div class="container" style="padding: 2%;">
-        <div class="">
-            <form id='ratingsform' method="POST" action="{% url 'property:newrating' property_id %}">
-                {% csrf_token %}
-                <label for="rating_value" class="form-label">Rating (0 - 5)</label>
-                <input name="rating_value" type="range" class="form-range" min="0" max="5" step="0.5" id="rating_value">
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
-        </div>
-        <br>
-        <div class="list-group">
-            {% for comment in comments %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{comment.text}}</h5>
-                    <small>{{comment.created_at}}</small>
+        <div class='col-md-4'>
+            <div class="container">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'warning' %}
+                <div class="alert alert-danger my-2" role="alert">
+                    {{message}}
                 </div>
-                <small>- {{comment.user.first_name}} {{comment.user.last_name}}</small>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div>
-        <div class="container" style="padding: 2%;">
-            <form id='listingform' method="POST" enctype="multipart/form-data"
-                action="{% url 'property:newcomment' property_id %}">
-                {% load crispy_forms_tags %}
-                {% csrf_token %}
-                {{ comment_form|crispy}}
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <form id='listingform' method="POST" enctype="multipart/form-data"
+                    action="{% url 'property:newcomment' property_id %}">
+                    {% load crispy_forms_tags %}
+                    {% csrf_token %}
+                    {{ comment_form|crispy}}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+                <div class="mt-2">
+                    <form id='ratingsform' method="POST" action="{% url 'property:newrating' property_id %}">
+                        {% csrf_token %}
+                        <label for="rating_value" class="form-label">Rating (0 - 5)</label>
+                        <input name="rating_value" type="range" class="form-range" min="0" max="5" step="0.5"
+                            id="rating_value">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
 
         </div>
 
+        <div class="row mt-5">
+            <div class="panel-group" id="accordion">
+                <h6>Schedule an Appointment</h6>
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger my-2" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'info' %}
+                <div class="alert alert-info my-2" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple
+                    action="/property/{{listing.listing_id}}" novalidate>
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+
+                <script>
+                    (function () {
+                        'use strict';
+                        window.addEventListener('load', function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName('needs-validation');
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener('submit', function (event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add('was-validated');
+                                }, false);
+                            });
+                        }, false);
+                    })();
+                </script>
+            </div>
+        </div>
     </div>
-
-
 </div>
+
+<!-- Additional Property Information -->
 {% endblock %}
 
 
 {% block extend_footer %}
-    <script type="text/javascript">
-        var longitude = parseFloat("{{listing.longitude}}");
-        var latitude = parseFloat("{{listing.latitude}}");
-        var listing_name = "{{listing.name}}";
-    </script>
-    <script src="{% static 'js/map.js' %}"></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key={{google_api_key|safe}}&callback=initMap">
-    </script>
+<script type="text/javascript">
+    var longitude = parseFloat("{{listing.longitude}}");
+    var latitude = parseFloat("{{listing.latitude}}");
+    var listing_name = "{{listing.name}}";
+</script>
+<script src="{% static 'js/map.js' %}"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key={{google_api_key|safe}}&callback=initMap">
+</script>
 {% endblock %}
