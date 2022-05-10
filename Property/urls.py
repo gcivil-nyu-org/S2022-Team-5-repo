@@ -9,11 +9,6 @@ urlpatterns = [
     path("newlisting", views.newlisting, name="newlisting"),
     path("mylistings", views.mylistings, name="mylistings"),
     path("editlisting/<int:listing_id>", views.editlisting, name="editlisting"),
-    path(
-        "editlistingsubmit/<listing_id>",
-        views.editlistingsubmit,
-        name="editlistingsubmit",
-    ),
     path("<int:listing_id>", views.propertypage, name="propertypage"),
     path("filter/borough/<borough>", views.filterborough, name="filterborough"),
     path("filter", views.filter, name="filter"),

@@ -20,15 +20,59 @@ class TestAccountForms(TestCase):
         )
         self.user.save()
 
-    # def testRegisterPage(self):
-    #     """
-    #     A get request on signup form
-    #     """
-    #     response = self.client.post(reverse("register"))
-    #     print(response)
-    #     self.assertEqual(response.status_code, 200)
+    def testLoginForm(self):
+        response = self.client.get(reverse("account:loginform"))
+        self.assertEqual(response.status_code, 200)
+
+    def testLoginSubmit(self):
+        response = self.client.post(
+            reverse("account:loginsubmit"),
+            data={
+                "username": self.username + "1",
+                "password": self.password + "1",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def testLoginSubmitFail(self):
+        response = self.client.post(
+            reverse("account:loginsubmit"),
+            data={
+                "username": self.username + "1",
+                "password": self.password,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testPasswordResetRequestPost(self):
+        response = self.client.post(
+            reverse("account:password_reset"),
+            data={
+                "email": "1" + self.email,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def testPasswordResetRequestPage(self):
+        response = self.client.get(
+            reverse("account:password_reset"),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def testSignout(self):
+        response = self.client.get(
+            reverse("account:sign-out"),
+        )
+        self.assertEqual(response.status_code, 302)
 
     def testRegisterPage(self):
+        """
+        A get request on signup form
+        """
+        response = self.client.get(reverse("register"))
+        self.assertEqual(response.status_code, 200)
+
+    def testRegisterPagePost(self):
         response = self.client.post(
             reverse("register"),
             data={
@@ -57,25 +101,6 @@ class TestAccountForms(TestCase):
     #         },
     #     )
     #     self.assertEqual(response.status_code, 200)
-
-    def testLoginSubmit(self):
-        response = self.client.post(
-            reverse("account:loginsubmit"),
-            data={
-                "username": self.username + "1",
-                "password": self.password + "1",
-            },
-        )
-        self.assertEqual(response.status_code, 302)
-
-    def testPasswordResetRequest(self):
-        response = self.client.post(
-            reverse("account:password_reset"),
-            data={
-                "email": "1" + self.email,
-            },
-        )
-        self.assertEqual(response.status_code, 302)
 
     def testProfile(self):
         user = User.objects.create_user(

@@ -1,170 +1,37 @@
 {% extends 'base.html'%}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block extend_head %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% comment %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
 {% endblock %}
 
 {% block content %}
-<div class="main paddform">
-    <section class="signup">
-        <!-- <img src="images/signup-bg.jpg" alt=""> -->
-        <div class="container" style="width: 70%;">
-            <div class="signup-content">
-                <form action="{% url 'property:editlistingsubmit' listing.listing_id %}" method="POST"
-                    enctype="multipart/form-data" id="createclass-form" class="signup-form">
-                    {% csrf_token %}
-                    <h2 class="form-title">Edit Information for {{listing.name}}</h2>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="name">Change Listing Name</label>
-                            <input type="text" class="form-input" name="listing_name" id="listing_name"
-                                value="{{listing.name}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="address1">Change Address 1</label>
-                            <input type="text" class="form-input" name="address1" id="address1"
-                                value="{{listing.address1}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="address2">Change Address 2</label>
-                            <input type="text" class="form-input" name="address2" id="address2"
-                                value="{{listing.address2}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="borough">Change Borough</label>
-                            <input type="text" class="form-input" name="borough" id="borough"
-                                value="{{listing.borough}}" />
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="zipcode">Update Zipcode</label>
-                            <input type="text" class="form-input" name="zipcode" id="zipcode"
-                                value="{{listing.zipcode}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="bedrooms">Update Number of Bedrooms</label>
-                            <input type="number" class="form-input" name="bedrooms" id="bedrooms"
-                                value="{{listing.bedrooms}}" />
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="bathrooms">Update Number of Bathrooms</label>
-                            <input type="number" class="form-input" name="bathrooms" id="bathrooms"
-                                value="{{listing.bathrooms}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="area">Update Area</label>
-                            <input type="text" class="form-input" name="area" id="area"
-                                value="{{listing.area}}" />
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <label for="rent">Update Rent</label>
-                            <input type="text" class="form-input" name="rent" id="rent"
-                                value="{{listing.rent}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <select class="form-input" name="furnished">
-                                <option value="" disabled selected hidden>Furnished?</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <select class="form-input" name="elevator">
-                                <option value="" disabled selected hidden>Elevator?</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group slideanim">
-                            <select class="form-input" name="heating">
-                                <option value="" disabled selected hidden>Heating?</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6 form-group slideanim">
-                            <select class="form-input" name="parking">
-                                <option value="" disabled selected hidden>Parking?</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <select class="form-input" name="laundry">
-                                <option value="" disabled selected hidden>Laundry?</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="photo_url">Re-Upload Primary Photo</label>
-                        <div class="col-sm-12 form-group slideanim">
-                            <input type="file" class="form-input" name="photo_url" id="photo_url"
-                                value ="{{listing.photo_url}}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="photo_url2">Re-Upload Second Photo</label>
-                        <div class="col-sm-12 form-group slideanim">
-                            <input type="file" class="form-input" name="photo_url2" id="photo_url2"
-                                value="{{listing.photo_url2}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="photo_url3">Re-Upload Third Photo</label>
-                        <div class="col-sm-12 form-group slideanim">
-                            <input type="file" class="form-input" name="photo_url3" id="photo_url3"
-                                value="{{listing.photo_url3}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="map_url">Add Map URL</label>
-                            <input type="text" class="form-input" name="map_url" id="map_url"
-                                value="{{listing.map_url}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="matterport_link">Add matterport link</label>
-                            <input type="text" class="form-input" name="matterport_link" id="matterport_link"
-                                value="{{listing.matterport_link}}" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group slideanim">
-                            <label for="description">Add description</label>
-                            <input type="text" class="form-input" name="description" id="description"
-                                value="{{listing.description}}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="submit" id="submit" class="form-submit" value="Update Property" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+<div class="container mt-3 mb-3 w-75 p-3">
+    <h1> Edit Listing</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <label for="google_address">Address autocomplete</label>
+    <input type="text" class="form-control mt-2 mb-2" placeholder="*Begin typing address" id="id-google-address"
+        name="google_address">
+    <form id='listingform' method="POST" enctype="multipart/form-data" multiple
+        action="{% url 'property:editlisting' listing_id %}">
+        {% csrf_token %}
+        {% crispy form form.helper %}
+    </form>
 </div>
+
 {% endblock %}
 
 {% block extend_footer %}
+<script type="text/javascript">
+    var google_api_key = "{{google_api_key|safe}}";
+    var base_country = "{{base_country|safe}}";
+</script>
 
+<script src="{% static 'js/google_places.js' %}"></script>
 {% endblock %}

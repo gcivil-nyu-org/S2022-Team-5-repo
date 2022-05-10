@@ -11,54 +11,27 @@
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class='col-md-8'>
-            <!-- TODO: need to use a loop to display images for each specific property, not just a static amount like right now  -->
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        {% if listing.photo_url %}
-                        <img src="{{listing.photo_url.url}}" class="d-block w-100" alt="..."
-                            style="width: 100%; height:750px;">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                {% if listing.photo_url %}
+                        <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
                         {% else %}
-                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+                        <img src="https://via.placeholder.com/300" class="d-block w-100" style="width: 100%; height:750px;">>
                         {% endif %}
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Sell traditionally with an agent</h5>
-                            <p>When you work with a real estate agent, you'll get selling support at every step, from
-                                prepping
-                                and listing your home to marketing that gets buyers in the door.</p>
+                            <h5>We make it easy for you!</h5>
+                            <p>Weather you're a renter or property owner, our website is designed to help you out with all your property related concerns!
+                                Reach out to the property owner using our chat feature and take the first step towards finding your dream home!
+                            </p>
                         </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    {% if listing.photo_url2 %}
+              </div>
+              <div class="carousel-item">
+                {% if listing.photo_url2 %}
                     <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..."
                         style="width: 100%; height:750px;">
                     {% else %}
-                    <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
-                    {% endif %}
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Sell your home with a trusted local agent</h5>
-                        <p>It's easy to sell your home when we connect you with a participating Zillow Premier Agent
-                            partner.
-                            Start by entering your address to see if they're available in your area. They'll be in more
-                            places
-                            soon!</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    {% if listing.photo_url3 %}
-                    <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..."
-                        style="width: 100%; height:750px;">
-                    {% else %}
-                    <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
+                    <img src="../static/images/house1_in1.png" class="d-block w-100" style="width: 100%; height:750px;">>
                     {% endif %}
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Sell your home yourself</h5>
@@ -69,26 +42,43 @@
                             responsible for the home prep,
                             marketing, showings, and negotiations.</p>
                     </div>
+              </div>
+              <div class="carousel-item">
+                {% if listing.photo_url3 %}
+                <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..."
+                    style="width: 100%; height:750px;">
+                {% else %}
+                <img src="../static/images/house1_in2.png" class="d-block w-100" style="width: 100%; height:750px;">
+                {% endif %}
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Look for your dream house yourself!</h5>
+                    <p>Deciding to buy/rent your home yourself is a challenging task and we're there to help! Take advantage of our website to 
+                        make informed decisions & get one step closer to your dream house!
+                    </p>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev" style="background: transparent;">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next" style="background: transparent;">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+              </div>
             </div>
-        </div>
-        <div class='col-md-4'>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          </div>
+        
+          <div class='col-md-4'>
             <!-- Property Location -->
             <div class='container mt-5'>
                 <h2>
+                   {{listing.name}} 
+                </h2>
+                <h6>
                     <span class="">{{listing.address1}}</span><br>
                     <span class="">{{listing.borough}}, NY {{listing.zipcode}}</span><br><br>
-                </h2>
+                </h6>
                 <!-- Property Description and Information -->
                 {% if listing.description %}
                 <h4>Description</h4>
@@ -118,6 +108,8 @@
                         <li class="list-group-item"><i class="fa-solid fa-shower fa-fw"></i> Bathrooms:
                             {{listing.bathrooms}}</li>
                         <li class="list-group-item"><i class="fa-solid fa-star fa-fw"></i> Rating: {{listing.ratings}}
+                        </li>
+                        <li class="list-group-item"><i class="fa-solid fa-person fa-fw"></i> Owner: {{listing.owner}}
                         </li>
                     </div>
                     <div class="tab-pane fade" id="accommodations" role="tabpanel" aria-labelledby="accommodations-tab">
@@ -152,128 +144,122 @@
             <div id="map"></div>
         </div>
         <div class='col-md-4'>
-
+            <div class='container'>
+                <h6>Check Previous Years Price Trends Of All Neighborhoods Accross {{listing.borough}}!</h6>
+                <a class="btn btn-primary" href="{% url 'property:charts' listing.borough %}" role="button"> View Trends
+                </a>
+            </div>
         </div>
     </div>
-    <br>
-    <!-- Additional Property Information -->
-    <div class="panel-group" id="accordion">
-
-
-        <h6>Schedule an Appointment</h6>
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'error' %}
-        <div class="alert alert-danger my-2" role="alert">
-            {{message}}
+    <div class="row mt-5">
+        <div class='col-md-8'>
+            <div class="list-group">
+                {% for comment in comments %}
+                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{comment.text}}</h5>
+                        <small>{{comment.created_at}}</small>
+                    </div>
+                    <small>- {{comment.user.first_name}} {{comment.user.last_name}}</small>
+                </a>
+                {% endfor %}
+            </div>
         </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'info' %}
-        <div class="alert alert-info my-2" role="alert">
-            {{message}}
-        </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple
-            action="/property/{{listing.listing_id}}" novalidate>
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
 
-        <script>
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
-
-        <br><br>
-
-        <h6>Check Previous Years Price Trends Of All Neighborhoods Accross {{listing.borough}}!</h6>
-        <a class="btn btn-primary" href="{% url 'property:charts' listing.borough %}"" role=" button"> View Trends </a>
-
-
-        <br><br>
-        <br><br>
-
-        <h6>Rate and Review this property!</h6>
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'warning' %}
-        <div class="alert alert-danger my-2" role="alert">
-            {{message}}
-        </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-    </div>
-    <div class="container" style="padding: 2%;">
-        <div class="">
-            <form id='ratingsform' method="POST" action="{% url 'property:newrating' property_id %}">
-                {% csrf_token %}
-                <label for="rating_value" class="form-label">Rating (0 - 5)</label>
-                <input name="rating_value" type="range" class="form-range" min="0" max="5" step="0.5" id="rating_value">
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
-        </div>
-        <br>
-        <div class="list-group">
-            {% for comment in comments %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{comment.text}}</h5>
-                    <small>{{comment.created_at}}</small>
+        <div class='col-md-4'>
+            <div class="container">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'warning' %}
+                <div class="alert alert-danger my-2" role="alert">
+                    {{message}}
                 </div>
-                <small>- {{comment.user.first_name}} {{comment.user.last_name}}</small>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div>
-        <div class="container" style="padding: 2%;">
-            <form id='listingform' method="POST" enctype="multipart/form-data"
-                action="{% url 'property:newcomment' property_id %}">
-                {% load crispy_forms_tags %}
-                {% csrf_token %}
-                {{ comment_form|crispy}}
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <form id='listingform' method="POST" enctype="multipart/form-data"
+                    action="{% url 'property:newcomment' property_id %}">
+                    {% load crispy_forms_tags %}
+                    {% csrf_token %}
+                    {{ comment_form|crispy}}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+                <div class="mt-2">
+                    <form id='ratingsform' method="POST" action="{% url 'property:newrating' property_id %}">
+                        {% csrf_token %}
+                        <label for="rating_value" class="form-label">Rating (0 - 5)</label>
+                        <input name="rating_value" type="range" class="form-range" min="0" max="5" step="0.5"
+                            id="rating_value">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
 
         </div>
 
+        <div class="row mt-5">
+            <div class="panel-group" id="accordion">
+                <h6>Schedule an Appointment</h6>
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger my-2" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'info' %}
+                <div class="alert alert-info my-2" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <form class="needs-validation" id='requestTourForm' method="POST" enctype="multipart/form-data" multiple
+                    action="/property/{{listing.listing_id}}" novalidate>
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+
+                <script>
+                    (function () {
+                        'use strict';
+                        window.addEventListener('load', function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName('needs-validation');
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener('submit', function (event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add('was-validated');
+                                }, false);
+                            });
+                        }, false);
+                    })();
+                </script>
+            </div>
+        </div>
     </div>
-
-
 </div>
+
+<!-- Additional Property Information -->
 {% endblock %}
 
 
 {% block extend_footer %}
-    <script type="text/javascript">
-        var longitude = parseFloat("{{listing.longitude}}");
-        var latitude = parseFloat("{{listing.latitude}}");
-        var listing_name = "{{listing.name}}";
-    </script>
-    <script src="{% static 'js/map.js' %}"></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key={{google_api_key|safe}}&callback=initMap">
-    </script>
+<script type="text/javascript">
+    var longitude = parseFloat("{{listing.longitude}}");
+    var latitude = parseFloat("{{listing.latitude}}");
+    var listing_name = "{{listing.name}}";
+</script>
+<script src="{% static 'js/map.js' %}"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key={{google_api_key|safe}}&callback=initMap">
+</script>
 {% endblock %}
