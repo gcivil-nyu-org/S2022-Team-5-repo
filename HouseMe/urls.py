@@ -27,6 +27,7 @@ from typing import List
 from account import views as account_view
 from account.models import User
 
+
 class UsersListView(LoginRequiredMixin, ListView):
     http_method_names = [
         "get",
