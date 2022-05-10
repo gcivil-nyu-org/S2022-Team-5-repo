@@ -20,8 +20,11 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{listing.address1}} {{listing.address2}}</h5>
-                            <p class="card-text">{{listing.description}}</p>
+                            <h5 class="card-title">{{listing.address1}} {{listing.address2}}
+                                {% if listing.active %}
+                                <i class="fa fa-check fa-sm" style="color:green;object-fit:contain;"></i>
+                                {% endif %}
+                            </h5>
                             <div class="row">
                                 <div class="col-md-4"> Zip Code: {{listing.zipcode}} </div>
                                 <div class="col-md-4"> Borough: {{listing.borough}} </div>
