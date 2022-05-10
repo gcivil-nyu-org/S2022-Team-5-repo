@@ -20,7 +20,7 @@
 
                                 <h6 class="h5 mb-0">Welcome back!</h6>
                                 <p class="text-muted mt-2 mb-5">Enter your username and password to login.</p>
-                                <form action="{% url 'account:loginsubmit' %}" method="POST" id="signup-form" class="signup-form">
+                                <form action="{% url 'account:loginform' %}" method="POST" id="signup-form" class="signup-form">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label for="username">Username</label>

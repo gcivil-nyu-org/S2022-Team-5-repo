@@ -5,7 +5,7 @@ from . import views
 app_name = "account"
 urlpatterns = [
     path("loginform", views.loginform, name="loginform"),
-    path("loginsubmit", views.loginsubmit, name="loginsubmit"),
+    # path("loginsubmit", views.loginsubmit, name="loginsubmit"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path(
         "password_reset/done/",
