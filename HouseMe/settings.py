@@ -12,7 +12,9 @@ import environ
 
 from pathlib import Path
 
-
+env = environ.Env()
+READ_DOT_ENV_FILE = True
+environ.Env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -155,10 +157,6 @@ LOGIN_URL = "account:loginform"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-env = environ.Env()
-READ_DOT_ENV_FILE = True
-environ.Env.read_env()
 
 if "I_AM_HEROKU" in os.environ:
     import django_heroku
