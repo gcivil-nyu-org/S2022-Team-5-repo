@@ -188,14 +188,10 @@ S3UPLOAD_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
-<<<<<<< HEAD
 
 CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
 
 ASGI_APPLICATION = "HouseMe.routing.application"
-=======
-CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
->>>>>>> add7e8920c9d70bab749b46dfd108f5901d9d92c
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
