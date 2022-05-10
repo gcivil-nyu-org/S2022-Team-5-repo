@@ -6,84 +6,10 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 <link rel="stylesheet" href="{% static 'css/property_page.css' %}">
 {% endblock %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 {% block content %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <div class="container mt-5 mb-5">
     <div class="row">
-        <!-- <div class='col-md-8'>
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        {% if listing.photo_url %}
-                        <img src="{{listing.photo_url.url}}" class="d-block w-100" alt="..."
-                            style="width: 100%; height:750px;">
-                        {% else %}
-                        <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
-                        {% endif %}
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Sell traditionally with an agent</h5>
-                            <p>When you work with a real estate agent, you'll get selling support at every step, from
-                                prepping
-                                and listing your home to marketing that gets buyers in the door.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    {% if listing.photo_url2 %}
-                    <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..."
-                        style="width: 100%; height:750px;">
-                    {% else %}
-                    <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
-                    {% endif %}
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Sell your home with a trusted local agent</h5>
-                        <p>It's easy to sell your home when we connect you with a participating Zillow Premier Agent
-                            partner.
-                            Start by entering your address to see if they're available in your area. They'll be in more
-                            places
-                            soon!</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    {% if listing.photo_url3 %}
-                    <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..."
-                        style="width: 100%; height:750px;">
-                    {% else %}
-                    <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="...">
-                    {% endif %}
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Sell your home yourself</h5>
-                        <p>Deciding to sell your home yourself is referred to as for-sale-by-owner (FSBO). The FSBO
-                            process is
-                            similar to traditional selling, but without the help of a real estate agent. In this case,
-                            you’re
-                            responsible for the home prep,
-                            marketing, showings, and negotiations.</p>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev" style="background: transparent;">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next" style="background: transparent;">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div> -->
         <div class='col-md-8'>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -142,7 +68,6 @@
             </button>
           </div>
           </div>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
         
           <div class='col-md-4'>
             <!-- Property Location -->
