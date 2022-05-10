@@ -29,7 +29,7 @@ class ListingForm(forms.ModelForm):
 
     name = forms.CharField(
         max_length=100,
-        required=False,
+        required=True,
         widget=forms.TextInput(attrs={"placeholder": "Property Name"}),
     )
     address1 = forms.CharField(
