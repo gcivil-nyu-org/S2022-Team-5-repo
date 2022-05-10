@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-from account.models import UserProfile
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 
@@ -9,9 +9,7 @@ from django.template.defaultfilters import slugify
 
 class Listing(models.Model):
     listing_id = models.AutoField(primary_key=True)
-    owner = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, null=True, blank=True
-    )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     address1 = models.CharField(
         # verbose_name="Address_1", max_length=100, null=True, blank=True
         verbose_name="Address_1",
@@ -25,6 +23,12 @@ class Listing(models.Model):
     )
     zipcode = models.CharField(
         verbose_name="Zip Code", max_length=8, null=True, blank=True
+    )
+    longitude = models.CharField(
+        verbose_name="Longitude", max_length=50, null=True, blank=True
+    )
+    latitude = models.CharField(
+        verbose_name="Latitude", max_length=50, null=True, blank=True
     )
     rent = models.IntegerField(verbose_name="Rent", default=1)
     area = models.FloatField(verbose_name="Area", default=0)
@@ -48,7 +52,7 @@ class Listing(models.Model):
         upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=True)
+    name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=False)
     description = models.TextField(verbose_name="Description", null=True, blank=True)
     active = models.BooleanField(default=False)
     ratings = models.FloatField(default=1, null=True, blank=True)
@@ -69,9 +73,7 @@ class Rating(models.Model):
         Listing, on_delete=models.CASCADE, null=True, blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, null=True, blank=True
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     value = models.FloatField(max_length=100)
 
 
@@ -80,9 +82,7 @@ class Comment(models.Model):
         Listing, on_delete=models.CASCADE, null=True, blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, null=True, blank=True
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     text = models.CharField(max_length=100)
 
 
@@ -90,12 +90,11 @@ class Comment(models.Model):
 
 #   listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, blank=True)
 #  image = models.FileField(upload_to="media/", verbose_name='Image')
-# image= S3DirectField(dest='example_destination')
 
 
 class RequestTour(models.Model):
     requester = models.ForeignKey(
-        UserProfile,
+        User,
         on_delete=models.CASCADE,
         null=True,
         blank=True,

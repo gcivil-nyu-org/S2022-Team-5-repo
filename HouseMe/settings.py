@@ -9,12 +9,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
+
 from pathlib import Path
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
-AUTH_USER_MODEL = "account.UserProfile"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,14 +38,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
-    "s3direct",
     "storages",
     "crispy_bootstrap5",
     "Property",
     "account",
-    "chat",
     "localflavor",
+    "easy_thumbnails",
+    "django_private_chat2",
     "channels",
+    "corsheaders",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -52,9 +54,10 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -80,7 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "HouseMe.wsgi.application"
-ASGI_APPLICATION = "HouseMe.asgi.application"
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -126,6 +129,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+THUMBNAIL_DEFAULT_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+THUMBNAIL_ALIASES = {
+    "": {
+        "avatar": {"size": (100, 100), "crop": True},
+        "nav": {"size": (30, 30), "crop": True},
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -134,6 +145,11 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+# after signup redirect to loginform
+LOGIN_URL = "account:loginform"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -172,7 +188,7 @@ S3UPLOAD_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
-
+CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -181,3 +197,8 @@ CHANNEL_LAYERS = {
         # }
     }
 }
+PHONENUMBER_DEFAULT_REGION = "US"
+ASGI_APPLICATION = "HouseMe.asgi.application"
+
+GOOGLE_API_KEY = env("GOOGLE_API_KEY")
+BASE_COUNTRY = "US"
