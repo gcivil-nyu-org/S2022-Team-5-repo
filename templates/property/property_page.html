@@ -89,6 +89,7 @@
                         <li class="list-group-item"><i class="fa-solid fa-star fa-fw"></i> Rating: {{listing.ratings}}
                         </li>
                         <li class="list-group-item"><i class="fa-solid fa-person fa-fw"></i> Owner: {{listing.owner}}
+                        {% if listing.owner.profile.isVerified %} <i class="fa fa-check fa-sm" style="color:green;object-fit:contain;"></i> {% endif %}
                         </li>
                     </div>
                     <div class="tab-pane fade" id="accommodations" role="tabpanel" aria-labelledby="accommodations-tab">
