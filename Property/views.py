@@ -298,55 +298,6 @@ def newcomment(request, property_id):
 
 
 @login_required(login_url="/account/loginform")
-def editlistingsubmit(request, listing_id):
-    listing = Listing.objects.filter(listing_id=listing_id)[0]
-    listing.name = request.POST["listing_name"]
-    listing.address1 = request.POST["address1"]
-    listing.address2 = request.POST["address2"]
-    listing.borough = request.POST["borough"]
-    listing.zipcode = request.POST["zipcode"]
-    listing.bedrooms = request.POST["bedrooms"]
-    listing.bathrooms = request.POST["bathrooms"]
-    listing.area = request.POST["area"]
-    listing.rent = request.POST["rent"]
-    furnished = request.POST["furnished"]
-    elevator = request.POST["elevator"]
-    heating = request.POST["heating"]
-    parking = request.POST["parking"]
-    laundry = request.POST["laundry"]
-    listing.photo_url = request.FILES.get("photo_url")
-    listing.photo_url2 = request.FILES.get("photo_url2")
-    listing.photo_url3 = request.FILES.get("photo_url3")
-    listing.matterport_link = request.POST["matterport_link"]
-    listing.description = request.POST["description"]
-
-    if furnished == "Yes":
-        listing.furnished = True
-    else:
-        listing.furnished = False
-    if elevator == "Yes":
-        listing.elevator = True
-    else:
-        listing.elevator = False
-    if heating == "Yes":
-        listing.heating = True
-    else:
-        listing.heating = False
-    if parking == "Yes":
-        listing.parking = True
-    else:
-        listing.parking = False
-    if laundry == "Yes":
-        listing.laundry = True
-    else:
-        listing.laundry = False
-
-    listing.save()
-
-    return HttpResponseRedirect("../browselistings")
-
-
-@login_required(login_url="/account/loginform")
 def newrating(request, property_id):
     listing = Listing.objects.filter(listing_id=property_id)[0]
     if request.user != listing.owner:
