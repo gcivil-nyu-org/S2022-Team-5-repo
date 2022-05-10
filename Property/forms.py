@@ -4,7 +4,7 @@ from django import forms
 from localflavor.us.forms import USZipCodeField
 from .models import Listing, RequestTour, Comment
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Field, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Div, Field, ButtonHolder, Submit, Row, Column
 from django.core.exceptions import ValidationError
 
 
@@ -19,23 +19,48 @@ def file_size(value):
 
 
 class ListingForm(forms.ModelForm):
-    BOROUGHS = (
-        ("Brooklyn", "Brooklyn"),
-        ("Manhattan", "Manhattan"),
-        ("Queens", "Queens"),
-        ("Staten Island", "Staten Island"),
-        ("Bronx", "Bronx"),
-    )
+    # BOROUGHS = (
+    #     ("Brooklyn", "Brooklyn"),
+    #     ("Manhattan", "Manhattan"),
+    #     ("Queens", "Queens"),
+    #     ("Staten Island", "Staten Island"),
+    #     ("Bronx", "Bronx"),
+    # )
 
     name = forms.CharField(
         max_length=100,
         required=False,
         widget=forms.TextInput(attrs={"placeholder": "Property Name"}),
     )
-    address1 = forms.CharField(max_length=100, required=True)
-    address2 = forms.CharField(max_length=100, required=False)
-    borough = forms.ChoiceField(required=True, choices=BOROUGHS)
-    zipcode = USZipCodeField()
+    address1 = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "address1", "class": "hidden-el"}),
+    )
+    address2 = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"id": "address2", "class": "hidden-el"}),
+    )
+    borough = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "borough", "class": "hidden-el"}),
+    )
+    zipcode = USZipCodeField(
+        required=True,
+        widget=forms.TextInput(attrs={"id": "zipcode", "class": "hidden-el"}),
+    )
+    longitude = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "longitude", "class": "hidden-el"}),
+    )
+    latitude = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={"id": "latitude", "class": "hidden-el"}),
+    )
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
     area = forms.IntegerField(min_value=1, max_value=100000, required=True)
     bedrooms = forms.IntegerField(min_value=1, max_value=15, required=True)
@@ -43,19 +68,20 @@ class ListingForm(forms.ModelForm):
         min_value=1, max_value=10, decimal_places=2, required=True
     )
     furnished = forms.BooleanField(required=False)
-    elevator = forms.BooleanField(required=False)
-    heating = forms.BooleanField(required=False)
-    parking = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
+    heating = forms.BooleanField(required=False)
+    elevator = forms.BooleanField(required=False)
+    parking = forms.BooleanField(required=False)
     photo_url = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
         validators=[file_size],
         label="Upload Primary Photo",
+        required=False,
     )
     photo_url2 = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
         validators=[file_size],
-        label="Uplaod Second Photo",
+        label="Upload Second Photo",
         required=False,
     )
     photo_url3 = forms.ImageField(
@@ -64,14 +90,63 @@ class ListingForm(forms.ModelForm):
         label="Upload Third Photo",
         required=False,
     )
-    description = forms.CharField(required=False)
-    matterport_link = forms.URLField(label="Matterport Link", required=False)
     description = forms.CharField(
         required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": "My awesome property description"}
-        ),
+        max_length=300,
+        widget=forms.Textarea(attrs={"rows": 4, "cols": 40}),
     )
+    matterport_link = forms.URLField(label="Matterport Link", required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("address1", css_class="form-group col-md-8 mb-0 disabled"),
+                Column("address2", css_class="form-group col-md-4 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("borough", css_class="form-group col-md-6 mb-0"),
+                Column("zipcode", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("longitude", css_class="form-group col-md-6 mb-0"),
+                Column("latitude", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "name",
+            Row(
+                Column("rent", css_class="form-group col-md-6 mb-0"),
+                Column("area", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("bedrooms", css_class="form-group col-md-6 mb-0"),
+                Column("bathrooms", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("furnished", css_class="form-group col-md-2 mb-0"),
+                Column("laundry", css_class="form-group col-md-2 mb-0"),
+                Column("heating", css_class="form-group col-md-2 mb-0"),
+                Column("elevator", css_class="form-group col-md-2 mb-0"),
+                Column("parking", css_class="form-group col-md-2 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("photo_url", css_class="form-group col-md-4 mb-0"),
+                Column("photo_url2", css_class="form-group col-md-4 mb-0"),
+                Column("photo_url3", css_class="form-group col-md-4 mb-0"),
+                css_class="form-row",
+            ),
+            "matterport_link",
+            "description",
+            ButtonHolder(
+                Submit("submit", "Submit", css_class="btn btn-primary"),
+            ),
+        )
 
     class Meta:
         model = Listing
@@ -81,6 +156,8 @@ class ListingForm(forms.ModelForm):
             "address2",
             "borough",
             "zipcode",
+            "longitude",
+            "latitude",
             "rent",
             "area",
             "bedrooms",

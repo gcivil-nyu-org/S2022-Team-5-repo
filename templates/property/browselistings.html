@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extend_head %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 <link rel="stylesheet" href="{% static 'css/browselistings.css' %}">
 {% endblock %}
 
@@ -12,22 +12,41 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="card" style="padding: 10%; text-align: center; color: black;">
+        Sort by
+        <hr>
+        <div class="container-fluid" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100" href="{% url 'property:sortby' 'rent' %}">Rent</a>
+        </div>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:sortby' 'area' %}">Area</a>
+        </div>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:sortby' 'ratings' %}">Ratings</a>
+        </div>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:sortby' 'bedrooms' %}">Bedrooms</a>
+        </div>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:sortby' 'bathrooms' %}">Bathrooms</a>
+        </div>
+        <br>
+
         Filter by Borough
         <hr>
-        <div class="">
-          <a href="{% url 'property:filterborough' 'Manhattan' %}">Manhattan</a>
+        <div class="container-fluid" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100" href="{% url 'property:filterborough' 'Manhattan' %}">Manhattan</a>
         </div>
-        <div class="">
-          <a href="{% url 'property:filterborough' 'Brooklyn' %}">Brooklyn</a>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:filterborough' 'Brooklyn' %}">Brooklyn</a>
         </div>
-        <div class="">
-          <a href="{% url 'property:filterborough' 'Queens' %}">Queens</a>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:filterborough' 'Queens' %}">Queens</a>
         </div>
-        <div class="">
-          <a href="{% url 'property:filterborough' 'Bronx' %}">Bronx</a>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:filterborough' 'Bronx' %}">Bronx</a>
         </div>
-        <div class="">
-          <a href="{% url 'property:filterborough' 'Staten Island' %}">Staten Island</a>
+        <div class="" style="padding: 1%;">
+          <a class="btn btn-primary btn-sm w-100"  href="{% url 'property:filterborough' 'Staten Island' %}">Staten Island</a>
         </div>
         <br>
         <div class="">
@@ -66,6 +85,12 @@
               Laundry
             </label>
           </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="verified" name="filters">
+            <label class="form-check-label" for="verified">
+              Verified
+            </label>
+          </div>
           <br>
           <button type="submit" class="btn btn-success">Submit</button>
         </form>
@@ -86,7 +111,11 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{listing.address1}} {{listing.address2}}</h5>
+              <h5 class="card-title">{{listing.address1}} {{listing.address2}}
+                {% if listing.active %}
+                <img src="https://www.citypng.com/public/uploads/preview/-31622652360keqnmdomq3.png" alt="" style="height: 20px; weight: 50px;">
+                {% endif %}
+              </h5>
               <div class="row">
                 <div class="col-md-4"> Zip Code: {{listing.zipcode}} </div>
                 <div class="col-md-4"> Borough: {{listing.borough}} </div>
@@ -96,6 +125,7 @@
                 <div class="col-md-4"> Bathroom: {{listing.bathrooms| stringformat:".2f" }}</div>
                 <div class="col-md-4"> Area : {{listing.area}} Sq</div>
               </div>
+
               <br>
               <div class="d-flex align-items-end">
                 <a class="btn btn-primary" href="/property/{{listing.listing_id}}" role="button">View</a>

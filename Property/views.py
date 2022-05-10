@@ -28,6 +28,7 @@ def browselistings(request):
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
+@login_required(login_url="/account/loginform")
 def newlisting(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -49,6 +50,8 @@ def newlisting(request):
                 print("unknown user listing")
             result = "Success"
             message = "Your profile has been updated"
+            data = {"result": result, "message": message}
+            print(data)
 
         else:
             print(form.errors)
@@ -64,6 +67,8 @@ def newlisting(request):
     else:
         form = ListingForm()
         context = {"form": form}
+        context["google_api_key"] = settings.GOOGLE_API_KEY
+        context["base_country"] = settings.BASE_COUNTRY
     return render(request, "property/newlisting.html", context)
 
 
@@ -113,6 +118,7 @@ def propertypage(request, listing_id):
                 + " "
                 + obj.listing.address1
             )
+            ph = obj.phone
             message = (
                 obj.message
                 + "\n\n"
@@ -124,7 +130,7 @@ def propertypage(request, listing_id):
                 + "\n"
                 + obj.email
                 + "\n"
-                + obj.phone
+                + str(ph)
                 + "\n"
                 + "Tour date requested:"
                 + " "
@@ -141,7 +147,7 @@ def propertypage(request, listing_id):
         )
 
         successMessage = "You have successfully requested a tour!"
-        messages.success(request, successMessage)
+        messages.info(request, successMessage)
         property_id = listing.listing_id
         comments = Comment.objects.filter(listing=property_id)
         print("Comments", comments)
@@ -172,12 +178,18 @@ def propertypage(request, listing_id):
             "property_id": property_id,
             "listing_rating": listing_rating,
             "comment_form": comment_form,
+            "google_api_key": settings.GOOGLE_API_KEY,
         }
         return render(request, "property/property_page.html", context)
 
 
 def filterborough(request, borough):
     listings = Listing.objects.filter(borough=borough)
+    return render(request, "property/browselistings.html", {"listings": listings})
+
+
+def sortby(request, attribute):
+    listings = Listing.objects.order_by("-" + attribute)
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
@@ -203,6 +215,10 @@ def filter(request):
         laundry = True
     else:
         laundry = False
+    if "verified" in filters:
+        active = True
+    else:
+        active = False
     print(filters)
     listings = Listing.objects.filter(
         furnished=furnished,
@@ -210,6 +226,7 @@ def filter(request):
         heating=heating,
         parking=parking,
         laundry=laundry,
+        active=active,
     )
     return render(request, "property/browselistings.html", {"listings": listings})
 
@@ -342,7 +359,7 @@ def newrating(request, property_id):
             reverse("property:propertypage", kwargs={"listing_id": listing_id})
         )
     else:
-        messages.error(request, "You cannot rate your own listing")
+        messages.warning(request, "You cannot rate your own listing")
         listing_id = listing.listing_id
         return redirect(
             reverse("property:propertypage", kwargs={"listing_id": listing_id})

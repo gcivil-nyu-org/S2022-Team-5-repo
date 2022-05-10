@@ -7,14 +7,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-3 mb-3 w-75">
     <div class='row'>
         <div class="col-md-8">
             <div class="content-section">
-                <div class="media">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success my-2" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <div class="d-flex align-items-center">
                     {% load thumbnail %}
-                    <img class="rounded-circle account-img" src="{{ user.profile.image.avatar.url }}">
-                    <div class="media-body">
+                    <div class="flex-shrink-0">
+                        <img class="rounded-circle account-img" src="{{ user.profile.image.avatar.url }}">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
                         <h2 class="account-heading">{{ user.username }}</h2>
                         <p class="text-secondary">{{ user.email }}</p>
                     </div>
