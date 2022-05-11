@@ -64,8 +64,8 @@ class ListingForm(forms.ModelForm):
     rent = forms.IntegerField(min_value=1, max_value=50000, required=True)
     area = forms.IntegerField(min_value=1, max_value=100000, required=True)
     bedrooms = forms.IntegerField(min_value=1, max_value=15, required=True)
-    bathrooms = forms.DecimalField(
-        min_value=1, max_value=10, decimal_places=2, required=True
+    bathrooms = forms.IntegerField(
+        min_value=1, max_value=10, required=True
     )
     furnished = forms.BooleanField(required=False)
     laundry = forms.BooleanField(required=False)
