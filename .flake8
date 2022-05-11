@@ -5,4 +5,5 @@ exclude = account/apps.py
     django_private_chat2/consumers 
     django_private_chat2/views.py 
     django_private_chat2/models.py
+    venv/
 extend-ignore=W503, E402
