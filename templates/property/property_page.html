@@ -14,10 +14,11 @@
             {% if listing.photo_url2 or listing.photo_url3 %}
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <!-- there must be a primary photo -->
-                        <div class="carousel-item active">
-                            <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
-                        </div>
+                        {% if listing.photo_url %}
+                            <div class="carousel-item active">
+                                <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
+                            </div>
+                        {% endif %}
                         {% if listing.photo_url2 %}
                             <div class="carousel-item">
                                 <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
@@ -39,9 +40,11 @@
                     </button>
                 </div>
             {% else %}
-                <div class="carousel-item active">
-                    <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
-                </div>
+                {% if listing.photo_url %}
+                    <div class="carousel-item active">
+                        <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
+                    </div>
+                {% endif %}
             {% endif %}
         </div>
         
