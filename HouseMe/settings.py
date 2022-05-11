@@ -27,13 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "9x7%k&%715*rf5ep56@_*vth0sf52hc2_1fysm27&odc&ee5n&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "*",
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,6 +63,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -145,6 +149,7 @@ THUMBNAIL_ALIASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
