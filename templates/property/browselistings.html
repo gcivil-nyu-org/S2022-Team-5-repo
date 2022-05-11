@@ -111,7 +111,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{listing.address1}} {{listing.address2}}
+              <h5 class="card-title">{{listing.address1}} {% if listing.address2 %} {{listing.address2}} {% endif %}
                 {% if listing.active %}
                 <i class="fa fa-check fa-sm" style="color:green;object-fit:contain;"></i>
                 {% endif %}

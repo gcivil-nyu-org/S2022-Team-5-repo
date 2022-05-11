@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <div class="row pb-3">
                                 <div class="col-md-6">
-                                    <h5 class="card-title text-break"> {{listing.name}}
+                                    <h5 class="card-title text-break"> {{listing.address1}} {% if listing.address2 %} {{listing.address2}} {% endif %}
                                         {% if listing.active %}
                                         <i class="fa fa-check fa-sm" style="color:green;object-fit:contain;"></i>
                                         {% endif %}
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="float-end text-break">
-                                        <span>{{listing.address1}} {{listing.address2}}</span>
+                                        <span>{{listing.address1}} {% if listing.address2 %} {{listing.address2}} {% endif %}</span>
                                         <div>
                                             <span>
                                                 {{listing.zipcode}}
