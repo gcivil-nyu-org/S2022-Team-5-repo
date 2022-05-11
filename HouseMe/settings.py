@@ -89,6 +89,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "HouseMe.wsgi.application"
 
 SECURE_BROWSER_XSS_FILTER = True
