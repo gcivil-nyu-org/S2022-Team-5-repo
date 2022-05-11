@@ -111,14 +111,15 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{listing.address1}} {{listing.address2}}
+              <h5 class="card-title">{{listing.address1}} {% if listing.address2 %} {{listing.address2}} {% endif %}
                 {% if listing.active %}
-                <img src="https://www.citypng.com/public/uploads/preview/-31622652360keqnmdomq3.png" alt="" style="height: 20px; weight: 50px;">
+                <i class="fa fa-check fa-sm" style="color:green;object-fit:contain;"></i>
                 {% endif %}
               </h5>
               <div class="row">
                 <div class="col-md-4"> Zip Code: {{listing.zipcode}} </div>
                 <div class="col-md-4"> Borough: {{listing.borough}} </div>
+                <div class="col-md-4"> Rent: $ {{listing.rent}} </div>
               </div>
               <div class="row">
                 <div class="col-md-4"> Bedroom: {{listing.bedrooms}} </div>

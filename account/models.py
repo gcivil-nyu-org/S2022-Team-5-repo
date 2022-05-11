@@ -8,6 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = ThumbnailerImageField(default="default.jpg", upload_to="profile_pics")
     phone = PhoneNumberField(null=True, blank=True)
+    isVerified = models.BooleanField(null=False, blank=False, default=False)
 
     def __str__(self):
         return f"{self.user.username} Profile"

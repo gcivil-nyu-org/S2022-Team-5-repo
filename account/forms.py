@@ -13,6 +13,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
+        model._meta.get_field("email")._unique = True
         fields = [
             "username",
             "email",
@@ -31,6 +32,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
+        model._meta.get_field("email")._unique = True
         fields = ["username", "email", "first_name", "last_name"]
 
 

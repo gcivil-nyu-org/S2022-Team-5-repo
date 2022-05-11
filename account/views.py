@@ -21,21 +21,19 @@ from django.contrib.auth.models import User
 
 
 def loginform(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print("sucess")
+            return HttpResponseRedirect(reverse("property:index"))
+        else:
+            print("wrong password")
+            messages.error(request, "Wrong password or username, please check")
+            return render(request, "account/loginform.html")
     return render(request, "account/loginform.html")
-
-
-def loginsubmit(request):
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        print("sucess")
-        return HttpResponseRedirect(reverse("property:index"))
-    else:
-        print("wrong password")
-        messages.error(request, "Wrong password or username, please check")
-        return render(request, "account/loginform.html")
 
 
 def password_reset_request(request):

@@ -13,6 +13,9 @@ import environ
 from pathlib import Path
 
 
+env = environ.Env()
+READ_DOT_ENV_FILE = True
+environ.Env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,13 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "9x7%k&%715*rf5ep56@_*vth0sf52hc2_1fysm27&odc&ee5n&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "housieme.herokuapp.com",
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -38,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "corsheaders",
     "storages",
     "crispy_bootstrap5",
     "Property",
@@ -46,7 +54,6 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "django_private_chat2",
     "channels",
-    "corsheaders",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -57,6 +64,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -65,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "HouseMe.urls"
+
 
 TEMPLATES = [
     {
@@ -82,8 +91,10 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "HouseMe.wsgi.application"
 
+SECURE_BROWSER_XSS_FILTER = True
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -140,11 +151,14 @@ THUMBNAIL_ALIASES = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
@@ -153,10 +167,6 @@ LOGIN_URL = "account:loginform"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-env = environ.Env()
-READ_DOT_ENV_FILE = True
-environ.Env.read_env()
 
 if "I_AM_HEROKU" in os.environ:
     import django_heroku
@@ -188,8 +198,10 @@ S3UPLOAD_DESTINATIONS = {
         "allow_existence_optimization": False,
     },
 }
+
 CSRF_TRUSTED_ORIGINS = ["https://housieme.herokuapp.com"]
-ASGI_APPLICATION = "HouseMe.asgi.application"
+
+ASGI_APPLICATION = "HouseMe.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -199,3 +211,7 @@ CHANNEL_LAYERS = {
     }
 }
 PHONENUMBER_DEFAULT_REGION = "US"
+ASGI_APPLICATION = "HouseMe.asgi.application"
+
+GOOGLE_API_KEY = env("GOOGLE_API_KEY")
+BASE_COUNTRY = "US"

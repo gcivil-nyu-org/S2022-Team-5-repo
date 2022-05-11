@@ -28,6 +28,7 @@ def browselistings(request):
     return render(request, "property/browselistings.html", {"listings": listings})
 
 
+@login_required(login_url="/account/loginform")
 def newlisting(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -35,22 +36,14 @@ def newlisting(request):
         form = ListingForm(request.POST, request.FILES or None)
         # check whether it's valid:
         if form.is_valid():
-
             obj = form.save()
-
             if request.user is not None:
-
                 user = request.user
                 obj.owner = user
                 obj.save()
-
+                print("new listing post successful")
             else:
-
                 print("unknown user listing")
-            result = "Success"
-            message = "Your profile has been updated"
-            data = {"result": result, "message": message}
-            print(data)
 
         else:
             print(form.errors)
@@ -66,7 +59,37 @@ def newlisting(request):
     else:
         form = ListingForm()
         context = {"form": form}
+        context["google_api_key"] = settings.GOOGLE_API_KEY
+        context["base_country"] = settings.BASE_COUNTRY
     return render(request, "property/newlisting.html", context)
+
+
+@login_required(login_url="/account/loginform")
+def editlisting(request, listing_id):
+    listing = get_object_or_404(Listing, listing_id=listing_id)
+    if request.user != listing.owner:
+        return HttpResponseRedirect("../browselistings")
+    if request.method == "POST":
+        form = ListingForm(request.POST, request.FILES, instance=listing)
+        if form.is_valid():
+            form.save()
+            print("edit listing successful")
+        else:
+            print(form.errors)
+            result = "Failed"
+            message = "Failed to save listings form"
+            data = {"result": result, "message": message}
+            print(data)
+            messages.error(request, form.errors)
+            return redirect(reverse("property:editlisting"))
+        return redirect(reverse("property:mylistings"))
+    else:
+        form = ListingForm(instance=listing)
+        context = {"form": form}
+        context["google_api_key"] = settings.GOOGLE_API_KEY
+        context["base_country"] = settings.BASE_COUNTRY
+        context["listing_id"] = listing_id
+        return render(request, "property/editlisting.html", context)
 
 
 @login_required(login_url="/account/loginform")
@@ -175,6 +198,7 @@ def propertypage(request, listing_id):
             "property_id": property_id,
             "listing_rating": listing_rating,
             "comment_form": comment_form,
+            "google_api_key": settings.GOOGLE_API_KEY,
         }
         return render(request, "property/property_page.html", context)
 
@@ -264,62 +288,13 @@ def newcomment(request, property_id):
     return redirect(reverse("property:propertypage", kwargs={"listing_id": listing_id}))
 
 
-@login_required(login_url="/account/loginform")
-def editlisting(request, listing_id):
-    listing = get_object_or_404(Listing, listing_id=listing_id)
-    if request.user != listing.owner:
-        return HttpResponseRedirect("../browselistings")
-    else:
-        return render(request, "property/editlisting.html", {"listing": listing})
-
-
-@login_required(login_url="/account/loginform")
-def editlistingsubmit(request, listing_id):
-    listing = Listing.objects.filter(listing_id=listing_id)[0]
-    listing.name = request.POST["listing_name"]
-    listing.address1 = request.POST["address1"]
-    listing.address2 = request.POST["address2"]
-    listing.borough = request.POST["borough"]
-    listing.zipcode = request.POST["zipcode"]
-    listing.bedrooms = request.POST["bedrooms"]
-    listing.bathrooms = request.POST["bathrooms"]
-    listing.area = request.POST["area"]
-    listing.rent = request.POST["rent"]
-    furnished = request.POST["furnished"]
-    elevator = request.POST["elevator"]
-    heating = request.POST["heating"]
-    parking = request.POST["parking"]
-    laundry = request.POST["laundry"]
-    listing.photo_url = request.FILES.get("photo_url")
-    listing.photo_url2 = request.FILES.get("photo_url2")
-    listing.photo_url3 = request.FILES.get("photo_url3")
-    listing.matterport_link = request.POST["matterport_link"]
-    listing.description = request.POST["description"]
-
-    if furnished == "Yes":
-        listing.furnished = True
-    else:
-        listing.furnished = False
-    if elevator == "Yes":
-        listing.elevator = True
-    else:
-        listing.elevator = False
-    if heating == "Yes":
-        listing.heating = True
-    else:
-        listing.heating = False
-    if parking == "Yes":
-        listing.parking = True
-    else:
-        listing.parking = False
-    if laundry == "Yes":
-        listing.laundry = True
-    else:
-        listing.laundry = False
-
-    listing.save()
-
-    return HttpResponseRedirect("../browselistings")
+# @login_required(login_url="/account/loginform")
+# def editlisting(request, listing_id):
+#     listing = get_object_or_404(Listing, listing_id=listing_id)
+#     if request.user != listing.owner:
+#         return HttpResponseRedirect("../browselistings")
+#     else:
+#         return render(request, "property/editlisting.html", {"listing": listing})
 
 
 @login_required(login_url="/account/loginform")

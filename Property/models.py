@@ -24,6 +24,12 @@ class Listing(models.Model):
     zipcode = models.CharField(
         verbose_name="Zip Code", max_length=8, null=True, blank=True
     )
+    longitude = models.CharField(
+        verbose_name="Longitude", max_length=50, null=True, blank=True
+    )
+    latitude = models.CharField(
+        verbose_name="Latitude", max_length=50, null=True, blank=True
+    )
     rent = models.IntegerField(verbose_name="Rent", default=1)
     area = models.FloatField(verbose_name="Area", default=0)
     bedrooms = models.IntegerField(verbose_name="Bedrooms", default=1)
@@ -46,7 +52,7 @@ class Listing(models.Model):
         upload_to="media/", null=True, verbose_name="Upload Third Image", blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=True)
+    name = models.CharField(verbose_name="Name", max_length=100, null=True, blank=False)
     description = models.TextField(verbose_name="Description", null=True, blank=True)
     active = models.BooleanField(default=False)
     ratings = models.FloatField(default=1, null=True, blank=True)
