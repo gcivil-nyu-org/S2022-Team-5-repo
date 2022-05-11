@@ -11,48 +11,49 @@
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class='col-md-8'>
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                {% if listing.photo_url %}
-                        <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
-                        {% else %}
-                        <img src="https://via.placeholder.com/300" class="d-block w-100" style="width: 100%; height:750px;">>
+            {% if listing.photo_url2 or listing.photo_url3 %}
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% if listing.photo_url %}
+                            <div class="carousel-item active">
+                                <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
+                            </div>
                         {% endif %}
-              </div>
-              <div class="carousel-item">
-                {% if listing.photo_url2 %}
-                    <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..."
-                        style="width: 100%; height:750px;">
-                    {% else %}
-                    <img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="d-block w-100" style="width: 100%; height:750px;">
-                    {% endif %}
-              </div>
-              <div class="carousel-item">
-                {% if listing.photo_url3 %}
-                <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..."
-                    style="width: 100%; height:750px;">
-                {% else %}
-                <img src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="d-block w-100" style="width: 100%; height:750px;">
+                        {% if listing.photo_url2 %}
+                            <div class="carousel-item">
+                                <img src="{{listing.photo_url2.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+                            </div>
+                        {% endif %}
+                        {% if listing.photo_url3 %}
+                            <div class="carousel-item">
+                                <img src="{{listing.photo_url3.url}}" class="d-block w-100" alt="..." style="width: 100%; height:750px;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            {% else %}
+                {% if listing.photo_url %}
+                    <div class="carousel-item active">
+                        <img src="{{listing.photo_url.url}}" class="d-block w-100" style="width: 100%; height:750px;">
+                    </div>
                 {% endif %}
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          </div>
+            {% endif %}
+        </div>
         
           <div class='col-md-4'>
             <!-- Property Location -->
             <div class='container mt-5'>
                 <h2>
                    {{listing.name}} 
+                   {% if listing.active %} <i class="fa fa-check" style="color:green;object-fit:contain;"></i> {% endif %}
                 </h2>
                 <h6>
                     <span class="">{{listing.address1}}</span><br>
@@ -113,7 +114,7 @@
                 {% if not listing.matterport_link %}
                 <a class="btn btn-secondary disabled btn-block" href="#" role="button">VR Tour Unavailable</a>
                 {% else %}
-                <a class="btn btn-secondary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>
+                <a class="btn btn-primary btn-block " href="{{listing.matterport_link}}" role="button">VR Tour</a>
                 {% endif %}<br><br>
             </div>
 
